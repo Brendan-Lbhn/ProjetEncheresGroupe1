@@ -1,5 +1,5 @@
 package bll;
 
-public class EncheresService {
+public interface EncheresService {
 
 }
