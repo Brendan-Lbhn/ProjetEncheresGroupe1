@@ -6,14 +6,14 @@ import java.util.Objects;
 public class Enchere {
 
 	private Date dateEnchere;
-	private Integer montant_enchere;
+	private Integer montantEnchere;
 	
 	public Enchere() {
 	}
 	
 	public Enchere(Date dateEnchere,Integer montant_enchere) {
 		this.dateEnchere=dateEnchere;
-		this.montant_enchere=montant_enchere;
+		this.montantEnchere=montant_enchere;
 	}
 
 	public Date getDateEnchere() {
@@ -25,16 +25,16 @@ public class Enchere {
 	}
 
 	public Integer getMontant_enchere() {
-		return montant_enchere;
+		return montantEnchere;
 	}
 	
 	public void setMontant_enchere(Integer montant_enchere) {
-		this.montant_enchere = montant_enchere;
+		this.montantEnchere = montant_enchere;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateEnchere, montant_enchere);
+		return Objects.hash(dateEnchere, montantEnchere);
 	}
 
 	@Override
@@ -46,13 +46,13 @@ public class Enchere {
 		if (getClass() != obj.getClass())
 			return false;
 		Enchere other = (Enchere) obj;
-		return Objects.equals(dateEnchere, other.dateEnchere) && Objects.equals(montant_enchere, other.montant_enchere);
+		return Objects.equals(dateEnchere, other.dateEnchere) && Objects.equals(montantEnchere, other.montantEnchere);
 	}
 
 
 	@Override
 	public String toString() {
-		return "Enchere [dateEnchere=" + dateEnchere + ", montant_enchere=" + montant_enchere + "]";
+		return "Enchere [dateEnchere=" + dateEnchere + ", montant_enchere=" + montantEnchere + "]";
 	}
 	
 }
