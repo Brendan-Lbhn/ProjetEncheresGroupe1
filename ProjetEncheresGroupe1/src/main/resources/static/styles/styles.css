@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+body{
+	font-family: arial;
+}
+
+h1{
+	font-size: 1.5rem;
+	color: #F1895C;	
+}
+
+
+h2{
+	font-size: 1rem;
+}
+
+a{
+	text-decoration: none; 
+	color:white;
+}
+
+.navbar{
+	display: flex; 
+	justify-content: space-between;
+	background-color: #2E3244;
+	padding: 10px;
+	border-radius: 7px; 
+	
+}
+
+.nom-site{
+	font-size: 2rem;
+	color: white;
+}
+
+.liens{
+	display: flex; 
+	flex-direction: row;
+	align-items: center;
+}
+
+
+.liste-articles{
+	display: flex; 
+	flex-direction: row; 
+	justify-content: space-evenly
+}
+
+.article{
+	width: 30vmax;
+}
+
