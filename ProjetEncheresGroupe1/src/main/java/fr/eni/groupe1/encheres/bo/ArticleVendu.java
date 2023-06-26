@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class ArticleVendu {
 
-	Integer noArticle;
-	String nomArticle;
-	String description;
-	Date dateDebutEncheres;
-	Date dateFinEncheres;
-	Integer miseAPrix;
-	Integer prixVente;
-	boolean etatVente;
-	Integer noCategorie;
-	Integer noUtilisateur;
+	private Integer noArticle;
+	private String nomArticle;
+	private String description;
+	private Date dateDebutEncheres;
+	private Date dateFinEncheres;
+	private Integer miseAPrix;
+	private Integer prixVente;
+	private boolean etatVente;
+	private Integer noCategorie;
+	private Integer noUtilisateur;
 	
 	public ArticleVendu () {
 		
