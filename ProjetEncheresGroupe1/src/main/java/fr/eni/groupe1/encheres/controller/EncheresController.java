@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import fr.eni.groupe1.encheres.bll.EncheresService;
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
+import fr.eni.groupe1.encheres.bo.Retrait;
 
 @Controller
 public class EncheresController {
@@ -20,21 +21,26 @@ public class EncheresController {
 		this.encheresService = encheresService;
 	}
 
+	
+	/////////////////////////////////        CREATION D UN ARTICLE     ////////////////////////////////////////////
+
 	@GetMapping({"/CreationVente"})
-	public String inscriptionVente(@ModelAttribute ("article")ArticleVendu article, Model model) {
-		System.out.println("je passe par le get Creation");
-		model.addAttribute("listCasting",encheresService.getArticle());
-		System.out.println(encheresService.getArticle());
-		
+	public String inscriptionVente(@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, Model model) {
+		System.out.println("je passe par le get CreationVente");
+		model.addAttribute("listAticle",encheresService.getArticle());
+		//System.out.println(encheresService.getArticle());
 		return "/CreationVente";
 	}
 	
 	@PostMapping("/CreationVente")
-	public String inscriptionFaite( @ModelAttribute ("article") ArticleVendu articleVendu, Model model ) {
-		System.out.println("je passe par le post inscription");
+	public String inscriptionFaite( @ModelAttribute ("article") ArticleVendu articleVendu,@ModelAttribute ("retrait") Retrait infoRetrait, Model model ) {
+		System.out.println("je passe par le post CreationVente");
 		encheresService.ajouterArticle(articleVendu);
-		
-		return "redirect:/Inscription";
+		encheresService.ajouterInfoRetrait(infoRetrait);
+		return ":/index";
 	}
+	
+	/////////////////////////////////        X     ////////////////////////////////////////////
+
 }
 
