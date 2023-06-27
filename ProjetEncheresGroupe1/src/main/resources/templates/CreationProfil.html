@@ -9,43 +9,43 @@
 <main layout:fragment="main">
 	<h1>Mon Profil</h1>
 	
-	<form class="creaProf" action="" method="post">
+	<form class="creaProf" th:action="@{/CreationProfil/Suite}" method="post">
 	
 	<div class="creaTri">
 	<label for="pseudoInput">Pseudo :</label>
-	<input type="text" id="pseudoInput">
+	<input type="text" th:field="*{pseudo}" id="pseudoInput">
 	
 	<label for="nomInput">Nom :</label><br>
-	<input type="text" id="nomInput"><br>
+	<input type="text" th:field="*{nom}" id="nomInput"><br>
 	</div>
 	
 	<div class="creaTri">
 	<label for="prenomInput">Prénom :</label>
-	<input type="text" id="prenomInput">
+	<input type="text" th:field="*{prenom}" id="prenomInput">
 	
 	<label for="emailInput">Email :</label>
-	<input type="text" id="emailInput">
+	<input type="text" th:field="*{email}" id="emailInput">
 	</div>
 	
 	<div class="creaTri">
 	<label for="telephoneInput">Telephone :</label>
-	<input type="tel" id="telephoneInput">
+	<input type="tel" th:field="*{telephone}" id="telephoneInput">
 	
 	<label for="rueInput">Rue :</label>
-	<input type="text" id="rueInput">
+	<input type="text" th:field="*{rue}" id="rueInput">
 	</div>
 	
 	<div class="creaTri">
 	<label for="codePostalInput">Code postal :</label>
-	<input type="number" id="codePostalInput">
+	<input type="number" th:field="*{codePostal}" id="codePostalInput">
 	
 	<label for="villeInput">Ville :</label>
-	<input type="text" id="villeInput">
+	<input type="text" th:field="*{ville}" id="villeInput">
 	</div>
 	
 	<div class="creaTri">
 	<label for="mdpInput">Mot de passe :</label>
-	<input type="password" id="mdpInput">
+	<input type="password" th:field="*{motDePasse}" id="mdpInput">
 	
 	<label for="mdpVerifInput">Mot de passe :</label>
 	<input type="password" id="mdpVerifInput">
