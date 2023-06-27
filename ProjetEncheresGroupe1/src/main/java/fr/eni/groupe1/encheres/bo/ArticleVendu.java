@@ -10,10 +10,10 @@ public class ArticleVendu {
 	private Date dateDebutEncheres;
 	private Date dateFinEncheres;
 	private Integer miseAPrix;
-	private Integer prixVente;
+	private Integer prixVente =450;
 	private String etatVente = "En attente de vente" ;
-	private Integer noCategorie;
-	private Integer noUtilisateur;
+	private Integer noCategorie =1;
+	private Integer noUtilisateur =1;
 	
 	public ArticleVendu () {
 		

@@ -15,8 +15,10 @@ import fr.eni.groupe1.encheres.bo.Retrait;
 public class EncheresDAOSql implements EncheresDAO{
 	
 	private final static String SELECT_ALL_ARTICLE = "select * from ARTICLES_VENDUS" ;
+	private final static String SELECT_ALL_RETRAITS = "select * from RETRAITS" ;
+
 	private final static String INSERT_NEW_ARTICLE = "insert into ARTICLES_VENDUS ( nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie ) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)" ;
-	private final static String INSERT_NEW_INFORETRAIT = "insert into RETRAITS ( rue, codePostal, ville ) values (:rue, :code_postal, :ville)" ;
+	private final static String INSERT_NEW_INFORETRAIT = "insert into RETRAITS ( rue, code_postal, ville ) values (:rue, :code_postal, :ville)" ;
 	
 	
 	
@@ -27,13 +29,26 @@ public class EncheresDAOSql implements EncheresDAO{
 			this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 		}
 		
+/////////////////////////////////       AFFICHAGE     ////////////////////////////////////////////
+		
+		@Override
 		public List<ArticleVendu> articleAll() {
 			List<ArticleVendu> listArticle;
 			listArticle = namedParameterJdbcTemplate.query(SELECT_ALL_ARTICLE, new BeanPropertyRowMapper<>(ArticleVendu.class)) ;		
 
 			return listArticle;
 		}
-
+		@Override
+		public List<Retrait> retraitAll() {
+			List<Retrait> listRetrait;
+			listRetrait = namedParameterJdbcTemplate.query(SELECT_ALL_RETRAITS, new BeanPropertyRowMapper<>(Retrait.class)) ;	
+			return listRetrait;
+		}
+		
+		
+/////////////////////////////////       SET     ////////////////////////////////////////////
+	
+		
 		@Override
 		public void setArticle(ArticleVendu article) {
 			MapSqlParameterSource newArticleMap = new MapSqlParameterSource();
@@ -53,15 +68,16 @@ public class EncheresDAOSql implements EncheresDAO{
 		@Override
 		public void setInfoRetrait(Retrait infoRetrait) {
 			MapSqlParameterSource newInfoRetraitMap = new MapSqlParameterSource();
-
+			
+			newInfoRetraitMap.addValue("no_article", "1");
 			newInfoRetraitMap.addValue("rue", infoRetrait.getRue());
-			newInfoRetraitMap.addValue("codePostal", infoRetrait.getCodePostal());
+			newInfoRetraitMap.addValue("code_postal", infoRetrait.getCodePostal());
 			newInfoRetraitMap.addValue("ville", infoRetrait.getVille());	
-
-			
-			
+	
 			namedParameterJdbcTemplate.update(INSERT_NEW_INFORETRAIT, newInfoRetraitMap);						
 		}
+
+/////////////////////////////////       SET     ////////////////////////////////////////////
 		
 		
 		

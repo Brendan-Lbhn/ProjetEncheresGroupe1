@@ -18,7 +18,7 @@ public class Utilisateur {
 	private String administrateur;
 	
 	public Utilisateur() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public Integer getNoUtilisateur() {

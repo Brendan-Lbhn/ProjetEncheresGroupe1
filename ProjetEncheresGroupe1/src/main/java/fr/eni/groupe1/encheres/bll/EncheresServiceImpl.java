@@ -40,4 +40,11 @@ public class EncheresServiceImpl implements EncheresService {
 		encheresDAO.setInfoRetrait(infoRetrait);		
 	}
 
+
+
+	@Override
+	public List<Retrait> getRetrait() {
+		return encheresDAO.retraitAll();
+	}
+
 }

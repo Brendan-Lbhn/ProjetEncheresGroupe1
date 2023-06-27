@@ -17,6 +17,8 @@ public interface EncheresDAO {
 
 	void setInfoRetrait(Retrait infoRetrait);
 
+	List<Retrait> retraitAll();
+
 	
 	
 }

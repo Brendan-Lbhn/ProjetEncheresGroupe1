@@ -13,4 +13,6 @@ public interface EncheresService {
 
 	void ajouterInfoRetrait(Retrait infoRetrait);
 
+	List<Retrait> getRetrait();
+
 }
