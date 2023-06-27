@@ -26,6 +26,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	
 	
 	
