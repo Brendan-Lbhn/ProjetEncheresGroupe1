@@ -19,10 +19,14 @@ a{
 	color:white;
 }
 
+fieldset{
+	margin : 10px;
+}
+
 .navbar{
 	display: flex; 
 	justify-content: space-between;
-	background-color: #2E3244;
+	background-color: #516079;
 	padding: 10px;
 	border-radius: 7px; 
 	
@@ -48,5 +52,10 @@ a{
 
 .article{
 	width: 30vmax;
+	border: solid;
+	border-radius: 7px; 
+	border-color: #F1895C; 
+	color: #2E3244;
+	background-color:#F1895C; 
 }
 
