@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html layout:decorate="~{/layout1.html}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Enchères Eni - Accueil</title>
@@ -7,13 +7,7 @@
 </head>
 <body>
 
-	<div class="navbar">
-		<div class="nom-site">ENI Enchères</div>
-		<div class="liens">
-			<a href=""> S'inscrire - Se connecter</a>
-		</div>
-	</div>
-
+<main layout:fragment="main">
 
 	<h1>Liste des enchères</h1>
 	
@@ -62,7 +56,7 @@
 	
 	
 	
-
+</main>
 
 </body>
 </html>
