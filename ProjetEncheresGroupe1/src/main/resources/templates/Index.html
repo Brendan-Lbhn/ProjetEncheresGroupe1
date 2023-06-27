@@ -15,16 +15,20 @@
 	
 	<fieldset>
 		<form action="">
-			<input type="text" placeholder="Le nom de l'article contient">
-			<label for="categorie">Categorie</label>
-			<select name="catagorie" id="categorie">
-    			<option value="">Sélectionnez une catégorie</option>
-			    <option value="informatique">Informatique</option>
-			    <option value="ameublement">Ameublement</option>
-			    <option value="vetements">Vêtements</option>
-			    <option value="sports-loisirs">Sports & loisir</option>
-			</select>
-			<input type="submit" value="Rechercher">
+			<div class="search-criteria"> 
+				<input class="searchbar" placeholder="Le nom de l'article contient"><br>
+				<div class="category">
+					<label for="categorie">Categorie</label>
+					<select name="catagorie" id="categorie">
+		    			<option value="">Sélectionnez une catégorie</option>
+					    <option value="informatique">Informatique</option>
+					    <option value="ameublement">Ameublement</option>
+					    <option value="vetements">Vêtements</option>
+					    <option value="sports-loisirs">Sports & loisir</option>
+					</select>
+				</div>		
+			</div>
+			<input class="button" type="submit" value="Rechercher">
 		</form>
 	</fieldset>
 	

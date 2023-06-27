@@ -7,20 +7,43 @@ body{
 h1{
 	font-size: 1.5rem;
 	color: #F1895C;	
+	text-align: center;
+	
 }
 
 
 h2{
 	font-size: 1rem;
+	padding: 10px;
+	
 }
 
 a{
 	text-decoration: none; 
 	color:white;
+	font-weight: normal;
+}
+
+.button{
+	border: solid;
+	border-color: #F1895C; 
+	border-radius:7px;
+	background-color: #F1895C;
+	width: 45%;
 }
 
 fieldset{
 	margin : 10px;
+	border: solid;
+	border-radius:7px;
+	border-color: #C5C6C6;
+	background-color: #C5C6C6; 
+}
+
+form{
+	display: flex; 
+	flex-direction: row;
+	justify-content: space-around 
 }
 
 .navbar{
@@ -28,7 +51,8 @@ fieldset{
 	justify-content: space-between;
 	background-color: #516079;
 	padding: 10px;
-	border-radius: 7px; 
+	border-radius: 7px;
+	font-weight: bold;
 	
 }
 
@@ -44,6 +68,23 @@ fieldset{
 }
 
 
+.searchbar{
+	width: 90%;
+	height: 1.5rem; 
+	padding: 1%;
+	margin:2%;
+}
+
+.search-criteria{
+	width: 50%;
+	
+}	
+
+.category{
+	margin:2%;
+}
+
+
 .liste-articles{
 	display: flex; 
 	flex-direction: row; 
@@ -56,6 +97,7 @@ fieldset{
 	border-radius: 7px; 
 	border-color: #F1895C; 
 	color: #2E3244;
-	background-color:#F1895C; 
+	background-color:#F1895C;
+	padding: 1%;  
 }
 
