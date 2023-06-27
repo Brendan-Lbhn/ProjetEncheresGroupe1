@@ -101,3 +101,24 @@ form{
 	padding: 1%;  
 }
 
+fieldset.creaProf {
+	margin : 40px;
+	border: solid;
+	border-radius:7px;
+	border-color: #C5C6C6;
+	background-color: #C5C6C6; 
+}
+
+form.creaProf{
+	display: flex; 
+	flex-wrap: wrap;
+}
+
+.creaTri {
+	width:80%;
+	display: flex;
+  	flex-wrap: wrap;
+  	align-content: flex-start;
+  	margin-bottom:10px;
+  	
+}

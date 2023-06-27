@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
+import fr.eni.groupe1.encheres.bo.Retrait;
 import fr.eni.groupe1.encheres.dal.EncheresDAO;
 
 @Service
@@ -30,6 +31,13 @@ public class EncheresServiceImpl implements EncheresService {
 	@Override
 	public void ajouterArticle(ArticleVendu articleVendu) {
 		encheresDAO.setArticle(articleVendu);		
+	}
+
+
+
+	@Override
+	public void ajouterInfoRetrait(Retrait infoRetrait) {
+		encheresDAO.setInfoRetrait(infoRetrait);		
 	}
 
 }

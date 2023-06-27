@@ -5,18 +5,51 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1> Nouvel Acteur : </h1>
+<h1> Nouvel Article : </h1>
 
-<form th:action="@{/Creation}" th:object="${article}" method="post">
-<label for="nomArticleInput"> nom de l'article : </label>
-<input type="text" th:field ="*{ArticleVendu}"  id="nomArticleInput" required><br>
+<form th:action="@{/CreationVente}" th:object="${article}" method="post">
+
+<label for="nomArticleInput"> Article : </label>
+<input type="text" th:field ="*{nomArticle}" required><br>
 <br>
-<button type="submit">Ajouter l'article</button>
+<label for="name"> Description : </label>
+<input type="text" th:field ="*{description}" required><br>
+<br>
+<!-- 
+<label for="categorie"> Catégorie : </label>
+<select th:field="*{categorie}">
+    <option th:each="categorie : ${listCategorie}" th:value="${categorie.getIndexCategorie()}" th:text="${categorie.getCategorie()}"></option>
+</select>
+ -->
+<label for="name"> Prix initial : </label>
+<input type="text" th:field ="*{miseAPrix}" required><br>
+<br>
+<label for="name"> Début de l'enchère : </label>
+<input type="date" th:field ="*{dateDebutEncheres}" required><br>
+<br>
+<label for="name"> Fin de l'enchère : </label>
+<input type="date" th:field ="*{dateFinEncheres}" required><br>
+<br>
+
+<fieldset>
+<legend>Retrait</legend>
+<div th:object="${retrait}">
+<label for="name"> Rue : </label>
+<input type="text" th:field ="*{rue}" required><br>
+<br>
+<label for="name"> Code postal : </label>
+<input type="text" th:field ="*{codePostal}" required><br>
+<br>
+<label for="name"> Ville : </label>
+<input type="text" th:field ="*{ville}" required><br>
+<br>
+</div>
+</fieldset>
+
+<button type="submit">Enregistrer l'article</button>
+<button type="reset"> Annuler</button>
 </form>
-
-
 <br>
-<a th:href="@{/}"><button>Vers l'accueil</button></a>
 
 </body>
 </html>
