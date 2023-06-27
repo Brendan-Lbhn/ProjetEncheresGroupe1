@@ -11,7 +11,7 @@ public class ArticleVendu {
 	private Date dateFinEncheres;
 	private Integer miseAPrix;
 	private Integer prixVente;
-	private boolean etatVente;
+	private String etatVente = "En attente de vente" ;
 	private Integer noCategorie;
 	private Integer noUtilisateur;
 	
@@ -22,7 +22,7 @@ public class ArticleVendu {
 	
 	
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, Integer miseAPrix, Integer prixVente, boolean etatVente, Integer noCategorie,
+			Date dateFinEncheres, Integer miseAPrix, Integer prixVente, String etatVente, Integer noCategorie,
 			Integer noUtilisateur) {
 
 		this.noArticle = noArticle;
@@ -82,10 +82,10 @@ public class ArticleVendu {
 	public void setPrixVente(Integer prixVente) {
 		this.prixVente = prixVente;
 	}
-	public boolean isEtatVente() {
+	public String isEtatVente() {
 		return etatVente;
 	}
-	public void setEtatVente(boolean etatVente) {
+	public void setEtatVente(String etatVente) {
 		this.etatVente = etatVente;
 	}
 	public Integer getNoCategorie() {

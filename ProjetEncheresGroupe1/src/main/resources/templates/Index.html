@@ -19,12 +19,8 @@
 				<input class="searchbar" placeholder="Le nom de l'article contient"><br>
 				<div class="category">
 					<label for="categorie">Categorie</label>
-					<select name="catagorie" id="categorie">
-		    			<option value="">Sélectionnez une catégorie</option>
-					    <option value="informatique">Informatique</option>
-					    <option value="ameublement">Ameublement</option>
-					    <option value="vetements">Vêtements</option>
-					    <option value="sports-loisirs">Sports & loisir</option>
+					<select  name="categorie" id="categorie">
+		    			<option th:each="categorie: ${@encherescategoriesservice.categories}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}">Ici apparaissent les options</option>
 					</select>
 				</div>		
 			</div>
@@ -49,11 +45,6 @@
   		</div>
   		
 	</div>
-	
-	
-
-
-	
 	
 	
 </main>
