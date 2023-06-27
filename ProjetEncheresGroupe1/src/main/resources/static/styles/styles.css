@@ -56,6 +56,10 @@ form{
 	
 }
 
+.navbar img{
+	height: 3rem;
+}
+
 .nom-site{
 	font-size: 2rem;
 	color: white;
@@ -99,6 +103,12 @@ form{
 	color: #2E3244;
 	background-color:#F1895C;
 	padding: 1%;  
+}
+
+.article img{
+	height: 10vh;
+	border-radius: 7px; 
+	clip-path: circle(40%);
 }
 
 fieldset.creaProf {
