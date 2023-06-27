@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -8,7 +8,7 @@
 <body>
 
 	<header class="navbar">
-		<img alt="logo-horizontal" src="/images/logo-horizontal.png">
+		<a href="/accueil"> <img alt="logo-horizontal" src="/images/logo-horizontal.png"></a>
 		<div class="liens">
 			<a th:href="@{/CreationProfil}"> S'inscrire - Se connecter &emsp; </a>
 			<a th:href="@{/CreationVente}"> Créer une vente&emsp; </a>
