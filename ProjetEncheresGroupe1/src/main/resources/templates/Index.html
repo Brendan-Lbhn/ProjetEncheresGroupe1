@@ -28,17 +28,17 @@
 		</form>
 	</fieldset>
 	
-	<div th:if="${#lists.isEmpty(listArticles)}" class="liste-articles">
-		<h1>Aucun article à la vente actuellement</h1>	
+	<div th:if="${#lists.isEmpty(articleVendu)}" class="liste-articles">
+		<h1>Aucun article disponible à la vente actuellement</h1>	
 	</div>
-	<div>
- 		<div th:each="articlesvendus: ${articlesvendus}" class="article">
- 		 		<h3 th:text="${articlevendu.noArticle" >id</h3>
+	
+	<div class="liste-articles">
+ 		<div th:each="articlevendu:${articleVendu}" class="article">
  		 		<img alt="image-article-1" src="/images/pc_gamer.jpeg">
- 		 		<h3 th:text="${articlevendu.nomarticle" >PC Gamer pour travailler</h3>
- 		 		<p th:text="${articlevendu.prixvente">Prix : 210 points</p>
- 		 		<p th:text="${articlevendu.datefinencheres">Fin de l'enchère : 10/08/2018</p>
- 		 		<p th:text="${articlevendu.noutilisateur">Vendeur : jojo44</p>
+ 		 		<h3 th:text="${articlevendu.nomArticle}" ></h3>
+ 		 		<p th:text="'Prix : ' + ${articlevendu.prixVente} + '€'"></p>
+ 		 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
+ 		 		<p th:text="'Vendeur : ' + ${articlevendu.noUtilisateur}"></p>
  		</div>
   		
 	</div>

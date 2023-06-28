@@ -58,11 +58,11 @@ public class EncheresDAOSql implements EncheresDAO{
 		public List<ArticleVendu> articleAll() {
 			List<ArticleVendu> listArticle;
 			
-			System.out.println("Vous êtes arrivés dans la couche DAO !");
+			System.out.println("Dans articleAll()");
 			listArticle = namedParameterJdbcTemplate.query(SELECT_ALL_ARTICLE, new ArticlesVendusRowMapper()) ;		
-
 			return listArticle;
 		}
+		
 		@Override
 		public List<Retrait> retraitAll() {
 			List<Retrait> listRetrait;
