@@ -36,15 +36,15 @@
  		<div th:each="articlevendu:${articleVendu}" class="article">
  		 		<img alt="image-article-1" src="/images/pc_gamer.jpeg">
  		 		<h3 th:text="${articlevendu.nomArticle}" ></h3>
- 		 		<p th:text="'Prix : ' + ${articlevendu.prixVente} + '€'"></p>
+ 		 		<p th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
  		 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
- 		 		<p th:text="'Vendeur : ' + ${articlevendu.noUtilisateur}"></p>
+ 		 		<!-- <p th:text="'Vendeur : ' + ${utilisateur.pseudo}"></p> -->
  		</div>
   		
 	</div>
 	
 	
 </main>
-
+	
 </body>
 </html>

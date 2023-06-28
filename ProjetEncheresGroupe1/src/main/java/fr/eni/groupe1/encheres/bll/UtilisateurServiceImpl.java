@@ -1,5 +1,7 @@
 package fr.eni.groupe1.encheres.bll;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import fr.eni.groupe1.encheres.bo.Utilisateur;
@@ -16,6 +18,12 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	@Override
 	public void enregistrer(Utilisateur utilisateur) {
 		utilisateurDAO.save(utilisateur);
+	}
+
+	@Override
+	public List<Utilisateur> getUtilisateur() {
+		// TODO Auto-generated method stub
+		return utilisateurDAO.findAll();
 	}
 
 }
