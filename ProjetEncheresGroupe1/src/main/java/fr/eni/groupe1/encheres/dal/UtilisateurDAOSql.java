@@ -13,9 +13,10 @@ import fr.eni.groupe1.encheres.bo.Utilisateur;
 public class UtilisateurDAOSql implements UtilisateurDAO {
 	private final static String INSERT = "insert into UTILISATEURS ( pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur ) values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse,:credit,:administrateur)" ;
 	
+	@Autowired
 	private NamedParameterJdbcTemplate njt;
 	
-	@Autowired
+	
 	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate njt) {
 		this.njt=njt;
 	}
@@ -26,7 +27,6 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 		njt.update(INSERT,new BeanPropertySqlParameterSource(utilisateur),keyHolder);
 		utilisateur.setNoUtilisateur(keyHolder.getKey().intValue());
 		System.out.println("insert de l'utilisateur : "+ utilisateur);
-		
 	}
 
 }
