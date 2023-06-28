@@ -9,5 +9,7 @@ public interface EncheresCategoriesDAO {
 	List<Categorie> findAll(); 
 	
 	void addCategorie(); 
+	
+	Categorie findById(Integer id);
 
 }

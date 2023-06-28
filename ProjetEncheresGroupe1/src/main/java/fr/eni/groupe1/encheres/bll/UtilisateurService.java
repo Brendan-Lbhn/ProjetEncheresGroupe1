@@ -10,4 +10,6 @@ public interface UtilisateurService {
 	void enregistrer(Utilisateur utilisateur);
 	
 	List<Utilisateur> getUtilisateur();
+
+	Utilisateur findById(Integer id);
 }

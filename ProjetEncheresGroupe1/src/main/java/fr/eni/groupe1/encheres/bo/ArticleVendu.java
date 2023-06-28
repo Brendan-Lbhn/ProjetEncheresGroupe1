@@ -14,6 +14,8 @@ public class ArticleVendu {
 	private String etatVente = "En attente de vente" ;
 	private Integer noCategorie =1;
 	private Integer noUtilisateur =1;
+	private Utilisateur vendeur;
+	private Categorie categorie; 
 	
 	public ArticleVendu () {
 		
@@ -35,6 +37,24 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 		this.noCategorie = noCategorie;
 		this.noUtilisateur = noUtilisateur;
+	}
+	
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, Integer miseAPrix, Integer prixVente, String etatVente, Integer noCategorie,
+			Integer noUtilisateur,Utilisateur vendeur,Categorie categorie) {
+
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+		this.noCategorie = noCategorie;
+		this.noUtilisateur = noUtilisateur;
+		this.vendeur=vendeur; 
+		this.categorie=categorie;
 	}
 
 
@@ -102,6 +122,32 @@ public class ArticleVendu {
 	public void setNoUtilisateur(Integer noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
 	}
+
+
+
+	public Utilisateur getVendeur() {
+		return vendeur;
+	}
+
+
+
+	public void setVendeur(Utilisateur vendeur) {
+		this.vendeur = vendeur;
+	}
+
+
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+	
+	
 
 	
 	

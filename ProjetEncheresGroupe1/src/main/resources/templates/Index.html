@@ -38,7 +38,7 @@
  		 		<h3 th:text="${articlevendu.nomArticle}" ></h3>
  		 		<p th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
  		 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
- 		 		<!-- <p th:text="'Vendeur : ' + ${utilisateur.pseudo}"></p> -->
+ 		 		<p th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></p>
  		</div>
   		
 	</div>

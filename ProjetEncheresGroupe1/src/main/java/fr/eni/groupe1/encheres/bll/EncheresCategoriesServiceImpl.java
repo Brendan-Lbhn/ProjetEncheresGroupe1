@@ -26,8 +26,13 @@ public class EncheresCategoriesServiceImpl implements EncheresCategoriesService{
 
 	@Override
 	public void ajouterCategorie(Categorie categorie) {
-		// TODO Auto-generated method stub
+		encheresCategoriesDAO.addCategorie();
 		
+	}
+
+	@Override
+	public Categorie findById(Integer id) {
+		return encheresCategoriesDAO.findById(id);
 	}
 	
 	

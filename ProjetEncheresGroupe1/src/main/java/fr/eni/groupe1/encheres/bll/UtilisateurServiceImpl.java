@@ -26,4 +26,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		return utilisateurDAO.findAll();
 	}
 
+	@Override
+	public Utilisateur findById(Integer id) {
+		// TODO Auto-generated method stub
+		return utilisateurDAO.findById(id);
+	}
+
 }

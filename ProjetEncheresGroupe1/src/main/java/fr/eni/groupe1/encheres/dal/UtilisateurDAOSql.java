@@ -2,9 +2,13 @@ package fr.eni.groupe1.encheres.dal;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -19,6 +23,7 @@ import fr.eni.groupe1.encheres.dal.EncheresDAOSql.ArticlesVendusRowMapper;
 @Repository
 public class UtilisateurDAOSql implements UtilisateurDAO {
 	private final static String SELECT_ALL_UTILISATEURS = "Select * from UTILISATEURS";
+	private final static String FIND_BY_ID = "select * from UTILISATEURS where no_utilisateur=:id"; 
 	
 	private final static String INSERT = "insert into UTILISATEURS ( pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur ) values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse,:credit,:administrateur)" ;
 	
@@ -68,6 +73,21 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 		listUtilisateur = njt.query(SELECT_ALL_UTILISATEURS, new UtilisateursRowMapper()) ;
 		System.out.println(listUtilisateur);
 		return listUtilisateur;
+		
+	}
+
+	@Override
+	public Utilisateur findById(Integer id) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("id",id);
+		
+		Utilisateur user = null;
+		
+		user = njt.queryForObject(FIND_BY_ID, 
+			params, 				
+			new UtilisateursRowMapper());
+		
+		return user;
 		
 	}
 

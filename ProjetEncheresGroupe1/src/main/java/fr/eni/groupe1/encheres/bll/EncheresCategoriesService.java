@@ -10,5 +10,7 @@ public interface EncheresCategoriesService {
 	
 	void ajouterCategorie(Categorie categorie); 
 	
+	Categorie findById(Integer id);
+	
 
 }

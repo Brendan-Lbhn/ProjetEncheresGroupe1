@@ -9,4 +9,6 @@ public interface UtilisateurDAO {
 	void save(Utilisateur utilisateur);
 	
 	List<Utilisateur>findAll();
+	
+	Utilisateur findById(Integer id); 
 }
