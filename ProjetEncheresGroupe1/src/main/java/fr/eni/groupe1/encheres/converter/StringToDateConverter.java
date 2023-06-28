@@ -14,7 +14,7 @@ public class StringToDateConverter implements Converter<String, Date> {
 	public Date convert(String source) {
 		System.out.println("je passe par le converter string date");
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date date;
 		try {
 			date = formatter.parse(source);

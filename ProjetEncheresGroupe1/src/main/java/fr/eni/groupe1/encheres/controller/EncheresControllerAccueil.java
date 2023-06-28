@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import fr.eni.groupe1.encheres.bll.EncheresCategoriesService;
 import fr.eni.groupe1.encheres.bll.EncheresService;
+import fr.eni.groupe1.encheres.bll.UtilisateurService;
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
 import fr.eni.groupe1.encheres.bo.Categorie;
 
@@ -18,10 +19,14 @@ public class EncheresControllerAccueil {
 	
 	private EncheresCategoriesService encheresCategoriesService;
 	private EncheresService encheresService;
+
 	
-	public EncheresControllerAccueil(EncheresCategoriesService encheresCategoriesService, EncheresService encheresService) {
+	public EncheresControllerAccueil(EncheresCategoriesService encheresCategoriesService,
+			EncheresService encheresService,
+			UtilisateurService utilisateurService) {
 		this.encheresCategoriesService = encheresCategoriesService;
 		this.encheresService = encheresService;
+		 
 	}
 
 	@GetMapping({"/","/accueil"})
@@ -31,7 +36,7 @@ public class EncheresControllerAccueil {
 		model.addAttribute("categorie",listeCategories); 
 		
 		List<ArticleVendu>listArticles = encheresService.getArticle();
-		model.addAttribute("articleVendu",listArticles);
+		model.addAttribute("articleVendu",listArticles);		
 		
 		return "index";
 	}

@@ -14,7 +14,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
+import fr.eni.groupe1.encheres.bo.Categorie;
 import fr.eni.groupe1.encheres.bo.Retrait;
+import fr.eni.groupe1.encheres.bo.Utilisateur;
 
 @Repository
 public class EncheresDAOSql implements EncheresDAO{
@@ -26,11 +28,16 @@ public class EncheresDAOSql implements EncheresDAO{
 	private final static String INSERT_NEW_INFORETRAIT = "insert into RETRAITS ( no_article, rue, code_postal, ville ) values (:no_article, :rue, :code_postal, :ville)" ;
 	private static final String DELETE_MODIF_ARTICLE = null;
 	private static final String UPDATE = null;
-	private  NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-		
+	
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private UtilisateurDAO utilisateurDAO;
+	private EncheresCategoriesDAO encheresCategoriesDAO; 
+	
 		@Autowired
-		public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+		public void setNamedParameterJdbcTemplate(UtilisateurDAO utilisateurDAO,EncheresCategoriesDAO encheresCategoriesDAO, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 			this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+			this.utilisateurDAO = utilisateurDAO;
+			this.encheresCategoriesDAO = encheresCategoriesDAO;
 		}
 		
 	class ArticlesVendusRowMapper implements RowMapper<ArticleVendu>{
@@ -48,6 +55,12 @@ public class EncheresDAOSql implements EncheresDAO{
 			article.setPrixVente(rs.getInt("prix_vente"));				
 			article.setNoUtilisateur(rs.getInt("no_utilisateur"));
 			article.setNoCategorie(rs.getInt("no_categorie"));
+			Utilisateur vendeur = null;
+			vendeur = utilisateurDAO.findById(rs.getInt("no_utilisateur"));
+			article.setVendeur(vendeur);
+			Categorie categorie = null;
+			categorie = encheresCategoriesDAO.findById(rs.getInt("no_categorie"));
+			article.setCategorie(categorie);
 			return article;
 		}
 		
