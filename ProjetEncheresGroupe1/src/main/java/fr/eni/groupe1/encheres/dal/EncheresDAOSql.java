@@ -56,11 +56,11 @@ public class EncheresDAOSql implements EncheresDAO{
 			article.setNoUtilisateur(rs.getInt("no_utilisateur"));
 			article.setNoCategorie(rs.getInt("no_categorie"));
 			Utilisateur vendeur = null;
-			vendeur = utilisateurDAO.findById(rs.getInt("no_utilisateur"));
-			article.setVendeur(vendeur);
-			Categorie categorie = null;
-			categorie = encheresCategoriesDAO.findById(rs.getInt("no_categorie"));
-			article.setCategorie(categorie);
+//			vendeur = utilisateurDAO.findById(rs.getInt("no_utilisateur"));
+//			article.setVendeur(vendeur);
+//			Categorie categorie = null;
+//			categorie = encheresCategoriesDAO.findById(rs.getInt("no_categorie"));
+//			article.setCategorie(categorie);
 			return article;
 		}
 		
