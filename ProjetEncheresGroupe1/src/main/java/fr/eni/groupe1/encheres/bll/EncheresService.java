@@ -11,7 +11,7 @@ public interface EncheresService {
 
 	void ajouterArticle(ArticleVendu articleVendu);
 
-	void ajouterInfoRetrait(Retrait infoRetrait);
+	void ajouterInfoRetrait(Retrait infoRetrait, ArticleVendu article);
 
 	List<Retrait> getRetrait();
 

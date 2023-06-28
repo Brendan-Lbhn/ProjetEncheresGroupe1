@@ -15,7 +15,7 @@ public interface EncheresDAO {
 
 	void setArticle(ArticleVendu article);
 
-	void setInfoRetrait(Retrait infoRetrait);
+	void setInfoRetrait(Retrait infoRetrait, ArticleVendu article);
 
 	List<Retrait> retraitAll();
 
