@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import fr.eni.groupe1.encheres.bo.Categorie;
 import fr.eni.groupe1.encheres.dal.EncheresCategoriesDAO;
 
-@Service("encherescategoriesservice")
+@Service // Suppression du nommqge du beqn q voir de l utilite qlors au il y q un seul beqn instqncier pour ce service
 public class EncheresCategoriesServiceImpl implements EncheresCategoriesService{
 
 	EncheresCategoriesDAO encheresCategoriesDAO; 
 	
-	@Autowired
+	@Autowired // pqs utile qvec les @COMPONENT, SERVICE, REPOSITORIE ETC, si constructeur, spring vqs tenter des fqire les injection de lui mm
 	public EncheresCategoriesServiceImpl(EncheresCategoriesDAO encheresCategoriesDAO) {
 		this.encheresCategoriesDAO = encheresCategoriesDAO;
 	}

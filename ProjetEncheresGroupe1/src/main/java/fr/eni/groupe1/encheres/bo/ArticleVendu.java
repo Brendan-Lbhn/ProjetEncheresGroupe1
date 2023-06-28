@@ -10,17 +10,17 @@ public class ArticleVendu {
 	private Date dateDebutEncheres;
 	private Date dateFinEncheres;
 	private Integer miseAPrix;
-	private Integer prixVente =450;
-	private String etatVente = "En attente de vente" ;
-	private Integer noCategorie =1;
-	private Integer noUtilisateur =1;
-	
-	public ArticleVendu () {
-		
+	private Integer prixVente = 450;
+	private String etatVente = "En attente de vente";
+	private Integer noCategorie = 1;
+	private Integer noUtilisateur = 1;
+	private Utilisateur vendeur;
+	private Categorie categorie;
+
+	public ArticleVendu() {
+
 	}
-	
-	
-	
+
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, Date dateDebutEncheres,
 			Date dateFinEncheres, Integer miseAPrix, Integer prixVente, String etatVente, Integer noCategorie,
 			Integer noUtilisateur) {
@@ -37,60 +37,74 @@ public class ArticleVendu {
 		this.noUtilisateur = noUtilisateur;
 	}
 
-
-
-
 	public Integer getNoArticle() {
 		return noArticle;
 	}
+
 	public void setNoArticle(Integer noArticle) {
 		this.noArticle = noArticle;
 	}
+
 	public String getNomArticle() {
 		return nomArticle;
 	}
+
 	public void setNomArticle(String nomArticle) {
 		this.nomArticle = nomArticle;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public Date getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
+
 	public void setDateDebutEncheres(Date dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
+
 	public Date getDateFinEncheres() {
 		return dateFinEncheres;
 	}
+
 	public void setDateFinEncheres(Date dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
+
 	public Integer getMiseAPrix() {
 		return miseAPrix;
 	}
+
 	public void setMiseAPrix(Integer miseAPrix) {
 		this.miseAPrix = miseAPrix;
 	}
+
 	public Integer getPrixVente() {
 		return prixVente;
 	}
+
 	public void setPrixVente(Integer prixVente) {
 		this.prixVente = prixVente;
 	}
+
 	public String getEtatVente() {
 		return etatVente;
 	}
+
 	public void setEtatVente(String etatVente) {
 		this.etatVente = etatVente;
 	}
+
 	public Integer getNoCategorie() {
 		return noCategorie;
 	}
+
 	public void setNoCategorie(Integer noCategorie) {
 		this.noCategorie = noCategorie;
 	}
@@ -103,9 +117,22 @@ public class ArticleVendu {
 		this.noUtilisateur = noUtilisateur;
 	}
 
-	
-	
-	
-	
-	
+	public void setVendeur(Utilisateur vendeur) {
+		this.vendeur = vendeur;
+
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+
+	}
+
+	public Utilisateur getVendeur() {
+		return vendeur;
+	}
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
 }

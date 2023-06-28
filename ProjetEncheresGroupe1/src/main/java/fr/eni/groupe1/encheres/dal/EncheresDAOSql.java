@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
@@ -31,7 +32,8 @@ public class EncheresDAOSql implements EncheresDAO{
 	
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private UtilisateurDAO utilisateurDAO;
-	private EncheresCategoriesDAO encheresCategoriesDAO; 
+	private EncheresCategoriesDAO encheresCategoriesDAO;
+
 	
 		@Autowired
 		public void setNamedParameterJdbcTemplate(UtilisateurDAO utilisateurDAO,EncheresCategoriesDAO encheresCategoriesDAO, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
@@ -40,31 +42,7 @@ public class EncheresDAOSql implements EncheresDAO{
 			this.encheresCategoriesDAO = encheresCategoriesDAO;
 		}
 		
-	class ArticlesVendusRowMapper implements RowMapper<ArticleVendu>{
-		
-		@Override
-		public ArticleVendu mapRow(ResultSet rs, int rowNum) throws SQLException {
-			ArticleVendu article = new ArticleVendu();
-			System.out.println("vous êtes dans le RowMapper");
-			article.setNoArticle(rs.getInt("no_article"));
-			article.setNomArticle(rs.getString("nom_article"));
-			article.setDescription(rs.getString("description"));
-			article.setDateDebutEncheres(rs.getDate("date_debut_encheres"));
-			article.setDateFinEncheres(rs.getDate("date_fin_encheres"));
-			article.setMiseAPrix(rs.getInt("prix_initial"));
-			article.setPrixVente(rs.getInt("prix_vente"));				
-			article.setNoUtilisateur(rs.getInt("no_utilisateur"));
-			article.setNoCategorie(rs.getInt("no_categorie"));
-			Utilisateur vendeur = null;
-			vendeur = utilisateurDAO.findById(rs.getInt("no_utilisateur"));
-			article.setVendeur(vendeur);
-			Categorie categorie = null;
-			categorie = encheresCategoriesDAO.findById(rs.getInt("no_categorie"));
-			article.setCategorie(categorie);
-			return article;
-		}
-		
-	}
+
 		
 /////////////////////////////////       AFFICHAGE     ////////////////////////////////////////////
 		
@@ -73,7 +51,7 @@ public class EncheresDAOSql implements EncheresDAO{
 			List<ArticleVendu> listArticle;
 			
 			System.out.println("Dans articleAll()");
-			listArticle = namedParameterJdbcTemplate.query(SELECT_ALL_ARTICLE, new ArticlesVendusRowMapper()) ;		
+			listArticle = namedParameterJdbcTemplate.query(SELECT_ALL_ARTICLE, new ArticlesVendusRowMapper(utilisateurDAO, encheresCategoriesDAO)) ;		
 			return listArticle;
 		}
 		
@@ -110,7 +88,7 @@ public class EncheresDAOSql implements EncheresDAO{
 			if(article.getNoArticle()== null) {
 				System.out.println("debut du if save "+ article);
 				namedParameterJdbcTemplate.update(INSERT_NEW_ARTICLE, newArticleMap, keyHolder);
-				article.setNoArticle(keyHolder.getKey().intValue());
+				article.setNoArticle((Integer)keyHolder.getKeys().get("no_article")); // recuperqtion de lq vqleur de l qrticle qfin de vqloriser lq FK
 				//setArticleByNoArticle(article.getNoArticle(), article.getNoUtilisateur());		
 				System.out.println("article : " + article.toString());
 				
@@ -143,5 +121,40 @@ public class EncheresDAOSql implements EncheresDAO{
 		}
 
 /////////////////////////////////       SET     ////////////////////////////////////////////
-}	
-		
+}
+
+// Deplqcement dqns une clqsse Jqvq dedie
+//@Component
+//class ArticlesVendusRowMapper implements RowMapper<ArticleVendu>{
+//	private UtilisateurDAO utilisateurDAO;
+//	private EncheresCategoriesDAO encheresCategoriesDAO; 
+//	@Autowired
+//	public void setArticlesVendusRowMapper(UtilisateurDAO utilisateurDAO,EncheresCategoriesDAO encheresCategoriesDAO) {
+//		this.utilisateurDAO = utilisateurDAO;
+//		this.encheresCategoriesDAO = encheresCategoriesDAO;
+//	}
+//	
+//	@Override
+//	public ArticleVendu mapRow(ResultSet rs, int rowNum) throws SQLException {
+//		ArticleVendu article = new ArticleVendu();
+//		System.out.println("vous êtes dans le RowMapper");
+//		article.setNoArticle(rs.getInt("no_article"));
+//		article.setNomArticle(rs.getString("nom_article"));
+//		article.setDescription(rs.getString("description"));
+//		article.setDateDebutEncheres(rs.getDate("date_debut_encheres"));
+//		article.setDateFinEncheres(rs.getDate("date_fin_encheres"));
+//		article.setMiseAPrix(rs.getInt("prix_initial"));
+//		article.setPrixVente(rs.getInt("prix_vente"));				
+//		article.setNoUtilisateur(rs.getInt("no_utilisateur"));
+//		article.setNoCategorie(rs.getInt("no_categorie"));
+//		Utilisateur vendeur = null;
+//		vendeur = utilisateurDAO.findById(rs.getInt("no_utilisateur"));
+//		//article.setVendeur(vendeur);
+//		Categorie categorie = null;
+//		categorie = encheresCategoriesDAO.findById(rs.getInt("no_categorie"));
+//		//article.setCategorie(categorie);
+//		return article;
+//	}
+//	
+//}
+//		
