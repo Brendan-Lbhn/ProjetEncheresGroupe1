@@ -43,13 +43,13 @@ public class EncheresController {
 	}
 	
 	@PostMapping({"/CreationVente"})
-	public String inscriptionFaite( @ModelAttribute ("article") ArticleVendu articleVendu,@ModelAttribute ("retrait") Retrait infoRetrait,ArticleVendu article, Model model ) {
+	public String inscriptionFaite( @ModelAttribute ("article") ArticleVendu articleVendu,@ModelAttribute ("retrait") Retrait infoRetrait, Model model ) {
 		System.out.println("je passe par le post CreationVente");
 		encheresService.ajouterArticle(articleVendu);
 		System.out.println(articleVendu.toString());
-		encheresService.ajouterInfoRetrait(infoRetrait, article);
+		encheresService.ajouterInfoRetrait(infoRetrait, articleVendu);
 		System.out.println( infoRetrait.toString());
-		return ":/index";
+		return "redirect:/";
 	}
 	
 	/////////////////////////////////        X     ////////////////////////////////////////////

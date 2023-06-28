@@ -23,8 +23,7 @@ public class EncheresDAOSql implements EncheresDAO{
 	private final static String SELECT_ALL_RETRAITS = "select * from RETRAITS" ;
 
 	private final static String INSERT_NEW_ARTICLE = "insert into ARTICLES_VENDUS ( nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie ) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)" ;
-	private final static String INSERT_NEW_INFORETRAIT = "insert into RETRAITS ( rue, code_postal, ville ) values (:rue, :code_postal, :ville)" ;
-	private final static String INSERT_NEW_NOARTICLE = "Insert INTO RETRAITS (no_article) SELECT no_article FROM ARTICLES_VENDUS";
+	private final static String INSERT_NEW_INFORETRAIT = "insert into RETRAITS ( no_article, rue, code_postal, ville ) values (:no_article, :rue, :code_postal, :ville)" ;
 	private static final String DELETE_MODIF_ARTICLE = null;
 	private static final String UPDATE = null;
 	private  NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -100,7 +99,7 @@ public class EncheresDAOSql implements EncheresDAO{
 				namedParameterJdbcTemplate.update(INSERT_NEW_ARTICLE, newArticleMap, keyHolder);
 				article.setNoArticle(keyHolder.getKey().intValue());
 				//setArticleByNoArticle(article.getNoArticle(), article.getNoUtilisateur());		
-				System.out.println("article : " + article);
+				System.out.println("article : " + article.toString());
 				
 				// methode
 			}else {//update
