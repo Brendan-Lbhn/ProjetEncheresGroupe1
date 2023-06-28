@@ -36,8 +36,8 @@ public class EncheresServiceImpl implements EncheresService {
 
 
 	@Override
-	public void ajouterInfoRetrait(Retrait infoRetrait) {
-		encheresDAO.setInfoRetrait(infoRetrait);		
+	public void ajouterInfoRetrait(Retrait infoRetrait, ArticleVendu article) {
+		encheresDAO.setInfoRetrait(infoRetrait, article);		
 	}
 
 

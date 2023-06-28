@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ArticleVendu {
 
-	private Integer noArticle;
+	public Integer noArticle;
 	private String nomArticle;
 	private String description;
 	private Date dateDebutEncheres;
@@ -82,7 +82,7 @@ public class ArticleVendu {
 	public void setPrixVente(Integer prixVente) {
 		this.prixVente = prixVente;
 	}
-	public String isEtatVente() {
+	public String getEtatVente() {
 		return etatVente;
 	}
 	public void setEtatVente(String etatVente) {

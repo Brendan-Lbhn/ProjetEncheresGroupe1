@@ -47,9 +47,9 @@ public class EncheresController {
 		System.out.println("je passe par le post CreationVente");
 		encheresService.ajouterArticle(articleVendu);
 		System.out.println(articleVendu.toString());
-		encheresService.ajouterInfoRetrait(infoRetrait);
+		encheresService.ajouterInfoRetrait(infoRetrait, articleVendu);
 		System.out.println( infoRetrait.toString());
-		return ":/index";
+		return "redirect:/";
 	}
 	
 	/////////////////////////////////        X     ////////////////////////////////////////////
