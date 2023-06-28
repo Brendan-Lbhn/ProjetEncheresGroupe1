@@ -1,5 +1,6 @@
 package fr.eni.groupe1.encheres.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +13,7 @@ import fr.eni.groupe1.encheres.bo.Utilisateur;
 public class UtilisateurController {
 	private UtilisateurService utilisateurService;
 	
+	@Autowired
 	public UtilisateurController(UtilisateurService utilisateurService) {
 		this.utilisateurService=utilisateurService;
 	}
