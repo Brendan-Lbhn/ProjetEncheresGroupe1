@@ -11,7 +11,7 @@ import fr.eni.groupe1.encheres.bo.Utilisateur;
 
 @Repository
 public class UtilisateurDAOSql implements UtilisateurDAO {
-	private final static String INSERT = "insert into UTILISATEURS ( noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse,credit,administrateur ) values ( :no_utilisateur, :pseudo, :nom, :prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe,:credit,:administrateur)" ;
+	private final static String INSERT = "insert into UTILISATEURS ( pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur ) values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse,:credit,:administrateur)" ;
 	
 	private NamedParameterJdbcTemplate njt;
 	
