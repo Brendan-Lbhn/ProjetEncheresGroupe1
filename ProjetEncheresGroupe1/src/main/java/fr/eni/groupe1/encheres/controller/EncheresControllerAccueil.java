@@ -19,8 +19,9 @@ public class EncheresControllerAccueil {
 	private EncheresCategoriesService encheresCategoriesService;
 	private EncheresService encheresService;
 	
-	public EncheresControllerAccueil(EncheresCategoriesService encheresCategoriesService) {
+	public EncheresControllerAccueil(EncheresCategoriesService encheresCategoriesService, EncheresService encheresService) {
 		this.encheresCategoriesService = encheresCategoriesService;
+		this.encheresService = encheresService;
 	}
 
 	@GetMapping({"/","/accueil"})
@@ -30,7 +31,7 @@ public class EncheresControllerAccueil {
 		model.addAttribute("categorie",listeCategories); 
 		
 		List<ArticleVendu>listArticles = encheresService.getArticle();
-		model.addAttribute("articlevendu",listArticles);
+		model.addAttribute("articleVendu",listArticles);
 		
 		return "index";
 	}

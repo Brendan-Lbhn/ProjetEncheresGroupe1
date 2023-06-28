@@ -1,9 +1,12 @@
 package fr.eni.groupe1.encheres.dal;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,12 +32,34 @@ public class EncheresDAOSql implements EncheresDAO{
 			this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 		}
 		
+	class ArticlesVendusRowMapper implements RowMapper<ArticleVendu>{
+		
+		@Override
+		public ArticleVendu mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ArticleVendu article = new ArticleVendu();
+			System.out.println("vous êtes dans le RowMapper");
+			article.setNoArticle(rs.getInt("no_article"));
+			article.setNomArticle(rs.getString("nom_article"));
+			article.setDescription(rs.getString("description"));
+			article.setDateDebutEncheres(rs.getDate("date_debut_encheres"));
+			article.setDateFinEncheres(rs.getDate("date_fin_encheres"));
+			article.setMiseAPrix(rs.getInt("prix_initial"));
+			article.setPrixVente(rs.getInt("prix_vente"));				
+			article.setNoUtilisateur(rs.getInt("no_utilisateur"));
+			article.setNoCategorie(rs.getInt("no_categorie"));
+			return article;
+		}
+		
+	}
+		
 /////////////////////////////////       AFFICHAGE     ////////////////////////////////////////////
 		
 		@Override
 		public List<ArticleVendu> articleAll() {
 			List<ArticleVendu> listArticle;
-			listArticle = namedParameterJdbcTemplate.query(SELECT_ALL_ARTICLE, new BeanPropertyRowMapper<>(ArticleVendu.class)) ;		
+			
+			System.out.println("Vous êtes arrivés dans la couche DAO !");
+			listArticle = namedParameterJdbcTemplate.query(SELECT_ALL_ARTICLE, new ArticlesVendusRowMapper()) ;		
 
 			return listArticle;
 		}
