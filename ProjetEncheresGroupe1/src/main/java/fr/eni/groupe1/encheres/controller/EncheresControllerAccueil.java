@@ -12,7 +12,6 @@ import fr.eni.groupe1.encheres.bll.EncheresService;
 import fr.eni.groupe1.encheres.bll.UtilisateurService;
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
 import fr.eni.groupe1.encheres.bo.Categorie;
-import fr.eni.groupe1.encheres.bo.Utilisateur;
 
 @Controller
 @RequestMapping("")
@@ -20,14 +19,14 @@ public class EncheresControllerAccueil {
 	
 	private EncheresCategoriesService encheresCategoriesService;
 	private EncheresService encheresService;
-	private UtilisateurService utilisateurService;
+
 	
 	public EncheresControllerAccueil(EncheresCategoriesService encheresCategoriesService,
 			EncheresService encheresService,
 			UtilisateurService utilisateurService) {
 		this.encheresCategoriesService = encheresCategoriesService;
 		this.encheresService = encheresService;
-		this.utilisateurService= utilisateurService; 
+		 
 	}
 
 	@GetMapping({"/","/accueil"})
