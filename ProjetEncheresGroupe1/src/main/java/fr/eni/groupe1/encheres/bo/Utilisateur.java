@@ -2,10 +2,12 @@ package fr.eni.groupe1.encheres.bo;
 
 import java.util.Objects;
 
-import jakarta.validation.constraints.Digits;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 public class Utilisateur {
@@ -36,15 +38,16 @@ public class Utilisateur {
 	
 	@NotBlank(message = "La rue ne peut pas être vide.")
 	@Size(max = 20, message = "La rue ne peut pas dépasser 20 caractères.")
-	@Pattern(regexp = "^[a-zA-Z]+$", message = "La rue ne peut contenir que des lettres.")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "La rue ne peut contenir que des espaces et des caractères alphanumériques")
 	private String rue;
 	
-	@Digits(integer = 5, message = "Le code postal doit contenir 5 chiffres", fraction = 0)
+	@NotNull(message = "Le code postal doit être un nombre positif")
+	@Positive(message = "Le code postal doit être un nombre positif")
 	private Integer codePostal;
 	
 	@NotBlank(message = "La ville ne peut pas être vide.")
 	@Size(max = 20, message = "La ville ne peut pas dépasser 20 caractères.")
-	@Pattern(regexp = "^[a-zA-Z]+$", message = "La ville ne peut contenir que des lettres.")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "La ville ne peut contenir que des espaces et des caractères alphanumériques")
 	private String ville;
 	
 	@NotBlank(message = "Le mot de passe ne peut pas être vide.")
