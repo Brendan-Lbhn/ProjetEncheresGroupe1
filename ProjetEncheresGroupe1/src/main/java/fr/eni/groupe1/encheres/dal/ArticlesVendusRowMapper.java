@@ -17,7 +17,7 @@ public class ArticlesVendusRowMapper implements RowMapper<ArticleVendu> {
 		this.utilisateurDAO = utilisateurDAO;
 		this.encheresCategoriesDAO = encheresCategoriesDAO;
 	}
-
+	
 	@Override
 	public ArticleVendu mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ArticleVendu article = new ArticleVendu();
