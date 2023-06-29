@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -26,6 +27,8 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	private final static String FIND_BY_PSEUDO = "select * from UTILISATEURS where pseudo=?"; 
 
 	private final static String INSERT = "insert into UTILISATEURS ( pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur ) values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse,:credit,:administrateur)" ;
+	//private static final String DELETE_MODIF = "delete Utilisateur where noUtilisateur= :noUtilisateur" ;
+	private static final String UPDATE = "update Utilisateur set noUtilisateur=:no_utilisateur, pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, codePostal=:code_postal, ville=:ville, motDePasse=:mot_de_passe, credit=:credit, administrateur=:administrateur where noUtilisateur=:noUtilisateur" ;
 	
 	@Autowired
 	private NamedParameterJdbcTemplate njt;
@@ -60,10 +63,19 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	
 	@Override
 	public void save(Utilisateur utilisateur) {
+		if(utilisateur.getNoUtilisateur()== null) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		njt.update(INSERT, new BeanPropertySqlParameterSource(utilisateur), keyHolder);
 		utilisateur.setNoUtilisateur(keyHolder.getKey().intValue());
 		System.out.println("insert de l'utilisateur : "+ utilisateur);
+		// methode
+	}else {//update
+		System.out.println("je passe par le update du set utilisateur");
+		//njt.update(DELETE_MODIF, new BeanPropertySqlParameterSource(utilisateur));
+		njt.update(UPDATE, new BeanPropertySqlParameterSource(utilisateur));
+
+
+	}		
 
 	}
 
