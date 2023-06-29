@@ -7,14 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.groupe1.encheres.bo.Categorie;
-import fr.eni.groupe1.encheres.bo.Utilisateur;
-import fr.eni.groupe1.encheres.dal.UtilisateurDAOSql.UtilisateursRowMapper;
 
 @Repository
 public class EncheresCategoriesDAOImpl implements EncheresCategoriesDAO{

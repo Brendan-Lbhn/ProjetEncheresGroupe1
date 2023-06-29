@@ -92,6 +92,7 @@ form{
 .liste-articles{
 	display: flex; 
 	flex-direction: row; 
+	flex-wrap: wrap;
 	justify-content: space-evenly
 }
 
@@ -103,6 +104,7 @@ form{
 	color: #2E3244;
 	background-color:#F1895C;
 	padding: 1%;  
+	margin: 10px;
 }
 
 .article img{
