@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,9 +15,9 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import fr.eni.groupe1.encheres.bo.ArticleVendu;
+
 import fr.eni.groupe1.encheres.bo.Utilisateur;
-import fr.eni.groupe1.encheres.dal.EncheresDAOSql.ArticlesVendusRowMapper;
+
 
 @Repository
 public class UtilisateurDAOSql implements UtilisateurDAO {
@@ -31,10 +30,11 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	
 	@Autowired
 	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate njt) {
-		this.njt=njt;
+		this.njt = njt;
 	}
 	
-	class UtilisateursRowMapper implements RowMapper<Utilisateur>{
+	
+	class UtilisateursRowMapper implements RowMapper<Utilisateur> {
 		
 		@Override
 		public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -59,33 +59,30 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	@Override
 	public void save(Utilisateur utilisateur) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		njt.update(INSERT,new BeanPropertySqlParameterSource(utilisateur),keyHolder);
+		njt.update(INSERT, new BeanPropertySqlParameterSource(utilisateur), keyHolder);
 		utilisateur.setNoUtilisateur(keyHolder.getKey().intValue());
-		System.out.println("insert de l'utilisateur : "+ utilisateur);
+		System.out.println("insert de l'utilisateur : " + utilisateur);
 		
 	}
 
 	@Override
-	public List<Utilisateur>findAll() {
+	public List<Utilisateur> findAll() {
 		List<Utilisateur> listUtilisateur;
 		
 		System.out.println("Dans findAll()");
-		listUtilisateur = njt.query(SELECT_ALL_UTILISATEURS, new UtilisateursRowMapper()) ;
+		listUtilisateur = njt.query(SELECT_ALL_UTILISATEURS, new UtilisateursRowMapper());
 		System.out.println(listUtilisateur);
 		return listUtilisateur;
-		
 	}
 
 	@Override
 	public Utilisateur findById(Integer id) {
 		Map<String, Object> params = new HashMap<>();
-		params.put("id",id);
+		params.put("id", id);
 		
 		Utilisateur user = null;
 		
-		user = njt.queryForObject(FIND_BY_ID, 
-			params, 				
-			new UtilisateursRowMapper());
+		user = njt.queryForObject(FIND_BY_ID, params, new UtilisateursRowMapper());
 		
 		return user;
 		

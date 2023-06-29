@@ -55,13 +55,13 @@ public class EncheresCategoriesDAOImpl implements EncheresCategoriesDAO{
 	public Categorie findById(Integer id) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("id",id);
-		
+		System.out.println("je passe par le find dao");
 		Categorie categorie = null;
 		
 		categorie = njt.queryForObject(FIND_BY_ID, 
 			params, 				
 			new CategorieRowMapper());
-		
+		System.out.println(categorie);
 		return categorie;
 	}
 	

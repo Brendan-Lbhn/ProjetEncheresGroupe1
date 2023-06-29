@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import fr.eni.groupe1.encheres.bo.Categorie;
 import fr.eni.groupe1.encheres.dal.EncheresCategoriesDAO;
 
-@Service("encherescategoriesservice")
+@Service
 public class EncheresCategoriesServiceImpl implements EncheresCategoriesService{
 
 	EncheresCategoriesDAO encheresCategoriesDAO; 

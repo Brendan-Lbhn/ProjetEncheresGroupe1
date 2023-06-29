@@ -91,7 +91,7 @@ public class EncheresDAOSql implements EncheresDAO{
 		@Override
 		public void setArticle(ArticleVendu article) {
 			MapSqlParameterSource newArticleMap = new MapSqlParameterSource();
-
+System.out.println();
 			if (article.getNoArticle() != null ) {
 				newArticleMap.addValue("no_article", article.getNoArticle());
 			}
@@ -103,7 +103,7 @@ public class EncheresDAOSql implements EncheresDAO{
 			newArticleMap.addValue("prix_vente", article.getPrixVente());	
 			newArticleMap.addValue("no_utilisateur", article.getNoUtilisateur());	
 			newArticleMap.addValue("no_categorie", article.getNoCategorie());	
-			
+			System.out.println(article.toString());
 			KeyHolder keyHolder = new GeneratedKeyHolder();
 			System.out.println("debut du set article");
 			
