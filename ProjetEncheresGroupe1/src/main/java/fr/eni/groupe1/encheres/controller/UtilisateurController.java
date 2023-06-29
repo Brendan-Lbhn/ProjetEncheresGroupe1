@@ -54,7 +54,7 @@ public class UtilisateurController {
 	}
 		///////////////////////////////// MODIFICATION D UN PROFIL ///////////////////////////////// ////////////////////////////////////////////
 
-	@GetMapping("/ModifProfil")
+	@GetMapping("ModifProfil")
 	public String modificationProfil (Principal principal, Model model) {
 		System.out.println("je passe par la modification du profil" );
 		Utilisateur utilisateur = null;
@@ -66,10 +66,5 @@ public class UtilisateurController {
 		return "TestModif";
 	}
 	
-//	@GetMapping("ModifFormulaire")
-//		public String modificationFormulaire (Principal principal, Model model) {
-//			System.out.println("je passe par la modification du profil" );
-//			model.addAttribute("Utilisateur",utilisateurService.findByPseudo(principal.getName()));		
-//			return "TestModif";
-//	}
+	
 }
