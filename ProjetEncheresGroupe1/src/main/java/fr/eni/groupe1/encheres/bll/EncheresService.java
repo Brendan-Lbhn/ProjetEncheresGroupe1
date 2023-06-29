@@ -8,6 +8,7 @@ import fr.eni.groupe1.encheres.bo.Retrait;
 public interface EncheresService {
 
 	List<ArticleVendu> getArticle();
+	List<ArticleVendu> getArtcicleByCategorie(Integer noCategorie);
 
 	void ajouterArticle(ArticleVendu articleVendu);
 

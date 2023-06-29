@@ -14,9 +14,9 @@
 	<h2>Filtres</h2>
 	
 	<fieldset>
-		<form action="">
+		<form action="/rechercher" th:object="${articleVendu}" method="post">
 			<div class="search-criteria"> 
-				<input class="searchbar" placeholder="Le nom de l'article contient"><br>
+				<input class="searchbar" placeholder="Rechercher un article"><br> 
 				<div class="category">
 					<label for="categorie">Categorie</label>
 					<select  name="categorie" id="categorie">
@@ -37,6 +37,7 @@
  		 		<img alt="image-article-1" src="/images/pc_gamer.jpeg">
  		 		<h3 th:text="${articlevendu.nomArticle}" ></h3>
  		 		<p th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
+ 		 		<p th:text="'Categorie : ' + ${articlevendu.categorie?.libelle}"></p>
  		 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
  		 		<p th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></p>
  		</div>

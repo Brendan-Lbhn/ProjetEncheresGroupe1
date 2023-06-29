@@ -47,4 +47,12 @@ public class EncheresServiceImpl implements EncheresService {
 		return encheresDAO.retraitAll();
 	}
 
+
+
+	@Override
+	public List<ArticleVendu> getArtcicleByCategorie(Integer noCategorie) {
+		System.out.println("Dans EncheresServiceImpl.getArticleByCategorie");
+		return encheresDAO.articleByCategorie(noCategorie);
+	}
+
 }

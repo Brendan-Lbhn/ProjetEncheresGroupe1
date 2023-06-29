@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface EncheresDAO {
 
 	 List<ArticleVendu> articleAll() ;
+	 List<ArticleVendu> articleByCategorie(Integer noCategorie);
 
 	void setArticle(ArticleVendu article);
 
