@@ -14,6 +14,7 @@ public class Utilisateur {
 	private Integer codePostal;
 	private String ville;
 	private String motDePasse;
+	private String motDePasseVerif;
 	private Integer credit=0;
 	private Integer administrateur=0;
 	
@@ -39,6 +40,10 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
+	public Utilisateur(String motDePasseVerif) {
+		super();
+		this.motDePasseVerif=motDePasseVerif;
+	}
 
 	public Integer getNoUtilisateur() {
 		return noUtilisateur;
@@ -119,6 +124,16 @@ public class Utilisateur {
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
+
+	public String getMotDePasseVerif() {
+		return motDePasseVerif;
+	}
+
+
+	public void setMotDePasseVerif(String motDePasseVerif) {
+		this.motDePasseVerif = motDePasseVerif;
+	}
+
 
 	public Integer getCredit() {
 		return credit;

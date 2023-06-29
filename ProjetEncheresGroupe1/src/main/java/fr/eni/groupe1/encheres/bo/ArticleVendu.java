@@ -129,15 +129,13 @@ public class ArticleVendu {
         return vendeur;
     }
 
-
-    public void setVendeur(Utilisateur vendeur) {
-        this.vendeur = vendeur;
-    }
-
     public Categorie getCategorie() {
         return categorie;
     }
 
+    public void setVendeur(Utilisateur vendeur) {
+        this.vendeur = vendeur;
+    }
 
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
