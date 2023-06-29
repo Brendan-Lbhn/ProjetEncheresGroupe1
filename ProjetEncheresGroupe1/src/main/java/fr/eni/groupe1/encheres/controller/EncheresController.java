@@ -48,7 +48,7 @@ public class EncheresController {
 		encheresService.ajouterArticle(articleVendu);
 		System.out.println(articleVendu.toString());
 		encheresService.ajouterInfoRetrait(infoRetrait, articleVendu);
-		System.out.println( infoRetrait.toString());
+		System.out.println(infoRetrait.toString());
 		return "redirect:/accueil";
 	}
 	

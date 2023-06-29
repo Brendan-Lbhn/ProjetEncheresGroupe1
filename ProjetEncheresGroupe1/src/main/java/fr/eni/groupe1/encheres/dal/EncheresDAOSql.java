@@ -85,7 +85,10 @@ System.out.println();
 			if(article.getNoArticle()== null) {
 				System.out.println("debut du if save "+ article);
 				namedParameterJdbcTemplate.update(INSERT_NEW_ARTICLE, newArticleMap, keyHolder);
-				article.setNoArticle((Integer)keyHolder.getKeys().get("no_article")); // recuperqtion de lq vqleur de l qrticle qfin de vqloriser lq FK
+				System.out.println("juste avant le keyholder");
+				article.setNoArticle( keyHolder.getKey().intValue());
+			//	article.setNoArticle((Integer)keyHolder.getKeys().get("no_article"));// recuperqtion de lq vqleur de l qrticle qfin de vqloriser lq FK
+				System.out.println(article.getNoArticle());
 				//setArticleByNoArticle(article.getNoArticle(), article.getNoUtilisateur());		
 				System.out.println("article : " + article.toString());
 				
