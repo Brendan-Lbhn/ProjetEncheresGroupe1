@@ -23,7 +23,8 @@ import fr.eni.groupe1.encheres.bo.Utilisateur;
 public class UtilisateurDAOSql implements UtilisateurDAO {
 	private final static String SELECT_ALL_UTILISATEURS = "Select * from UTILISATEURS";
 	private final static String FIND_BY_ID = "select * from UTILISATEURS where no_utilisateur=:id"; 
-	
+	private final static String FIND_BY_PSEUDO = "select * from UTILISATEURS where pseudo=?"; 
+
 	private final static String INSERT = "insert into UTILISATEURS ( pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur ) values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse,:credit,:administrateur)" ;
 	
 	@Autowired
@@ -88,5 +89,16 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 		return user;
 		
 	}
-
+	//@Override
+	public Utilisateur findByPseudo(String pseudo) {
+		
+		Utilisateur user = null;
+		
+		//user = njt.queryForObject(FIND_BY_ID, params, new UtilisateursRowMapper());
+		user = njt.getJdbcOperations().queryForObject(FIND_BY_PSEUDO, new UtilisateursRowMapper(),pseudo);
+		System.out.println(user);
+		
+		return user;
+		
+	}
 }

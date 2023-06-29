@@ -12,4 +12,6 @@ public interface UtilisateurService {
 	List<Utilisateur> getUtilisateur();
 
 	Utilisateur findById(Integer id);
+
+	Utilisateur findByPseudo(String name);
 }

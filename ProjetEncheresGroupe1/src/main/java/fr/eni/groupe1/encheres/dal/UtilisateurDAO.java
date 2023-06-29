@@ -10,5 +10,7 @@ public interface UtilisateurDAO {
 	
 	List<Utilisateur>findAll();
 	
-	Utilisateur findById(Integer id); 
+	Utilisateur findById(Integer id);
+
+	Utilisateur findByPseudo(String pseudo); 
 }

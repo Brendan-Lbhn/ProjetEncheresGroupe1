@@ -34,4 +34,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		return utilisateurDAO.findById(id);
 	}
 
+	@Override
+	public Utilisateur findByPseudo(String name) {
+		return utilisateurDAO.findByPseudo(name);
+	}
+
 }
