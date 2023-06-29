@@ -52,11 +52,19 @@ public class UtilisateurController {
 
 		return "ProfilUtilisateur";
 	}
-	
+		///////////////////////////////// MODIFICATION D UN PROFIL ///////////////////////////////// ////////////////////////////////////////////
+
 	@GetMapping("/ModifProfil")
-	public String modificationFilm (Principal principal, Model model) {
+	public String modificationProfil (Principal principal, Model model) {
 		System.out.println("je passe par la modification du profil" );
 		model.addAttribute("Utilisateur",utilisateurService.findByPseudo(principal.getName()));		
-		return "/CreationProfil";
+		return "TestModif";
 	}
+	
+//	@GetMapping("ModifFormulaire")
+//		public String modificationFormulaire (Principal principal, Model model) {
+//			System.out.println("je passe par la modification du profil" );
+//			model.addAttribute("Utilisateur",utilisateurService.findByPseudo(principal.getName()));		
+//			return "TestModif";
+//	}
 }

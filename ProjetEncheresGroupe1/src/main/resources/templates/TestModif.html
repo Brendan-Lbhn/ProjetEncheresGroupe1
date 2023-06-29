@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html layout:decorate="~{/layout1.html}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<main layout:fragment="main">
+	<h1>Mon Profil</h1>
+	
+	<form class="creaProf" th:action="@{/CreationProfil/Suite}" th:object="${Utilisateur}" method="post">
+	<input type="hidden" th:field="*{Utilisateur.noUtilisateur}"/>
+	<div class="creaTri">
+	<label for="pseudoInput">Pseudo :</label>
+	<input type="text" th:field="*{Utilisateur.pseudo}" id="pseudoInput">
+	<p th:if="${#fields.hasErrors('pseudo')}" th:errors="*{pseudo}" class="error-message"></p>
+	
+	<label for="nomInput">Nom :</label><br>
+	<input type="text" th:field="*{Utilisateur.nom}" id="nomInput"><br>
+	<p th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="error-message"></p>
+	</div>
+	
+	<div class="creaTri">
+	<label for="prenomInput">Prénom :</label>
+	<input type="text" th:field="*{Utilisateur.prenom}" id="prenomInput">
+	<p th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}" class="error-message"></p>
+	
+	<label for="emailInput">Email :</label>
+	<input type="text" th:field="*{Utilisateur.email}" id="emailInput">
+	<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></p>
+	</div>
+	
+	<div class="creaTri">
+	<label for="telephoneInput">Telephone :</label>
+	<input type="tel" th:field="*{Utilisateur.telephone}" id="telephoneInput">
+	<p th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" class="error-message"></p>
+	
+	<label for="rueInput">Rue :</label>
+	<input type="text" th:field="*{Utilisateur.rue}" id="rueInput">
+	<p th:if="${#fields.hasErrors('rue')}" th:errors="*{rue}" class="error-message"></p>
+	</div>
+	
+	<div class="creaTri">
+	<label for="codePostalInput">Code postal :</label>
+	<input type="number" th:field="*{Utilisateur.codePostal}" id="codePostalInput">
+	<p th:if="${#fields.hasErrors('codePostal')}" th:errors="*{pseudo}" class="codePostal"></p>
+	
+	<label for="villeInput">Ville :</label>
+	<input type="text" th:field="*{Utilisateur.ville}" id="villeInput">
+	<p th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}" class="error-message"></p>
+	</div>
+	<input type="hidden" th:field="*{Utilisateur.motDePasse}"/>
+	<input type="hidden" th:field="*{Utilisateur.credit}"/>
+	<input type="hidden" th:field="*{Utilisateur.administrateur}"/>
+	
+	<div class="creaTri">
+	<button type="submit">Créer</button>
+	<button type="reset">Annuler</button>
+	</div>
+	</form>
+
+
+</main>
+
+</body>
+</html>
