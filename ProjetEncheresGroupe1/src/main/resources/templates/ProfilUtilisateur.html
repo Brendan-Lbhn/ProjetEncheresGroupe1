@@ -2,12 +2,12 @@
 <html layout:decorate="~{/layout1.html}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"><head>
 <head>
 <meta charset="UTF-8">
-<title>HELLO</title>
+<title>Profil</title>
 </head>
 <body>
 <main layout:fragment="main">
-<h1>Profil Utilisateur </h1>
-<h2>PROFILLLLLLLLLLLLLLLLL</h2>
+<h1>Profil Utilisateur :</h1>
+
 <div>	 
 			 pseudo : 
 			 <span data-th-text="${Utilisateur.pseudo}"></span><br>
@@ -30,7 +30,7 @@
 		<!--   noUtilisateur=3, pseudo=User, nom=User, prenom=User, email=User@gmail.com, telephone=0556720017, rue=User, codePostal=33650,
 		  ville=User, motDePasse=$2a$10$BVaAJwdHewlycUNi.Kgws.9rrD2CNt1PyWSlZ7djHB0DvNamBMDGG,-->
 		
-		<button>Modifier le Prodil</button>
+		<a th:href="@{/ModifProfil}"><button>Modifier le profil</button></a>
 		</main>
 </body>
 </html>
