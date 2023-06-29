@@ -57,7 +57,12 @@ public class UtilisateurController {
 	@GetMapping("/ModifProfil")
 	public String modificationProfil (Principal principal, Model model) {
 		System.out.println("je passe par la modification du profil" );
-		model.addAttribute("Utilisateur",utilisateurService.findByPseudo(principal.getName()));		
+		Utilisateur utilisateur = null;
+		
+		utilisateur = utilisateurService.findByPseudo(principal.getName());
+		
+				model.addAttribute("Utilisateur",utilisateur);	
+				
 		return "TestModif";
 	}
 	
