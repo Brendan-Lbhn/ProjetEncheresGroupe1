@@ -2,16 +2,46 @@ package fr.eni.groupe1.encheres.bo;
 
 import java.util.Objects;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 public class Utilisateur {
 	
 	private Integer noUtilisateur; 
+	
+	@NotBlank(message = "Le pseudo ne peut pas être vide.")
+	@Pattern(regexp = "\\w{1,20}", message = "Le pseudo doit contenir des caractères alphanumériques uniquement et faire moins de 20 caractères.")
 	private String pseudo;
+	
+	@NotBlank(message = "Le nom ne peut pas être vide.")
+	@Size(max = 20, message = "Le nom ne peut pas dépasser 20 caractères.")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Le nom ne peut contenir que des lettres.")
 	private String nom;
+	
+	@NotBlank(message = "Le pénom ne peut pas être vide.")
+	@Size(max = 20, message = "Le prénom ne peut pas dépasser 20 caractères.")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Le prénom ne peut contenir que des lettres.")
 	private String prenom;
+	
+	@Email(message = "L'adresse e-mail n'est pas valide.")
 	private String email;
+	
+	@Pattern(regexp = "\\d{10}", message = "Le numéro de téléphone doit contenir 10 chiffres (pas d'espaces,de tirets ou de points entre les chiffres).")
 	private String telephone; 
+	
+	@NotBlank(message = "La rue ne peut pas être vide.")
+	@Size(max = 20, message = "La rue ne peut pas dépasser 20 caractères.")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "La rue ne peut contenir que des lettres.")
 	private String rue;
+	
+	@Pattern(regexp = "\\d{5}", message = "Le code postal doit contenir 5 chiffres.")
 	private Integer codePostal;
+	
+	@NotBlank(message = "La ville ne peut pas être vide.")
+	@Size(max = 20, message = "La ville ne peut pas dépasser 20 caractères.")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "La ville ne peut contenir que des lettres.")
 	private String ville;
 	private String motDePasse;
 	private String motDePasseVerif;
