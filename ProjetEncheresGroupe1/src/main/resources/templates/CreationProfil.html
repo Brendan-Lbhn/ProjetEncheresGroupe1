@@ -14,6 +14,7 @@
 	<div class="creaTri">
 	<label for="pseudoInput">Pseudo :</label>
 	<input type="text" th:field="*{pseudo}" id="pseudoInput">
+	<p th:if="${#fields.hasErrors('titre')}" th:errors="*{titre}" class="error-message"></p>
 	
 	<label for="nomInput">Nom :</label><br>
 	<input type="text" th:field="*{nom}" id="nomInput"><br>
