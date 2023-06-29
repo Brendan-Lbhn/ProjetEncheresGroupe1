@@ -2,6 +2,7 @@ package fr.eni.groupe1.encheres.bo;
 
 import java.util.Objects;
 
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -25,9 +26,11 @@ public class Utilisateur {
 	@Pattern(regexp = "^[a-zA-Z]+$", message = "Le prénom ne peut contenir que des lettres.")
 	private String prenom;
 	
+	@NotBlank(message = "L'adresse e-mail ne peut pas être vide.")
 	@Email(message = "L'adresse e-mail n'est pas valide.")
 	private String email;
 	
+	@NotBlank(message = "Le numéro de téléphone ne peut pas être vide.")
 	@Pattern(regexp = "\\d{10}", message = "Le numéro de téléphone doit contenir 10 chiffres (pas d'espaces,de tirets ou de points entre les chiffres).")
 	private String telephone; 
 	
@@ -36,13 +39,15 @@ public class Utilisateur {
 	@Pattern(regexp = "^[a-zA-Z]+$", message = "La rue ne peut contenir que des lettres.")
 	private String rue;
 	
-	@Pattern(regexp = "\\d{5}", message = "Le code postal doit contenir 5 chiffres.")
+	@Digits(integer = 5, message = "Le code postal doit contenir 5 chiffres", fraction = 0)
 	private Integer codePostal;
 	
 	@NotBlank(message = "La ville ne peut pas être vide.")
 	@Size(max = 20, message = "La ville ne peut pas dépasser 20 caractères.")
 	@Pattern(regexp = "^[a-zA-Z]+$", message = "La ville ne peut contenir que des lettres.")
 	private String ville;
+	
+	@NotBlank(message = "Le mot de passe ne peut pas être vide.")
 	private String motDePasse;
 	private String motDePasseVerif;
 	private Integer credit=0;
