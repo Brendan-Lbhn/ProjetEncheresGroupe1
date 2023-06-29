@@ -2,7 +2,6 @@ package fr.eni.groupe1.encheres.bll;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.eni.groupe1.encheres.bo.Categorie;
@@ -13,7 +12,7 @@ public class EncheresCategoriesServiceImpl implements EncheresCategoriesService{
 
 	EncheresCategoriesDAO encheresCategoriesDAO; 
 	
-	@Autowired
+	
 	public EncheresCategoriesServiceImpl(EncheresCategoriesDAO encheresCategoriesDAO) {
 		this.encheresCategoriesDAO = encheresCategoriesDAO;
 	}

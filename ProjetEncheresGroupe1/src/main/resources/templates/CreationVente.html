@@ -23,7 +23,7 @@
 <div class="creaTri">
 <label for="noCategorie">Categorie</label>
 	<select  name="noCategorie" id="noCategorie" th:field="*{noCategorie}">
-	<option th:each="categorie: ${@EncheresCategoriesServiceImpl.categories}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}" >Ici apparaissent les options</option>
+	<option th:each="categorie: ${@encheresCategoriesServiceImpl.categories}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}" >Ici apparaissent les options</option>
 	</select>
 </div>
 

@@ -19,7 +19,7 @@ import fr.eni.groupe1.encheres.dal.UtilisateurDAOSql.UtilisateursRowMapper;
 @Repository
 public class EncheresCategoriesDAOImpl implements EncheresCategoriesDAO{
 	
-	private static final String SELECT_ALL = "select libelle FROM dbo.CATEGORIES";
+	private static final String SELECT_ALL = "select * FROM CATEGORIES";
 	private static final String FIND_BY_ID = "select * from CATEGORIES where no_categorie=:id";
 
 	@Autowired
@@ -41,7 +41,7 @@ public class EncheresCategoriesDAOImpl implements EncheresCategoriesDAO{
 	@Override
 	public List<Categorie> findAll() {
 		List<Categorie> listCategories = njt.query(SELECT_ALL, 
-				new BeanPropertyRowMapper<>(Categorie.class));
+				new CategorieRowMapper());
 		return listCategories;
 	}
 
