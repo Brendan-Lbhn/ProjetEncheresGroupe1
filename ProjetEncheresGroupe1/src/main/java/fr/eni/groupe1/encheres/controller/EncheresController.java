@@ -29,7 +29,7 @@ public class EncheresController {
 	
 	/////////////////////////////////        CREATION D UN ARTICLE     ////////////////////////////////////////////
 
-	@GetMapping({"/CreationVente"})
+	@GetMapping({"CreationVente"})
 	public String inscriptionVente(@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, Model model) {
 	
 		List<Categorie>listeCategories = encheresCategoriesService.getCategories();
@@ -42,7 +42,7 @@ public class EncheresController {
 		return "/CreationVente";
 	}
 	
-	@PostMapping({"/CreationVente"})
+	@PostMapping({"CreationVente"})
 	public String inscriptionFaite( @ModelAttribute ("article") ArticleVendu articleVendu,@ModelAttribute ("retrait") Retrait infoRetrait, Model model ) {
 		System.out.println("je passe par le post CreationVente");
 		encheresService.ajouterArticle(articleVendu);

@@ -20,7 +20,7 @@
 				<div class="category">
 					<label for="categorie">Categorie</label>
 					<select  name="categorie" id="categorie">
-		    			<option th:each="categorie: ${@encherescategoriesservice.categories}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}">Ici apparaissent les options</option>
+		    			<option th:each="categorie: ${@encheresCategoriesServiceImpl.categories}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}">Ici apparaissent les options</option>
 					</select>
 				</div>		
 			</div>

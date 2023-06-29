@@ -38,7 +38,7 @@ public class EncheresControllerAccueil {
 		List<ArticleVendu>listArticles = encheresService.getArticle();
 		model.addAttribute("articleVendu",listArticles);		
 		
-		return "index";
+		return "Index";
 	}
 	
 }
