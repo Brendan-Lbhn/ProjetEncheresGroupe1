@@ -2,7 +2,6 @@ package fr.eni.groupe1.encheres.controller;
 
 import java.security.Principal;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,7 +9,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.eni.groupe1.encheres.bll.UtilisateurService;
 import fr.eni.groupe1.encheres.bo.Utilisateur;
@@ -20,7 +18,7 @@ import jakarta.validation.Valid;
 public class UtilisateurController {
 	private UtilisateurService utilisateurService;
 
-	@Autowired
+	
 	public UtilisateurController(UtilisateurService utilisateurService) {
 		this.utilisateurService = utilisateurService;
 	}
