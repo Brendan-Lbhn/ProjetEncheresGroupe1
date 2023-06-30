@@ -38,7 +38,7 @@ public class UtilisateurController {
 	    
 	    try {
 	        utilisateurService.enregistrer(utilisateur);
-	        return "redirect:/";
+	        return "redirect:/login";
 	    } catch (IllegalStateException e) {
 	        model.addAttribute("pseudoError", e.getMessage());
 	        bindingResult.addError(new ObjectError("global", e.getMessage()));
