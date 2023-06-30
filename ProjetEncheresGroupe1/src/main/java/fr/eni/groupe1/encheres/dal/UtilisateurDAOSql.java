@@ -28,8 +28,7 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 
 	private final static String INSERT = "insert into UTILISATEURS ( pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur ) values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse,:credit,:administrateur)" ;
 	//private static final String DELETE_MODIF = "delete Utilisateur where noUtilisateur= :noUtilisateur" ;
-	private static final String UPDATE = "update Utilisateur set noUtilisateur=:no_utilisateur, pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, codePostal=:code_postal, ville=:ville, motDePasse=:mot_de_passe, credit=:credit, administrateur=:administrateur where noUtilisateur=:noUtilisateur" ;
-	
+	private static final String UPDATE = "update UTILISATEURS set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:codePostal, ville=:ville, mot_de_passe=:motDePasse where no_Utilisateur=:noUtilisateur" ;	
 	@Autowired
 	private NamedParameterJdbcTemplate njt;
 	

@@ -45,12 +45,18 @@
 	<label for="codePostalInput">Code postal :</label>
 	<input type="number" th:field="*{codePostal}" id="codePostalInput">
 	<p th:if="${#fields.hasErrors('codePostal')}" th:errors="*{pseudo}" class="codePostal"></p>
-	
+		
 	<label for="villeInput">Ville :</label>
 	<input type="text" th:field="*{ville}" id="villeInput">
 	<p th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}" class="error-message"></p>
 	</div>
-	<input type="hidden" th:field="*{motDePasse}"/>
+	<div class="creaTri">
+		<label for="motDePasseInput">mot de passe :</label>
+	<input type="password" th:field="*{motDePasse}" id="motDePasseInput">
+	<label for="mdpVerifInput">Mot de passe vérif:</label>
+	<input type="password" id="mdpVerifInput">
+	</div>
+	
 	<input type="hidden" th:field="*{credit}"/>
 	<input type="hidden" th:field="*{administrateur}"/>
 	
