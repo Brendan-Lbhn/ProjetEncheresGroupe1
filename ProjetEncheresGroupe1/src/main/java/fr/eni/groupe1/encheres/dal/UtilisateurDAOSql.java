@@ -1,5 +1,6 @@
 package fr.eni.groupe1.encheres.dal;
 
+import java.security.Principal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -10,12 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
 
 import fr.eni.groupe1.encheres.bo.Utilisateur;
 
@@ -27,7 +26,7 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	private final static String FIND_BY_PSEUDO = "select * from UTILISATEURS where pseudo=?"; 
 
 	private final static String INSERT = "insert into UTILISATEURS ( pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur ) values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse,:credit,:administrateur)" ;
-	//private static final String DELETE_MODIF = "delete Utilisateur where noUtilisateur= :noUtilisateur" ;
+	private static final String DELETE = "delete UTILISATEURS where no_Utilisateur= :noUtilisateur" ;
 	private static final String UPDATE = "update UTILISATEURS set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:codePostal, ville=:ville, mot_de_passe=:motDePasse where no_Utilisateur=:noUtilisateur" ;	
 	@Autowired
 	private NamedParameterJdbcTemplate njt;
@@ -112,4 +111,15 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 		return user;
 		
 	}
+
+	@Override
+	public Utilisateur deleteProfil(String pseudo) {
+			System.out.println("je passe dans le delete");
+			Utilisateur user = null;
+			user = njt.getJdbcOperations().queryForObject(FIND_BY_PSEUDO, new UtilisateursRowMapper(),pseudo);
+			njt.update(DELETE, new BeanPropertySqlParameterSource(user));	
+			return user;
+		}
+		
+	
 }

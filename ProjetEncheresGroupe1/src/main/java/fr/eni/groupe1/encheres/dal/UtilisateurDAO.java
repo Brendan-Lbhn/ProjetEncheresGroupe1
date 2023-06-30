@@ -12,5 +12,7 @@ public interface UtilisateurDAO {
 	
 	Utilisateur findById(Integer id);
 
-	Utilisateur findByPseudo(String pseudo); 
+	Utilisateur findByPseudo(String pseudo);
+
+	Utilisateur deleteProfil(String pseudo); 
 }

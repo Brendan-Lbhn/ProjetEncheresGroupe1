@@ -65,6 +65,18 @@ public class UtilisateurController {
 				
 		return "TestModif";
 	}
+	///////////////////////////////// MODIFICATION D UN PROFIL ///////////////////////////////// ////////////////////////////////////////////
+	@GetMapping("/Delete")
+	public String deleteFilm (Principal principal, Model model) {
+		System.out.println("je passe par la suppression" );
+Utilisateur utilisateur = null;
+		
+		utilisateur = utilisateurService.deleteProfil(principal.getName());
+		
+				model.addAttribute("Utilisateur",utilisateur);
+		
+		return "redirect:/";
+	}
 	
 	
 }
