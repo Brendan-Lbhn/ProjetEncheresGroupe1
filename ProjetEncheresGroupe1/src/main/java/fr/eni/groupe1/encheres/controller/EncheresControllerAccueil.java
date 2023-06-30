@@ -49,15 +49,23 @@ public class EncheresControllerAccueil {
 	public String rechercherArticle(@ModelAttribute("categorie") Categorie categorie, @ModelAttribute("article") ArticleVendu article, Model model ) {
 		
 		System.out.println("Dans le controller /rechercher (noCategorie = " + categorie.getNoCategorie() + " / Caractères recherchés ="+ article.getNomArticle() + ")" );
-		if(categorie.getNoCategorie() == 1) {
-			List<ArticleVendu>listArticles = encheresService.getArticleByName(article.getNomArticle()); 
-			
-		}
 		
-		List<ArticleVendu>listArticles = encheresService.getArtcicleByCategorie(categorie.getNoCategorie()); 
-		System.out.println("De retour dans le controller /rechercher" );
-		model.addAttribute("articleVendu",listArticles);
-		return "Index";
+		if(categorie.getNoCategorie() == 1 && article.getNomArticle().isEmpty()) {
+			return "redirect:/accueil";
+		}else if(categorie.getNoCategorie() != 1 && article.getNomArticle().isEmpty()) {
+			List<ArticleVendu>listArticles = encheresService.getArtcicleByCategorie(categorie.getNoCategorie());
+			model.addAttribute("articleVendu",listArticles);
+			return "Index";
+		//TODO : remplacer l'expression !article.getNomArticle().isEmpty() : on ne rentre jamais dans cette condition
+		}else if(categorie.getNoCategorie() == 1 && !article.getNomArticle().isEmpty()) {
+			List<ArticleVendu>listArticles = encheresService.getArticleByName(article.getNomArticle());
+			model.addAttribute("articleVendu",listArticles);
+			return "Index";
+		}else {
+			List<ArticleVendu>listArticles = encheresService.getArticleByNameAndCategorie(article.getNomArticle(), categorie.getNoCategorie());
+			model.addAttribute("articleVendu",listArticles);
+			return "Index";
+		}
 		
 	}
 	

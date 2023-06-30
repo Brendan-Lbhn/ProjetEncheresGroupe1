@@ -63,4 +63,12 @@ public class EncheresServiceImpl implements EncheresService {
 		return encheresDAO.articleByName(nameCategorie);
 	}
 
+
+
+	@Override
+	public List<ArticleVendu> getArticleByNameAndCategorie(String nomArticle, Integer noCategorie) {
+		// TODO Auto-generated method stub
+		return encheresDAO.articleByNameAndCategorie(nomArticle, noCategorie);
+	}
+
 }

@@ -19,6 +19,7 @@ public class EncheresDAOSql implements EncheresDAO{
 	private final static String SELECT_ALL_ARTICLE = "select * from ARTICLES_VENDUS" ;
 	private final static String SELECT_ARTICLE_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie =:noCategorie";
 	private final static String SELECT_ARTICLE_BY_NAME = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%:nomArticle%'";
+	private final static String SELECT_ARTICLE_BY_NAME_AND_CATEGORY = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%:nomArticle%' AND no_categorie=:noCategorie";
 	private final static String SELECT_ALL_RETRAITS = "select * from RETRAITS" ;
 
 	private final static String INSERT_NEW_ARTICLE = "insert into ARTICLES_VENDUS ( nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie ) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)" ;
@@ -72,13 +73,26 @@ public class EncheresDAOSql implements EncheresDAO{
 		}
 		
 		@Override
-		public List<ArticleVendu> articleByName(String nameCategorie) {
+		public List<ArticleVendu> articleByName(String nomArticle) {
 			List<ArticleVendu> listArticle;
 			
 			MapSqlParameterSource params = new MapSqlParameterSource(); 
-			params.addValue("nomArticle", nameCategorie); 
+			params.addValue("nomArticle", nomArticle); 
 			
 			listArticle = namedParameterJdbcTemplate.query(SELECT_ARTICLE_BY_NAME, params, new ArticlesVendusRowMapper(utilisateurDAO,encheresCategoriesDAO));
+			return listArticle;
+		}
+		
+		
+		@Override
+		public List<ArticleVendu> articleByNameAndCategorie(String nomArticle, Integer noCategorie) {
+			List<ArticleVendu> listArticle;
+			
+			MapSqlParameterSource params = new MapSqlParameterSource(); 
+			params.addValue("nomArticle", nomArticle);
+			params.addValue("noCategorie",noCategorie );
+			
+			listArticle = namedParameterJdbcTemplate.query(SELECT_ARTICLE_BY_NAME_AND_CATEGORY, params, new ArticlesVendusRowMapper(utilisateurDAO,encheresCategoriesDAO));
 			return listArticle;
 		}
 		
@@ -141,6 +155,9 @@ public class EncheresDAOSql implements EncheresDAO{
 								
 			namedParameterJdbcTemplate.update(INSERT_NEW_INFORETRAIT, newInfoRetraitMap);						
 		}
+
+
+		
 
 
 		

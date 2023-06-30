@@ -10,11 +10,12 @@ public interface EncheresService {
 	List<ArticleVendu> getArticle();
 	List<ArticleVendu> getArtcicleByCategorie(Integer noCategorie);
 	List<ArticleVendu> getArticleByName(String nameCategorie); 
-
+	List<ArticleVendu> getArticleByNameAndCategorie(String nomArticle, Integer noCategorie);
 	void ajouterArticle(ArticleVendu articleVendu);
 
 	void ajouterInfoRetrait(Retrait infoRetrait, ArticleVendu article);
 
 	List<Retrait> getRetrait();
+	
 
 }
