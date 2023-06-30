@@ -69,7 +69,7 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	        StringBuilder errors = new StringBuilder();
 	        int countPseudo = njt.getJdbcOperations().queryForObject(CHECK_PSEUDO, Integer.class,utilisateur.getPseudo());
 	        if (countPseudo > 0) {
-	            errors.append("Le pseudo est déjà utilisé par un autre utilisateur.");
+	            errors.append("Le pseudo est déjà utilisé par un autre utilisateur. ");
 	        	//throw new IllegalStateException("Le pseudo est déjà utilisé par un autre utilisateur.");
 	        }
 	        
