@@ -4,17 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
-import fr.eni.groupe1.encheres.bo.Categorie;
 import fr.eni.groupe1.encheres.bo.Retrait;
 
 @Repository
@@ -22,6 +18,7 @@ public class EncheresDAOSql implements EncheresDAO{
 	
 	private final static String SELECT_ALL_ARTICLE = "select * from ARTICLES_VENDUS" ;
 	private final static String SELECT_ARTICLE_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie =:noCategorie";
+	private final static String SELECT_ARTICLE_BY_NAME = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%:nomArticle%'";
 	private final static String SELECT_ALL_RETRAITS = "select * from RETRAITS" ;
 
 	private final static String INSERT_NEW_ARTICLE = "insert into ARTICLES_VENDUS ( nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie ) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)" ;
@@ -74,7 +71,16 @@ public class EncheresDAOSql implements EncheresDAO{
 			return listRetrait;
 		}
 		
-		
+		@Override
+		public List<ArticleVendu> articleByName(String nameCategorie) {
+			List<ArticleVendu> listArticle;
+			
+			MapSqlParameterSource params = new MapSqlParameterSource(); 
+			params.addValue("nomArticle", nameCategorie); 
+			
+			listArticle = namedParameterJdbcTemplate.query(SELECT_ARTICLE_BY_NAME, params, new ArticlesVendusRowMapper(utilisateurDAO,encheresCategoriesDAO));
+			return listArticle;
+		}
 		
 		
 /////////////////////////////////       SET     ////////////////////////////////////////////
@@ -135,6 +141,9 @@ public class EncheresDAOSql implements EncheresDAO{
 								
 			namedParameterJdbcTemplate.update(INSERT_NEW_INFORETRAIT, newInfoRetraitMap);						
 		}
+
+
+		
 
 /////////////////////////////////       SET     ////////////////////////////////////////////
 }	

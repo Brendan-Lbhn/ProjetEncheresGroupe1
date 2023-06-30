@@ -14,12 +14,14 @@
 	<h2>Filtres</h2>
 	
 	<fieldset>
-		<form action="/rechercher" th:object="${articleVendu}" method="post">
+		<form th:action="@{/rechercher}" method="post">
 			<div class="search-criteria"> 
-				<input class="searchbar" placeholder="Rechercher un article"><br> 
-				<div class="category">
+				<div th:object="${article}">
+					<input th:field="*{nomArticle}" class="searchbar" placeholder="Rechercher un article"><br> 
+				</div>
+				<div th:object="${categorie}"class="category">
 					<label for="categorie">Categorie</label>
-					<select  name="categorie" id="categorie">
+					<select name="categorie" id="categorie">
 		    			<option th:each="categorie: ${@encheresCategoriesServiceImpl.categories}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}">Ici apparaissent les options</option>
 					</select>
 				</div>		
