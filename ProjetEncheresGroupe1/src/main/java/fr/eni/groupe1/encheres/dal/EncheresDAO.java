@@ -19,6 +19,7 @@ public interface EncheresDAO {
 	void setInfoRetrait(Retrait infoRetrait, ArticleVendu article);
 
 	List<Retrait> retraitAll();
+	List<ArticleVendu> articleByName(String nameCategorie);
 
 	
 	

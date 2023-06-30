@@ -9,6 +9,7 @@ public interface EncheresService {
 
 	List<ArticleVendu> getArticle();
 	List<ArticleVendu> getArtcicleByCategorie(Integer noCategorie);
+	List<ArticleVendu> getArticleByName(String nameCategorie); 
 
 	void ajouterArticle(ArticleVendu articleVendu);
 
