@@ -10,11 +10,13 @@
 	<h1>Mon Profil</h1>
 	
 	<form class="creaProf" th:action="@{/CreationProfil/Suite}" th:object="${utilisateur}" method="post">
+	<div th:errors="global"></div>
 	
 	<div class="creaTri">
 	<label for="pseudoInput">Pseudo :</label>
 	<input type="text" th:field="*{pseudo}" id="pseudoInput">
 	<p th:if="${#fields.hasErrors('pseudo')}" th:errors="*{pseudo}" class="error-message"></p>
+	
 	
 	<label for="nomInput">Nom :</label><br>
 	<input type="text" th:field="*{nom}" id="nomInput"><br>
@@ -56,7 +58,7 @@
 	<input type="password" th:field="*{motDePasse}" id="mdpInput">
 	<p th:if="${#fields.hasErrors('motDePasse')}" th:errors="*{motDePasse}" class="error-message"></p>
 	
-	<label for="mdpVerifInput">Mot de passe :</label>
+	<label for="mdpVerifInput">Confirmation :</label>
 	<input type="password" id="mdpVerifInput">
 	
 	</div>

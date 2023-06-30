@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,15 +31,21 @@ public class UtilisateurController {
 		return "CreationProfil";
 	}
 
-	@PostMapping({"/CreationProfil/Suite"})
-	public String ajouterUtilisateur(@Valid @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult) {
+	@PostMapping("/CreationProfil/Suite")
+	public String ajouterUtilisateur(@Valid @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult, Model model) {
 	    if (bindingResult.hasErrors()) {
 	        // Gérer les erreurs de validation ici
 	        return "CreationProfil";
 	    }
 	    
-	    utilisateurService.enregistrer(utilisateur);
-	    return "redirect:/";
+	    try {
+	        utilisateurService.enregistrer(utilisateur);
+	        return "redirect:/";
+	    } catch (IllegalStateException e) {
+	        model.addAttribute("pseudoError", e.getMessage());
+	        bindingResult.addError(new ObjectError("global", e.getMessage()));
+	        return "CreationProfil";
+	    }
 	}
 
 	///////////////////////////////// AFFICHAGE D UN PROFIL ///////////////////////////////// ////////////////////////////////////////////
