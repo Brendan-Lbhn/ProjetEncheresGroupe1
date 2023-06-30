@@ -18,7 +18,7 @@ public class EncheresDAOSql implements EncheresDAO{
 	
 	private final static String SELECT_ALL_ARTICLE = "select * from ARTICLES_VENDUS" ;
 	private final static String SELECT_ARTICLE_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie =:noCategorie";
-	private final static String SELECT_ARTICLE_BY_NAME = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%:nomArticle%'";
+	private final static String SELECT_ARTICLE_BY_NAME = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '% :nomArticle %'";
 	private final static String SELECT_ARTICLE_BY_NAME_AND_CATEGORY = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%:nomArticle%' AND no_categorie=:noCategorie";
 	private final static String SELECT_ALL_RETRAITS = "select * from RETRAITS" ;
 
@@ -74,12 +74,16 @@ public class EncheresDAOSql implements EncheresDAO{
 		
 		@Override
 		public List<ArticleVendu> articleByName(String nomArticle) {
+			System.out.println("dans la méthode article by name de la DAO, nomArticle = " + nomArticle);
 			List<ArticleVendu> listArticle;
-			
+						
 			MapSqlParameterSource params = new MapSqlParameterSource(); 
 			params.addValue("nomArticle", nomArticle); 
 			
 			listArticle = namedParameterJdbcTemplate.query(SELECT_ARTICLE_BY_NAME, params, new ArticlesVendusRowMapper(utilisateurDAO,encheresCategoriesDAO));
+			
+			System.out.println("dans la methode articleByName de la DAO, listArticle = " + listArticle);
+			
 			return listArticle;
 		}
 		
