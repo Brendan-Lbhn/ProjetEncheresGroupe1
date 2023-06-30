@@ -2,7 +2,6 @@ package fr.eni.groupe1.encheres.bll;
 
 import org.springframework.security.crypto.password.*;
 
-import java.security.Principal;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import fr.eni.groupe1.encheres.bo.Utilisateur;

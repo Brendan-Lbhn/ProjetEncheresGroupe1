@@ -1,6 +1,5 @@
 package fr.eni.groupe1.encheres.dal;
 
-import java.security.Principal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
