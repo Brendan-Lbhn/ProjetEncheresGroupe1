@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.eni.groupe1.encheres.bll.EncheresCategoriesService;
 import fr.eni.groupe1.encheres.bll.EncheresService;
@@ -74,10 +75,32 @@ public class EncheresControllerAccueil {
 		
 	}
 	
-	@PostMapping("rechercher2")
-	public String rechercherArticle2() {
+	@PostMapping({"rechercher2"})
+	public String rechercherArticle2(@RequestParam("filtre") int filtre,
+			@RequestParam(value = "encheres-ouvertes", defaultValue = "false") boolean encheresOuvertes,
+			@RequestParam (value = "encheres-en-cours", defaultValue = "false") boolean encheresEnCours,
+			@RequestParam (value = "encheres-remportees", defaultValue = "false") boolean encheresRemportees,
+			@RequestParam (value = "ventes-en-cours", defaultValue = "false") boolean ventesEnCours,
+			@RequestParam (value = "ventes-non-debutees", defaultValue = "false") boolean ventesNonDebutees,
+			@RequestParam (value = "ventes-terminées", defaultValue = "false") boolean ventesTerminees
+			) {
+		System.out.println("!!!!!! vous êtes dans le controller rechercher2 !!!!!!");
+		System.out.println(filtre);
+		System.out.println(encheresOuvertes);
+		System.out.println(encheresEnCours);
+		System.out.println(encheresRemportees);
+		System.out.println(ventesEnCours);
+		System.out.println(ventesNonDebutees);
+		System.out.println(ventesTerminees);
+	
+
+
 		
-		return "Index";
+		if(filtre == 1) {
+			return "redirect:/accueil";
+		}else {
+			return "redirect:/accueil";
+		}
 		
 	}
 	

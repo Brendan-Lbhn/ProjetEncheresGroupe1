@@ -68,25 +68,25 @@
 		</form>
 	</fieldset>
 	
-	<fieldset>
-		<form th:action="@{/rechercher2}" method="post">
+	<fieldset sec:authorize="isAuthenticated()" >
+		<form th:action="@{/rechercher2}" method="post" >
 			<div class="filtre-connexion">
 					<div class="filtre-achats">
 						<div>
 							<label for="achats">Mes achats</label>
-							<input type="radio" id="achats" name="filtre" value="1" >
+							<input type="radio" id="achats" name="filtre" value="1" checked>
 						</div>
 						<div>
 							<label for="encheres-ouvertes">Enchères ouvertes</label>
-							<input type="checkbox" id="encheres-ouvertes" name="encheres-ouvertes" value="1">
+							<input type="checkbox" id="encheres-ouvertes" name="encheres-ouvertes" value="OFF">
 						</div>
 						<div>
 							<label for="encheres-en-cours">Mes enchères en cours</label>
-							<input type="checkbox" id="encheres-en-cours" name="encheres-en-cours" value="2">
+							<input type="checkbox" id="encheres-en-cours" name="encheres-en-cours" value="OFF">
 						</div>
 						<div>
 							<label for="encheres-remportees">Mes enchères remportées</label>
-							<input type="checkbox" id="encheres-remportees" name="encheres-remportees" value="3">
+							<input type="checkbox" id="encheres-remportees" name="encheres-remportees" value="OFF">
 						</div>
 					</div>
 					<div class="filtre-vente">
@@ -96,15 +96,15 @@
 						</div>
 						<div>
 							<label for="ventes-en-cours">Ventes en cours</label>
-							<input type="checkbox" id="ventes-en-cours" name="ventes-en-cours" value="1">
+							<input type="checkbox" id="ventes-en-cours" name="ventes-en-cours" value="OFF" >
 						</div>
 						<div>
 							<label for="ventes-non-debutees">Ventes non débutées</label>
-							<input type="checkbox" id="ventes-non-debutees" name="ventes-non-debutees" value="2">
+							<input type="checkbox" id="ventes-non-debutees" name="ventes-non-debutees" value="OFF">
 						</div>
 						<div>
 							<label for="ventes-terminees">Ventes terminées</label>
-							<input type="checkbox" id="ventes-terminees" name="ventes-terminees" value="3">
+							<input type="checkbox" id="ventes-terminees" name="ventes-terminées" value="OFF">
 						</div>
 					</div>
 				</div>
