@@ -1,5 +1,6 @@
 package fr.eni.groupe1.encheres.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import fr.eni.groupe1.encheres.bll.EncheresCategoriesService;
 import fr.eni.groupe1.encheres.bll.EncheresService;
+import fr.eni.groupe1.encheres.bll.UtilisateurService;
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
 import fr.eni.groupe1.encheres.bo.Categorie;
 import fr.eni.groupe1.encheres.bo.Retrait;
@@ -19,26 +21,27 @@ public class EncheresController {
 	
 	EncheresService encheresService;
 	EncheresCategoriesService encheresCategoriesService;
-		
-	public EncheresController(EncheresService encheresService,EncheresCategoriesService encheresCategoriesService) {
+	UtilisateurService utilisateurService;
+	
+	public EncheresController(EncheresService encheresService,EncheresCategoriesService encheresCategoriesService,UtilisateurService utilisateurService) {
 		this.encheresService = encheresService;
 		this.encheresCategoriesService = encheresCategoriesService;
+		this.utilisateurService = utilisateurService;
+		
 	}
 
-	
 	
 	/////////////////////////////////        CREATION D UN ARTICLE     ////////////////////////////////////////////
 
 	@GetMapping({"CreationVente"})
-	public String inscriptionVente(@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, Model model) {
-	
+	public String inscriptionVente(Principal principal,@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, Model model) {
+	System.out.println("je passe par le get CreationVente");
 		List<Categorie>listeCategories = encheresCategoriesService.getCategories();
-		System.out.println("je passe par le get CreationVente");
 		
+		model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
 		model.addAttribute("listAticle",encheresService.getArticle());
 		model.addAttribute("listRetrait", encheresService.getRetrait());
 		model.addAttribute("categorie",listeCategories);
-		//System.out.println(encheresService.getArticle());
 		return "/CreationVente";
 	}
 	
