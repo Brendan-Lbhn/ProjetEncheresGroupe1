@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet" data-th-href="@{/styles/styles.css}">
+</head>
+<body>
+
+    <div style="text-align: center;">
+        <img alt="logo-horizontal" src="/images/logo-horizontal.png" style="max-width: 350px;">
+    </div>
+    <form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto;">
+        <div>
+            <p>Bienvenue sur zeGoodCorner</p>
+            <p>
+                <label for="pseudoInput">Pseudo :</label>
+				<input type="text" name="pseudo" id="pseudoInput">
+            </p>
+            <p>
+                
+				<label for="mdpInput">Mot de passe :</label>
+				<input type="password" name="motDePasse" id="mdpInput">
+            </p>
+            <p>
+                <input type="submit" value="Login"/>
+            </p>
+        </div>
+    </form>
+</body>
+</html>

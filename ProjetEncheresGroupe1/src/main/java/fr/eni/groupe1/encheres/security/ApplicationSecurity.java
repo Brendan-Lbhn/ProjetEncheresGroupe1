@@ -51,15 +51,25 @@ public class ApplicationSecurity {
 					// Permettre aux visiteurs d'accéder a la confirmation d'envoi
 					.requestMatchers(HttpMethod.POST, "/CreationProfil/Suite").permitAll()
 					// Accès à la page de connexion
-					.requestMatchers("/login").permitAll()
+					//.requestMatchers("/login").permitAll()
 					// Accès à la vue principale
 					.requestMatchers("/accueil").permitAll()
 					// Permettre à tous d'afficher correctement les images et CSS
-					.requestMatchers("/styles/*").permitAll().requestMatchers("/images/*").permitAll()
+					.requestMatchers("/styles/*").permitAll()
+					.requestMatchers("/images/*").permitAll()
 					// Il faut être connecté pour toutes autres URLs
 					.anyRequest().authenticated();	
 		});
-		http.formLogin(Customizer.withDefaults());
+		//http.formLogin(Customizer.withDefaults());
+		
+		http.formLogin(form -> {
+			form
+			.loginPage("/login")
+			.defaultSuccessUrl("/")
+			.usernameParameter("pseudo")
+			.passwordParameter("motDePasse")
+			.permitAll();
+		});
 		
 		http.logout(logout -> 
 		logout
