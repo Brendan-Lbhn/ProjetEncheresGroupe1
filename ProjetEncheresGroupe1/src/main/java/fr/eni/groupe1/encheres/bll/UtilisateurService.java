@@ -16,4 +16,5 @@ public interface UtilisateurService {
 	Utilisateur findByPseudo(String name);
 
 	Utilisateur deleteProfil(String name);
+	
 }

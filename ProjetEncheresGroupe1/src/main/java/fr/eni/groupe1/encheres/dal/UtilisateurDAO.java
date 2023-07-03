@@ -15,4 +15,5 @@ public interface UtilisateurDAO {
 	Utilisateur findByPseudo(String pseudo);
 
 	Utilisateur deleteProfil(String pseudo); 
+	List<Utilisateur> VendeurByName(String nomVendeur);
 }

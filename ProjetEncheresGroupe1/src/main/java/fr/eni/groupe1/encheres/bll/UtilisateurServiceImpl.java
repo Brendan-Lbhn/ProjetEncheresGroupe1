@@ -25,13 +25,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 	@Override
 	public List<Utilisateur> getUtilisateur() {
-		// TODO Auto-generated method stub
 		return utilisateurDAO.findAll();
 	}
 
 	@Override
 	public Utilisateur findById(Integer id) {
-		// TODO Auto-generated method stub
 		return utilisateurDAO.findById(id);
 	}
 
@@ -44,5 +42,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	public Utilisateur deleteProfil(String name) {
 		return utilisateurDAO.deleteProfil(name);		
 	}
+
+	
+
+
+	
+
 
 }
