@@ -58,7 +58,6 @@ public class EncheresControllerAccueil {
 			List<ArticleVendu>listArticles = encheresService.getArtcicleByCategorie(categorie.getNoCategorie());
 			model.addAttribute("articleVendu",listArticles);
 			return "Index";
-		//TODO : remplacer l'expression !article.getNomArticle().isEmpty() : on ne rentre jamais dans cette condition
 		}else if(categorie.getNoCategorie() == 1 && !article.getNomArticle().isEmpty()) {
 			System.out.println("controller get nom");
 			System.out.println("Dans le controller /rechercher, catégorie vide et nom article non vide.");
