@@ -89,21 +89,23 @@ form{
 }
 
 
-.filtre{
+.filtre-connexion {
 	display: flex; 
 	flex-direction: row;
 	justify-content: space-evenly;
 }
 
-.filtre div{
+.filtre-connexion div{
 	display :flex;
-	justify-content: space-between;
-}
-
-.filtre-connexion{
-	display: flex; 
 	flex-direction: column;
-}
+	justify-content: space-between;
+	}
+	
+.filtre-connexion div div{
+	display :flex;
+	flex-direction: row;
+	justify-content: space-between;
+	}
 
 
 .liste-articles{

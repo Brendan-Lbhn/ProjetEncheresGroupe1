@@ -8,7 +8,9 @@
 <h1> Nouvel Article : </h1>
 
 <form class="creaProf" th:action="@{/CreationVente}" th:object="${article}" method="post">
-
+  <div th:object="${utilisateur}">
+	<input type="hidden" th:field="*{noUtilisateur}"/>
+</div>
 <div class="creaTri">
 	<label for="nomArticleInput"> Article : </label>
 	<input type="text" th:field ="*{nomArticle}" required><br>
@@ -20,7 +22,7 @@
 <br>
 </div>
 
-<div class="creaTri">
+<div class="creaTri" >
 <label for="noCategorie">Categorie</label>
 	<select  name="noCategorie" id="noCategorie" th:field="*{noCategorie}">
 	<option th:each="categorie: ${@encheresCategoriesServiceImpl.categories}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}" >Ici apparaissent les options</option>
