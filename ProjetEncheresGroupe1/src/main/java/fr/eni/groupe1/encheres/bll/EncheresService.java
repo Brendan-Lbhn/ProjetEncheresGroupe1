@@ -11,6 +11,8 @@ public interface EncheresService {
 	List<ArticleVendu> getArtcicleByCategorie(Integer noCategorie);
 	List<ArticleVendu> getArticleByName(String nameCategorie); 
 	List<ArticleVendu> getArticleByNameAndCategorie(String nomArticle, Integer noCategorie);
+	List<ArticleVendu> getArticleByFilters(Integer filtre, boolean encheresOuvertes, boolean encheresEnCours, boolean encheresRemportees, boolean ventesEnCours, boolean ventesNonDebutees, boolean ventesTerminees);
+	
 	void ajouterArticle(ArticleVendu articleVendu);
 
 	void ajouterInfoRetrait(Retrait infoRetrait, ArticleVendu article);

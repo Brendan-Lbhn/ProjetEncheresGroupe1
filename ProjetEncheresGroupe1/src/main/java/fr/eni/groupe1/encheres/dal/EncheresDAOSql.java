@@ -99,6 +99,13 @@ public class EncheresDAOSql implements EncheresDAO{
 			return listArticle;
 		}
 		
+		@Override
+		public List<ArticleVendu> articleByFilter(Integer filtre, boolean encheresOuvertes, boolean encheresEnCours,
+				boolean encheresRemportees, boolean ventesEnCours, boolean ventesNonDebutees, boolean ventesTerminees) {
+			List<ArticleVendu> listArticle = null; 
+			
+			return listArticle;
+		}
 		
 /////////////////////////////////       SET     ////////////////////////////////////////////
 	
@@ -158,6 +165,9 @@ public class EncheresDAOSql implements EncheresDAO{
 								
 			namedParameterJdbcTemplate.update(INSERT_NEW_INFORETRAIT, newInfoRetraitMap);						
 		}
+
+
+		
 
 
 		
