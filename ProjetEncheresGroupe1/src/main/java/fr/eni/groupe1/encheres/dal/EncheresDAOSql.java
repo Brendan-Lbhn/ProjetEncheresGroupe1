@@ -19,6 +19,8 @@ public class EncheresDAOSql implements EncheresDAO{
 	private final static String SELECT_ALL_ARTICLE = "select * from ARTICLES_VENDUS" ;
 	private final static String SELECT_ARTICLE_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie =:noCategorie";
 	private final static String SELECT_ARTICLE_BY_NAME = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%' + :nomArticle + '%'";
+	private final static String SELECT_ARTICLE_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article =:noArticle";
+
 	private final static String SELECT_ARTICLE_BY_NAME_AND_CATEGORY = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%' + :nomArticle + '%' AND no_categorie=:noCategorie";
 	private final static String SELECT_ALL_RETRAITS = "select * from RETRAITS" ;
 
@@ -26,6 +28,7 @@ public class EncheresDAOSql implements EncheresDAO{
 	private final static String INSERT_NEW_INFORETRAIT = "insert into RETRAITS ( no_article, rue, code_postal, ville ) values (:no_article, :rue, :code_postal, :ville)" ;
 	private static final String DELETE_MODIF_ARTICLE = null;
 	private static final String UPDATE = null;
+	private static final String SELECT_RETRAIT_BY_ID = "SELECT * FROM RETRAITS WHERE no_article =:noArticle";;
 	
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private UtilisateurDAO utilisateurDAO;
@@ -50,6 +53,15 @@ public class EncheresDAOSql implements EncheresDAO{
 			return listArticle;
 		}
 		
+		
+		@Override
+		public List<Retrait> retraitAll() {
+			List<Retrait> listRetrait;
+			listRetrait = namedParameterJdbcTemplate.query(SELECT_ALL_RETRAITS, new BeanPropertyRowMapper<>(Retrait.class)) ;	
+			return listRetrait;
+		}
+/////////////////////////////////       ARTICLE BY     ////////////////////////////////////////////
+
 		@Override
 		public List<ArticleVendu> articleByCategorie(Integer noCategorie) {
 			List<ArticleVendu> listArticle;
@@ -64,14 +76,6 @@ public class EncheresDAOSql implements EncheresDAO{
 			
 			return listArticle;
 		}
-		
-		@Override
-		public List<Retrait> retraitAll() {
-			List<Retrait> listRetrait;
-			listRetrait = namedParameterJdbcTemplate.query(SELECT_ALL_RETRAITS, new BeanPropertyRowMapper<>(Retrait.class)) ;	
-			return listRetrait;
-		}
-		
 		@Override
 		public List<ArticleVendu> articleByName(String nomArticle) {
 			System.out.println("dans la méthode article by name de la DAO, nomArticle = " + nomArticle);
@@ -98,8 +102,36 @@ public class EncheresDAOSql implements EncheresDAO{
 			listArticle = namedParameterJdbcTemplate.query(SELECT_ARTICLE_BY_NAME_AND_CATEGORY, params, new ArticlesVendusRowMapper(utilisateurDAO,encheresCategoriesDAO));
 			return listArticle;
 		}
+/////////////////////////////////       BY ID     ////////////////////////////////////////////
 		
-		
+		@Override
+		public ArticleVendu articleById(int id) {
+			System.out.println("je passe par le article by id");
+			ArticleVendu article;
+						
+			MapSqlParameterSource params = new MapSqlParameterSource(); 
+			params.addValue("noArticle", id); 
+			System.out.println("avant le query");
+			article = namedParameterJdbcTemplate.queryForObject(SELECT_ARTICLE_BY_ID, params, new ArticlesVendusRowMapper(utilisateurDAO,encheresCategoriesDAO));
+			System.out.println("après le query");
+			System.out.println("dans la methode articleById de la DAO, listArticle = " + article);
+			return article;
+		}
+		@Override
+		public Retrait retraitById(int id) {
+			System.out.println("je passe par le retrait by id");
+			Retrait retrait;
+						
+			MapSqlParameterSource params = new MapSqlParameterSource(); 
+			params.addValue("noArticle", id); 
+			
+			retrait = namedParameterJdbcTemplate.queryForObject(SELECT_RETRAIT_BY_ID, params,  new BeanPropertyRowMapper<>(Retrait.class));
+			
+			System.out.println("dans la methode RetraitById de la DAO, listRetrait = " + retrait);
+			return retrait;
+		}
+
+
 /////////////////////////////////       SET     ////////////////////////////////////////////
 	
 		
@@ -160,11 +192,8 @@ public class EncheresDAOSql implements EncheresDAO{
 		}
 
 
-		
-
-
-		
-
 /////////////////////////////////       SET     ////////////////////////////////////////////
+		
+
 }	
 		

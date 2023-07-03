@@ -16,6 +16,8 @@ public interface EncheresService {
 	void ajouterInfoRetrait(Retrait infoRetrait, ArticleVendu article);
 
 	List<Retrait> getRetrait();
+	ArticleVendu getArticleById(int id);
+	Retrait getRetraitByEnchere(int id);
 	
 
 }

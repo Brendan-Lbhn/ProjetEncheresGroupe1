@@ -23,7 +23,17 @@ public class ArticleVendu {
     
     
     
-    public ArticleVendu(Integer noArticle, String nomArticle, String description, Date dateDebutEncheres,
+    @Override
+	public String toString() {
+		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
+				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
+				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", noCategorie=" + noCategorie
+				+ ", noUtilisateur=" + noUtilisateur + ", vendeur=" + vendeur + ", categorie=" + categorie + "]";
+	}
+
+
+
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, Date dateDebutEncheres,
             Date dateFinEncheres, Integer miseAPrix, Integer prixVente, String etatVente, Integer noCategorie,
             Integer noUtilisateur) {
 

@@ -59,7 +59,6 @@ public class EncheresServiceImpl implements EncheresService {
 
 	@Override
 	public List<ArticleVendu> getArticleByName(String nameCategorie) {
-		// TODO Auto-generated method stub
 		return encheresDAO.articleByName(nameCategorie);
 	}
 
@@ -67,8 +66,21 @@ public class EncheresServiceImpl implements EncheresService {
 
 	@Override
 	public List<ArticleVendu> getArticleByNameAndCategorie(String nomArticle, Integer noCategorie) {
-		// TODO Auto-generated method stub
 		return encheresDAO.articleByNameAndCategorie(nomArticle, noCategorie);
+	}
+
+
+
+	@Override
+	public ArticleVendu getArticleById(int id) {
+		return encheresDAO.articleById(id) ;
+	}
+
+
+
+	@Override
+	public Retrait getRetraitByEnchere(int id) {
+		return encheresDAO.retraitById(id);
 	}
 
 }

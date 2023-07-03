@@ -21,6 +21,8 @@ public interface EncheresDAO {
 	List<Retrait> retraitAll();
 	List<ArticleVendu> articleByName(String nomArticle);
 	List<ArticleVendu> articleByNameAndCategorie(String nomArticle, Integer noCategorie);
+	ArticleVendu articleById(int id);
+	Retrait retraitById(int id);
 
 	
 	
