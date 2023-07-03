@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.eni.groupe1.encheres.bll.UtilisateurService;
 import fr.eni.groupe1.encheres.bo.Utilisateur;
@@ -61,11 +62,10 @@ public class UtilisateurController {
 
 		return "ProfilUtilisateur";
 	}
-
-	@GetMapping({"/ProfilVendeur" })
-	public String afficherVendeur(Model model, @PathVariable int index) {
+	@GetMapping("ProfilVendeur")
+	public String afficherVendeur(Model model, @RequestParam int id) {
 		System.out.println("je passe par le profil vendeur");
-		Utilisateur utilisateur = utilisateurService.findById(index);
+		Utilisateur utilisateur = utilisateurService.findById(id);
 		model.addAttribute("Vendeur", utilisateur);
 		return "ProfilVendeur";
 	}
