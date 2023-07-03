@@ -71,7 +71,7 @@
 	<div th:if="${#lists.isEmpty(articleVendu)}" class="liste-articles">
 		<h1>Aucun article disponible à la vente actuellement</h1>	
 	</div>
-	
+
 	<div class="liste-articles">
  		<div th:each="articlevendu:${articleVendu}" class="article">
  		 		<img alt="image-article-1" src="/images/pc_gamer.jpeg">
@@ -80,8 +80,9 @@
  		 		<p th:text="'Categorie : ' + ${articlevendu.categorie?.libelle}"></p>
  		 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
  		 		<p th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></p>
- 		</div>
-  		
+ 		 		<p th:text="'no utilisateur : ' + ${articlevendu.noUtilisateur}"></p>
+ 		 	<a th:href="@{/ProfilVendeur(index=${articlevendu.noUtilisateur})}">Profil du vendeur </a>
+ 			<!--   --></div>
 	</div>
 	
 	

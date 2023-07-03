@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import fr.eni.groupe1.encheres.bo.ArticleVendu;
 import fr.eni.groupe1.encheres.bo.Utilisateur;
 
 @Repository
@@ -28,6 +30,7 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	private static final String UPDATE = "update UTILISATEURS set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:codePostal, ville=:ville, mot_de_passe=:motDePasse where no_Utilisateur=:noUtilisateur";
 	private final static String CHECK_PSEUDO = "SELECT COUNT(*) FROM UTILISATEURS WHERE pseudo = ?";
 	private final static String CHECK_EMAIL = "SELECT COUNT(*) FROM UTILISATEURS WHERE email = ?";
+	
 
 	@Autowired
 	private NamedParameterJdbcTemplate njt;
@@ -131,6 +134,20 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 
 		return user;
 
+	}
+	@Override
+	public List<Utilisateur> VendeurByName(String nomVendeur) {
+		System.out.println("dans la méthode vendeur by name de la DAO, nomArticle = " + nomVendeur);
+		List<Utilisateur> listVendeur;
+					
+		MapSqlParameterSource params = new MapSqlParameterSource(); 
+		params.addValue("pseudo", nomVendeur); 
+		
+		listVendeur = njt.query(FIND_BY_PSEUDO, params, new UtilisateursRowMapper());
+		
+		System.out.println("dans la methode articleByName de la DAO, listArticle = " + listVendeur);
+		
+		return listVendeur;
 	}
 
 	@Override

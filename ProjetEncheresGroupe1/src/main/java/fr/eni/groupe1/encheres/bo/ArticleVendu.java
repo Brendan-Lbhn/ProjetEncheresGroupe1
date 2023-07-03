@@ -12,8 +12,8 @@ public class ArticleVendu {
     private Integer miseAPrix;
     private Integer prixVente =450;
     private String etatVente = "En attente de vente" ;
-    private Integer noCategorie =1;
-    private Integer noUtilisateur =1;
+    private Integer noCategorie;
+    public Integer noUtilisateur;
     private Utilisateur vendeur;
     private Categorie categorie; 
     
