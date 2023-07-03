@@ -50,9 +50,10 @@
 <fieldset class="creaTri">
 <legend>Retrait</legend>
 
-<div  th:object="${retrait}">
+<div th:object="${retrait}">
+<div  th:object="${utilisateur}">
 <label for="name"> Rue : </label>
-<input type="text" th:field ="*{rue}" required><br>
+<input type="text" th:field ="*{rue}" th:value="${utilisateur.rue}" required><br>
 <br>
 
 <label for="name"> Code postal : </label>
@@ -63,7 +64,7 @@
 <input type="text" th:field ="*{ville}" required><br>
 <br>
 
-</div>
+</div></div>
 </fieldset>
 
 <button type="submit">Enregistrer l'article</button>
