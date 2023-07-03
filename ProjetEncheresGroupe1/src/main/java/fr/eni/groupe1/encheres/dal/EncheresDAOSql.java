@@ -91,7 +91,6 @@ public class EncheresDAOSql implements EncheresDAO{
 		@Override
 		public List<ArticleVendu> articleByNameAndCategorie(String nomArticle, Integer noCategorie) {
 			List<ArticleVendu> listArticle;
-			
 			MapSqlParameterSource params = new MapSqlParameterSource(); 
 			params.addValue("nomArticle", nomArticle);
 			params.addValue("noCategorie",noCategorie );
