@@ -24,7 +24,45 @@
 					<select name="categorie" id="categorie">
 		    			<option th:each="categorie: ${@encheresCategoriesServiceImpl.categories}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}">Ici apparaissent les options</option>
 					</select>
-				</div>		
+				</div>
+				<div class="filtre">
+					<div class="filtre-connexion">
+						<div>
+							<label for="achats">Mes achats</label>
+							<input type="radio" id="achats" name="filtre" value="1" >
+						</div>
+						<div>
+							<label for="encheres-ouvertes">Enchères ouvertes</label>
+							<input type="checkbox" id="encheres-ouvertes" name="encheres-ouvertes" value="1">
+						</div>
+						<div>
+							<label for="encheres-en-cours">Enchères en cours</label>
+							<input type="checkbox" id="encheres-en-cours" name="encheres-en-cours" value="2">
+						</div>
+						<div>
+							<label for="encheres-remportees">Enchères remportées</label>
+							<input type="checkbox" id="encheres-remportees" name="encheres-remportees" value="3">
+						</div>
+					</div>
+					<div class="filtre-connexion">
+						<div>
+							<label for="ventes">Mes ventes</label>
+							<input type="radio" id="ventes" name="filtre" value="2" >
+						</div>
+						<div>
+							<label for="ventes-en-cours">Ventes en cours</label>
+							<input type="checkbox" id="ventes-en-cours" name="ventes-en-cours" value="1">
+						</div>
+						<div>
+							<label for="ventes-non-debutees">Ventes non débutées</label>
+							<input type="checkbox" id="ventes-non-debutees" name="ventes-non-debutees" value="2">
+						</div>
+						<div>
+							<label for="ventes-terminees">Ventes terminées</label>
+							<input type="checkbox" id="ventes-terminees" name="ventes-terminees" value="3">
+						</div>
+					</div>
+				</div>
 			</div>
 			<input class="button" type="submit" value="Rechercher">
 		</form>
@@ -33,7 +71,7 @@
 	<div th:if="${#lists.isEmpty(articleVendu)}" class="liste-articles">
 		<h1>Aucun article disponible à la vente actuellement</h1>	
 	</div>
-	
+
 	<div class="liste-articles">
  		<div th:each="articlevendu:${articleVendu}" class="article">
  		 		<img alt="image-article-1" src="/images/pc_gamer.jpeg">
@@ -42,8 +80,9 @@
  		 		<p th:text="'Categorie : ' + ${articlevendu.categorie?.libelle}"></p>
  		 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
  		 		<p th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></p>
- 		</div>
-  		
+ 		 		<p th:text="'no utilisateur : ' + ${articlevendu.noUtilisateur}"></p>
+ 		 	<a th:href="@{/ProfilVendeur(id=${articlevendu.noUtilisateur})}">Profil du vendeur </a>
+ 			<!--   --></div>
 	</div>
 	
 	

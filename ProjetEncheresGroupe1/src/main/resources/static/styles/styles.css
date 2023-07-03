@@ -89,6 +89,23 @@ form{
 }
 
 
+.filtre{
+	display: flex; 
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.filtre div{
+	display :flex;
+	justify-content: space-between;
+}
+
+.filtre-connexion{
+	display: flex; 
+	flex-direction: column;
+}
+
+
 .liste-articles{
 	display: flex; 
 	flex-direction: row; 
