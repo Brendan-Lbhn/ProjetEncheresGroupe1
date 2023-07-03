@@ -18,8 +18,8 @@ public class EncheresDAOSql implements EncheresDAO{
 	
 	private final static String SELECT_ALL_ARTICLE = "select * from ARTICLES_VENDUS" ;
 	private final static String SELECT_ARTICLE_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie =:noCategorie";
-	private final static String SELECT_ARTICLE_BY_NAME = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '% :nomArticle %'";
-	private final static String SELECT_ARTICLE_BY_NAME_AND_CATEGORY = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%:nomArticle%' AND no_categorie=:noCategorie";
+	private final static String SELECT_ARTICLE_BY_NAME = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%' + :nomArticle + '%'";
+	private final static String SELECT_ARTICLE_BY_NAME_AND_CATEGORY = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%' + :nomArticle + '%' AND no_categorie=:noCategorie";
 	private final static String SELECT_ALL_RETRAITS = "select * from RETRAITS" ;
 
 	private final static String INSERT_NEW_ARTICLE = "insert into ARTICLES_VENDUS ( nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie ) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)" ;
