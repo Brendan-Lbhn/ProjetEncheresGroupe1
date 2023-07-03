@@ -13,7 +13,8 @@
 		<INPUT TYPE="button" VALUE="Page précédente" onclick="history.go(-1);">
 			<a th:href="@{/CreationVente}"> Créer une vente&emsp; </a>
 			<a th:href="@{/}"> Accueil &emsp;</a>
-			<a th:href="@{/ProfilUtilisateur}"> Votre Profil&emsp;</a>
+			<a th:href="@{/ProfilUtilisateur}"> Votre Profil :
+			<span th:text="${#authentication.name}"></span>&emsp;</a>
 			<a th:href="@{/logout}"> Se déconnecter</a>
 			
 		</div>
