@@ -95,6 +95,11 @@ form{
 	justify-content: space-evenly;
 }
 
+.filtre div{
+	display :flex;
+	justify-content: space-between;
+}
+
 .filtre-connexion{
 	display: flex; 
 	flex-direction: column;
