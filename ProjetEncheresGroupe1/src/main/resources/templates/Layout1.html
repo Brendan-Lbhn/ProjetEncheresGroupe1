@@ -7,20 +7,29 @@
 </head>
 <body>
 
-	<header class="navbar">
+	<header sec:authorize="isAuthenticated()" class="navbar">
 		<a href="/accueil">&emsp; <img alt="logo-horizontal" src="/images/logo-horizontal.png"></a>
 		<div class="liens">
 		<INPUT TYPE="button" VALUE="Page précédente" onclick="history.go(-1);">
-			<a th:href="@{/CreationProfil}"> S'inscrire  &emsp; </a>
 			<a th:href="@{/CreationVente}"> Créer une vente&emsp; </a>
 			<a th:href="@{/}"> Accueil &emsp;</a>
 			<a th:href="@{/ProfilUtilisateur}"> Votre Profil&emsp;</a>
-			<a th:href="@{/login}"> Se connecter&emsp;</a>
 			<a th:href="@{/logout}"> Se déconnecter</a>
 			
 		</div>
 	</header>
 	
+	<header sec:authorize="isAnonymous()" class="navbar">
+		<a href="/accueil">&emsp; <img alt="logo-horizontal" src="/images/logo-horizontal.png"></a>
+		<div class="liens">
+		<INPUT TYPE="button" VALUE="Page précédente" onclick="history.go(-1);">
+			<a th:href="@{/CreationProfil}"> S'inscrire  &emsp; </a>
+			<a th:href="@{/}"> Accueil &emsp;</a>
+			<a th:href="@{/login}"> Se connecter&emsp;</a>
+			
+		</div>
+	</header>
+
 	<main layout:fragment="main"></main>
 
 </body>
