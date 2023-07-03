@@ -81,11 +81,11 @@
 							<input type="checkbox" id="encheres-ouvertes" name="encheres-ouvertes" value="1">
 						</div>
 						<div>
-							<label for="encheres-en-cours">Enchères en cours</label>
+							<label for="encheres-en-cours">Mes enchères en cours</label>
 							<input type="checkbox" id="encheres-en-cours" name="encheres-en-cours" value="2">
 						</div>
 						<div>
-							<label for="encheres-remportees">Enchères remportées</label>
+							<label for="encheres-remportees">Mes enchères remportées</label>
 							<input type="checkbox" id="encheres-remportees" name="encheres-remportees" value="3">
 						</div>
 					</div>
@@ -119,13 +119,13 @@
 
 	<div class="liste-articles">
  		<div th:each="articlevendu:${articleVendu}" class="article">
- 		 		<img alt="image-article-1" src="/images/pc_gamer.jpeg">
- 		 		<h3 th:text="${articlevendu.nomArticle}" ></h3>
- 		 		<p th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
- 		 		<p th:text="'Categorie : ' + ${articlevendu.categorie?.libelle}"></p>
- 		 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
- 		 		<a th:href="@{/ProfilVendeur(id=${articlevendu.noUtilisateur})}" th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></a>
- 		 		</div>
+	 		<img alt="image-article-1" src="/images/pc_gamer.jpeg">
+	 		<h3 th:text="${articlevendu.nomArticle}" ></h3>
+	 		<p th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
+	 		<p th:text="'Categorie : ' + ${articlevendu.categorie?.libelle}"></p>
+	 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
+	 		<a th:href="@{/ProfilVendeur(id=${articlevendu.noUtilisateur})}" th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></a>
+ 		 </div>
 	</div>
 	
 	

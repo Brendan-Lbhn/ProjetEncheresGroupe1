@@ -74,4 +74,11 @@ public class EncheresControllerAccueil {
 		
 	}
 	
+	@PostMapping("rechercher2")
+	public String rechercherArticle2() {
+		
+		return "Index";
+		
+	}
+	
 }
