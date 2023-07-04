@@ -96,6 +96,8 @@ public class EncheresControllerAccueil {
 		
 		List<ArticleVendu> listArticles = encheresService.getArticleByFilters(filtre, encheresOuvertes, encheresEnCours, encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees);
 		model.addAttribute("article", listArticles);
+		
+		System.out.println("De retour dans le controller. liste d'articles : " + listArticles.toString());
 			
 		return "redirect:/accueil";
 		

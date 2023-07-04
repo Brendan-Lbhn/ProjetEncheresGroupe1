@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
@@ -121,7 +122,7 @@ public class EncheresDAOSql implements EncheresDAO {
 			boolean encheresRemportees, boolean ventesEnCours, boolean ventesNonDebutees, boolean ventesTerminees) {
 
 		StringBuilder requete = new StringBuilder();
-		List<ArticleVendu> listArticle = null;
+		List<ArticleVendu> listArticle;
 
 		System.out.println("dans la DAL TEMP méthode ArticleByfilter");
 
@@ -191,11 +192,27 @@ public class EncheresDAOSql implements EncheresDAO {
 						requete.append("WHERE ");
 					}
 					requete.append(
-							"ARTICLES_VENDUS.no_utilisateur = 1 AND ARTICLES_VENDUS.date_fin_encheres <= GETDATE()");
+							"ARTICLES_VENDUS.no_utilisateur = :id AND ARTICLES_VENDUS.date_fin_encheres <= GETDATE()");
 				}
 			}
 		}
 		System.out.println("!!!!!!!!!!!" + requete);
+		
+//		Utilisateur user =  (Utilisateur) SecurityContextHolder
+//				.getContext().getAuthentication().getPrincipal();
+// 
+//		System.out.println("!!!!!!!!!!! Id utilisateur : " + user.getNoUtilisateur() );
+//		
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("id",1);
+
+		listArticle = namedParameterJdbcTemplate.query(requete.toString(), params,
+				new ArticlesVendusRowMapper(utilisateurDAO, encheresCategoriesDAO));
+		
+		System.out.println("liste articles = " + listArticle.toString());
+		
+//		listArticle = null;
+		
 		return listArticle;
 	}
 
