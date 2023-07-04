@@ -1,14 +1,11 @@
 package fr.eni.groupe1.encheres.dal;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -125,44 +122,82 @@ public class EncheresDAOSql implements EncheresDAO {
 	public List<ArticleVendu> articleByFilter(Integer filtre, boolean encheresOuvertes, boolean encheresEnCours,
 			boolean encheresRemportees, boolean ventesEnCours, boolean ventesNonDebutees, boolean ventesTerminees) {
 
-//			StringBuilder requete = new StringBuilder();  
+		StringBuilder requete = new StringBuilder();
 		List<ArticleVendu> listArticle = null;
-//			
-//			if(filtre == 1) {
-//				System.out.println("Mes achats");
-//				if(encheresOuvertes == true && encheresEnCours == false && encheresRemportees == false) {
-//					System.out.println("X 0 0");
-//				}else if (encheresOuvertes == false && encheresEnCours == true && encheresRemportees == false) {
-//					System.out.println("0 X 0");
-//				}else if (encheresOuvertes == false && encheresEnCours == false && encheresRemportees == true) {
-//					System.out.println("0 0 X");
-//				}else if (encheresOuvertes == true && encheresEnCours == true && encheresRemportees == false) {
-//					System.out.println("X X 0");
-//				}else if (encheresOuvertes == false && encheresEnCours == true && encheresRemportees == true) {
-//					System.out.println("0 X X");
-//				}else if (encheresOuvertes == true && encheresEnCours == false && encheresRemportees == true) {
-//					System.out.println("X 0 X");
-//				}else {
-//					
-//				}
-//			}else if (filtre == 2){
-//				System.out.println("Mes ventes");
-//				if(encheresOuvertes == true && encheresEnCours == false && encheresRemportees == false) {
-//					System.out.println("X 0 0");
-//				}else if (encheresOuvertes == false && encheresEnCours == true && encheresRemportees == false) {
-//					System.out.println("0 X 0");
-//				}else if (encheresOuvertes == false && encheresEnCours == false && encheresRemportees == true) {
-//					System.out.println("0 0 X");
-//				}else if (encheresOuvertes == true && encheresEnCours == true && encheresRemportees == false) {
-//					System.out.println("X X 0");
-//				}else if (encheresOuvertes == false && encheresEnCours == true && encheresRemportees == true) {
-//					System.out.println("0 X X");
-//				}else if (encheresOuvertes == true && encheresEnCours == false && encheresRemportees == true) {
-//					System.out.println("X 0 X");
-//				}else {
-//					
-//				}
-//			}			
+
+		System.out.println("dans la DAL TEMP méthode ArticleByfilter");
+
+		if (filtre == 1) {
+			System.out.println("Mes achats");
+
+			if (encheresOuvertes == false && encheresEnCours == false && encheresRemportees == false) {
+				requete.append(SELECT_ALL_ARTICLE);
+			} else {
+				requete.append(
+						"SELECT ARTICLES_VENDUS.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie\r\n"
+						+ "FROM ARTICLES_VENDUS INNER JOIN ENCHERES\r\n"
+						+ "ON (ARTICLES_VENDUS.no_article = ENCHERES.no_article) ");
+				if (encheresOuvertes == true) {
+					requete.append("WHERE ARTICLES_VENDUS.date_fin_encheres >= GETDATE() ");
+				}
+				if (encheresEnCours == true) {
+					if (requete.toString().contains("WHERE")) {
+						requete.append("OR ");
+					} else {
+						requete.append("WHERE ");
+					}
+					requete.append("ARTICLES_VENDUS.date_fin_encheres >= GETDATE() AND  ENCHERES.no_utilisateur = :id ");
+				}
+
+				if (encheresRemportees == true) {
+					if (requete.toString().contains("WHERE")) {
+						requete.append("OR ");
+					} else {
+						requete.append("WHERE ");
+					}
+					requete.append(
+							"ENCHERES.no_utilisateur = :id AND ARTICLES_VENDUS.date_fin_encheres <= GETDATE() AND montant_enchere = ARTICLES_VENDUS.prix_vente");
+				}
+			}
+
+		} else if (filtre == 2) {
+
+			System.out.println("Mes ventes");
+			if (ventesEnCours == false && ventesNonDebutees == false && ventesTerminees == false) {
+				requete.append(SELECT_ALL_ARTICLE);
+			} else {
+				requete.append(
+						"SELECT ARTICLES_VENDUS.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie "
+								+ "FROM ARTICLES_VENDUS ");
+				if (ventesEnCours == true) {
+					requete.append(
+							"WHERE ARTICLES_VENDUS.no_utilisateur = :id AND ARTICLES_VENDUS.date_debut_encheres <= GETDATE() AND ARTICLES_VENDUS.date_fin_encheres > GETDATE() ");
+				}
+
+				if (ventesNonDebutees == true) {
+					if (requete.toString().contains("WHERE")) {
+						requete.append("OR ");
+
+					} else {
+						requete.append("WHERE ");
+					}
+
+					requete.append(
+							"ARTICLES_VENDUS.no_utilisateur = :id AND ARTICLES_VENDUS.date_debut_encheres >= GETDATE() ");
+				}
+
+				if (ventesTerminees == true) {
+					if (requete.toString().contains("WHERE")) {
+						requete.append("OR ");
+					} else {
+						requete.append("WHERE ");
+					}
+					requete.append(
+							"ARTICLES_VENDUS.no_utilisateur = 1 AND ARTICLES_VENDUS.date_fin_encheres <= GETDATE()");
+				}
+			}
+		}
+		System.out.println("!!!!!!!!!!!" + requete);
 		return listArticle;
 	}
 
