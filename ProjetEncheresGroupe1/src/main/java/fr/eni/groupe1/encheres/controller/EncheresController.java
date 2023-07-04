@@ -63,11 +63,12 @@ public class EncheresController {
 	public String AfficherDetailVente(Principal principal,@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, @ModelAttribute ("enchere") Enchere infoEncheres, Model model) {
 	System.out.println("je passe par le get DetailVente");
 		int id =10;
+
 		model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
 		model.addAttribute("article",encheresService.getArticleById(id));
-		System.out.println( "detailVente article : "+ encheresService.getArticleById(id));
 		model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
-		System.out.println("encheres: "+ infoEncheres);
+		model.addAttribute("enchere", encheresService.getEnchereById(id));
+
 		return "/DetailVente";
 	}
 	/////////////////////////////////       ENCHERE DETAIL VENTE     ////////////////////////////////////////////
@@ -80,7 +81,7 @@ public class EncheresController {
 	model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
 	model.addAttribute("article",encheresService.getArticleById(id));
 	model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
-
+	model.addAttribute("enchere", encheresService.getEnchereById(id));
 		encheresService.ajouterEnchere(principal,article, infoEncheres);
 		return "/DetailVente";
 	}

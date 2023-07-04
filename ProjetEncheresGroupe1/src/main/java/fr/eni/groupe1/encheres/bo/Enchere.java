@@ -9,13 +9,25 @@ public class Enchere {
 	private Integer montantEnchere;
 	private Integer noUtilisateur;
 	private Integer noArticle;
+	private Utilisateur utilisateur;
 	
 	public Enchere() {
 	}
 	
+	public Enchere(Date dateEnchere, Integer montantEnchere, Integer noUtilisateur, Integer noArticle,
+			Utilisateur utilisateur) {
+		this.dateEnchere = dateEnchere;
+		this.montantEnchere = montantEnchere;
+		this.noUtilisateur = noUtilisateur;
+		this.noArticle = noArticle;
+		this.utilisateur = utilisateur;
+	}
+
+
+	
+	
 
 	public Enchere(Date dateEnchere, Integer montantEnchere, Integer noUtilisateur, Integer noArticle) {
-		super();
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
 		this.noUtilisateur = noUtilisateur;
@@ -59,6 +71,15 @@ public class Enchere {
 		return Objects.hash(dateEnchere, montantEnchere);
 	}
 
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -71,12 +92,16 @@ public class Enchere {
 		return Objects.equals(dateEnchere, other.dateEnchere) && Objects.equals(montantEnchere, other.montantEnchere);
 	}
 
-
 	@Override
 	public String toString() {
 		return "Enchere [dateEnchere=" + dateEnchere + ", montantEnchere=" + montantEnchere + ", noUtilisateur="
-				+ noUtilisateur + ", noArticle=" + noArticle + "]";
+				+ noUtilisateur + ", noArticle=" + noArticle + ", utilisateur=" + utilisateur + "]";
 	}
+
+
+	
+
+
 
 
 
