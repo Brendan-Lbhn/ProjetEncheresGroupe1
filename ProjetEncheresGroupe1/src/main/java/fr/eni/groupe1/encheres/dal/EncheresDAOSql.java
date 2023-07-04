@@ -1,5 +1,6 @@
 package fr.eni.groupe1.encheres.dal;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
+import fr.eni.groupe1.encheres.bo.Enchere;
 import fr.eni.groupe1.encheres.bo.Retrait;
+import fr.eni.groupe1.encheres.bo.Utilisateur;
 
 @Repository
 public class EncheresDAOSql implements EncheresDAO{
@@ -28,7 +31,8 @@ public class EncheresDAOSql implements EncheresDAO{
 	private final static String INSERT_NEW_INFORETRAIT = "insert into RETRAITS ( no_article, rue, code_postal, ville ) values (:no_article, :rue, :code_postal, :ville)" ;
 	private static final String DELETE_MODIF_ARTICLE = null;
 	private static final String UPDATE = null;
-	private static final String SELECT_RETRAIT_BY_ID = "SELECT * FROM RETRAITS WHERE no_article =:noArticle";;
+	private static final String SELECT_RETRAIT_BY_ID = "SELECT * FROM RETRAITS WHERE no_article =:noArticle";
+	private static final String INSERT_NEW_ENCHERE = null;;
 	
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private UtilisateurDAO utilisateurDAO;
@@ -192,7 +196,22 @@ public class EncheresDAOSql implements EncheresDAO{
 		}
 
 
-/////////////////////////////////       SET     ////////////////////////////////////////////
+		@Override
+		public void ajouterEnchere(Principal principal, ArticleVendu article, Enchere infoEncheres) {
+			MapSqlParameterSource newEnchereMap = new MapSqlParameterSource();
+			Utilisateur acheteur;
+			
+			acheteur = utilisateurDAO.findByPseudo(principal.getName());
+			newEnchereMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
+			newEnchereMap.addValue("no_article", article.noArticle);
+			newEnchereMap.addValue("date_enchere", article.noArticle );// methode pour la date du jour);
+			newEnchereMap.addValue("montant_enchere", infoEncheres.getMontantEnchere());
+								
+			namedParameterJdbcTemplate.update(INSERT_NEW_ENCHERE, newEnchereMap);			
+		}
+
+
+/////////////////////////////////       SET   ////////////////////////////////////////////
 		
 
 }	

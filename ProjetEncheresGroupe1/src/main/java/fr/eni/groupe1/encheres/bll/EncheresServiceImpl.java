@@ -1,10 +1,12 @@
 package fr.eni.groupe1.encheres.bll;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
+import fr.eni.groupe1.encheres.bo.Enchere;
 import fr.eni.groupe1.encheres.bo.Retrait;
 import fr.eni.groupe1.encheres.dal.EncheresDAO;
 
@@ -81,6 +83,13 @@ public class EncheresServiceImpl implements EncheresService {
 	@Override
 	public Retrait getRetraitByEnchere(int id) {
 		return encheresDAO.retraitById(id);
+	}
+
+
+
+	@Override
+	public void ajouterEnchere(Principal principal, ArticleVendu article, Enchere infoEncheres) {
+		encheresDAO.ajouterEnchere(principal,article,infoEncheres);		
 	}
 
 }

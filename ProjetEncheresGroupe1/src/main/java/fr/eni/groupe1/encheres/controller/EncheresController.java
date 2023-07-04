@@ -69,6 +69,13 @@ public class EncheresController {
 		model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
 		return "/DetailVente";
 	}
-	
+	/////////////////////////////////       ENCHERE DETAIL VENTE     ////////////////////////////////////////////
+
+	@PostMapping({"/EnchereAjout"})  //, @RequestParam int id
+	public String FaireUneEnchere(Principal principal,@ModelAttribute ("article")ArticleVendu article, @ModelAttribute ("enchere") Enchere infoEncheres, Model model) {
+	System.out.println("je passe par le post enchere detail vente");
+		encheresService.ajouterEnchere(principal,article, infoEncheres);
+		return "/DetailVente";
+	}
 }
 
