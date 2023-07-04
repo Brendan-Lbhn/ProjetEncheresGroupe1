@@ -23,6 +23,7 @@ public interface EncheresService {
 	ArticleVendu getArticleById(int id);
 	Retrait getRetraitByEnchere(int id);
 	void ajouterEnchere(Principal principal, ArticleVendu article, Enchere infoEncheres);
+	Enchere getEnchereById(int id);
 	
 
 }

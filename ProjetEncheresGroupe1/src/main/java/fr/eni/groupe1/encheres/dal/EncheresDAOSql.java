@@ -31,8 +31,9 @@ public class EncheresDAOSql implements EncheresDAO {
 	private final static String SELECT_ARTICLE_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article =:noArticle";
 	private final static String SELECT_ARTICLE_BY_NAME_AND_CATEGORY = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%' + :nomArticle + '%' AND no_categorie=:noCategorie";
 
-	private static final String SELECT_ENCHERE_BY_ID = "SELECT COUNT(*) FROM ENCHERES WHERE no_article = ?";
+	private static final String SELECT_COUNT_ENCHERE_BY_ID = "SELECT COUNT(*) FROM ENCHERES WHERE no_article = ?";
 	private static final String SELECT_RETRAIT_BY_ID = "SELECT * FROM RETRAITS WHERE no_article =:noArticle";
+	private static final String SELECT_ENCHERE_BY_ID = "SELECT * FROM ENCHERES WHERE no_article =:noArticle";
 	
 	private final static String INSERT_NEW_ARTICLE = "insert into ARTICLES_VENDUS ( nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie ) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
 	private final static String INSERT_NEW_INFORETRAIT = "insert into RETRAITS ( no_article, rue, code_postal, ville ) values (:no_article, :rue, :code_postal, :ville)";
@@ -42,6 +43,7 @@ public class EncheresDAOSql implements EncheresDAO {
 
 	private static final String DELETE_MODIF_ARTICLE = null;
 	private static final String UPDATE = null;
+	
 	
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private UtilisateurDAO utilisateurDAO;
@@ -194,7 +196,17 @@ public class EncheresDAOSql implements EncheresDAO {
 		System.out.println("dans la methode RetraitById de la DAO, listRetrait = " + retrait);
 		return retrait;
 	}
+	@Override
+	public Enchere enchereById(int id) {
+Enchere enchere;
+MapSqlParameterSource params = new MapSqlParameterSource();
+params.addValue("noArticle", id);
 
+enchere = namedParameterJdbcTemplate.queryForObject(SELECT_ENCHERE_BY_ID, params,
+		new BeanPropertyRowMapper<>(Enchere.class));
+
+return enchere;
+	}
 /////////////////////////////////       SET     ////////////////////////////////////////////
 
 	@Override
@@ -265,7 +277,7 @@ public class EncheresDAOSql implements EncheresDAO {
 		int idArticle = article.noArticle;
 		acheteur = utilisateurDAO.findByPseudo(principal.getName());
 	
-		int countEnchere =  namedParameterJdbcTemplate.getJdbcOperations().queryForObject(SELECT_ENCHERE_BY_ID,Integer.class, idArticle);
+		int countEnchere =  namedParameterJdbcTemplate.getJdbcOperations().queryForObject(SELECT_COUNT_ENCHERE_BY_ID,Integer.class, idArticle);
 		//Enchere enchere =  namedParameterJdbcTemplate.getJdbcOperations().queryForObject(SELECT_ENCHERE_BY_ID,new BeanPropertyRowMapper<>(Enchere.class), idArticle);
 
 		if (countEnchere == 0) {
@@ -290,6 +302,8 @@ public class EncheresDAOSql implements EncheresDAO {
 			
 		}
 	}
+
+	
 
 
 
