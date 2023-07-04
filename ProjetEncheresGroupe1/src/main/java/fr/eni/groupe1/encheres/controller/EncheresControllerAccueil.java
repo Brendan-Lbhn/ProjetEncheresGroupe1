@@ -83,14 +83,21 @@ public class EncheresControllerAccueil {
 			@RequestParam (value = "ventes-en-cours", defaultValue = "false") boolean ventesEnCours,
 			@RequestParam (value = "ventes-non-debutees", defaultValue = "false") boolean ventesNonDebutees,
 			@RequestParam (value = "ventes-terminées", defaultValue = "false") boolean ventesTerminees,
-			@ModelAttribute("article") ArticleVendu article,
 			Model model) {
+		
+		System.out.println("dans le controller /rechercher 2");
+		System.out.println("filtre = " + filtre);
+		System.out.println("encheres-ouvertes = " + encheresOuvertes);
+		System.out.println("encheres-en-cours = " + encheresEnCours);
+		System.out.println("encheres-remportees = " + encheresRemportees);
+		System.out.println("ventes-en-cours = " + ventesEnCours);
+		System.out.println("ventes-non-debutees = " + ventesNonDebutees);
+		System.out.println("ventes-terminées = " + ventesTerminees);
+		
 		List<ArticleVendu> listArticles = encheresService.getArticleByFilters(filtre, encheresOuvertes, encheresEnCours, encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees);
-		
-		
-		model.addAttribute("article",listArticles);
+		model.addAttribute("article", listArticles);
 			
-		return "Index";
+		return "redirect:/accueil";
 		
 	}
 	
