@@ -106,9 +106,57 @@ public class EncheresDAOSql implements EncheresDAO{
 			listArticle = namedParameterJdbcTemplate.query(SELECT_ARTICLE_BY_NAME_AND_CATEGORY, params, new ArticlesVendusRowMapper(utilisateurDAO,encheresCategoriesDAO));
 			return listArticle;
 		}
-/////////////////////////////////       BY ID     ////////////////////////////////////////////
 		
 		@Override
+		public List<ArticleVendu> articleByFilter(Integer filtre, boolean encheresOuvertes, boolean encheresEnCours,
+				boolean encheresRemportees, boolean ventesEnCours, boolean ventesNonDebutees, boolean ventesTerminees) {
+			
+//			StringBuilder requete = new StringBuilder();  
+			List<ArticleVendu> listArticle = null; 
+//			
+//			if(filtre == 1) {
+//				System.out.println("Mes achats");
+//				if(encheresOuvertes == true && encheresEnCours == false && encheresRemportees == false) {
+//					System.out.println("X 0 0");
+//				}else if (encheresOuvertes == false && encheresEnCours == true && encheresRemportees == false) {
+//					System.out.println("0 X 0");
+//				}else if (encheresOuvertes == false && encheresEnCours == false && encheresRemportees == true) {
+//					System.out.println("0 0 X");
+//				}else if (encheresOuvertes == true && encheresEnCours == true && encheresRemportees == false) {
+//					System.out.println("X X 0");
+//				}else if (encheresOuvertes == false && encheresEnCours == true && encheresRemportees == true) {
+//					System.out.println("0 X X");
+//				}else if (encheresOuvertes == true && encheresEnCours == false && encheresRemportees == true) {
+//					System.out.println("X 0 X");
+//				}else {
+//					
+//				}
+//			}else if (filtre == 2){
+//				System.out.println("Mes ventes");
+//				if(encheresOuvertes == true && encheresEnCours == false && encheresRemportees == false) {
+//					System.out.println("X 0 0");
+//				}else if (encheresOuvertes == false && encheresEnCours == true && encheresRemportees == false) {
+//					System.out.println("0 X 0");
+//				}else if (encheresOuvertes == false && encheresEnCours == false && encheresRemportees == true) {
+//					System.out.println("0 0 X");
+//				}else if (encheresOuvertes == true && encheresEnCours == true && encheresRemportees == false) {
+//					System.out.println("X X 0");
+//				}else if (encheresOuvertes == false && encheresEnCours == true && encheresRemportees == true) {
+//					System.out.println("0 X X");
+//				}else if (encheresOuvertes == true && encheresEnCours == false && encheresRemportees == true) {
+//					System.out.println("X 0 X");
+//				}else {
+//					
+//				}
+//			}			
+			return listArticle;
+		}
+		
+		
+/////////////////////////////////       BY ID     ////////////////////////////////////////////
+		
+		
+		
 		public ArticleVendu articleById(int id) {
 			System.out.println("je passe par le article by id");
 			ArticleVendu article;
@@ -134,7 +182,6 @@ public class EncheresDAOSql implements EncheresDAO{
 			System.out.println("dans la methode RetraitById de la DAO, listRetrait = " + retrait);
 			return retrait;
 		}
-
 
 /////////////////////////////////       SET     ////////////////////////////////////////////
 	
@@ -196,6 +243,7 @@ public class EncheresDAOSql implements EncheresDAO{
 		}
 
 
+
 		@Override
 		public void ajouterEnchere(Principal principal, ArticleVendu article, Enchere infoEncheres) {
 			MapSqlParameterSource newEnchereMap = new MapSqlParameterSource();
@@ -212,7 +260,7 @@ public class EncheresDAOSql implements EncheresDAO{
 
 
 /////////////////////////////////       SET   ////////////////////////////////////////////
-		
 
+		
 }	
 		

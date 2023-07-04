@@ -74,6 +74,13 @@ public class EncheresServiceImpl implements EncheresService {
 
 
 	@Override
+	public List<ArticleVendu> getArticleByFilters(Integer filtre, boolean encheresOuvertes, boolean encheresEnCours,
+			boolean encheresRemportees, boolean ventesEnCours, boolean ventesNonDebutees, boolean ventesTerminees) {
+		// TODO Auto-generated method stub
+		return encheresDAO.articleByFilter(filtre, encheresOuvertes, encheresEnCours, encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees);
+	}
+		
+	@Override	
 	public ArticleVendu getArticleById(int id) {
 		return encheresDAO.articleById(id) ;
 	}

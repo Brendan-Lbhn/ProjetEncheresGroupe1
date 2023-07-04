@@ -23,10 +23,14 @@ public interface EncheresDAO {
 	List<Retrait> retraitAll();
 	List<ArticleVendu> articleByName(String nomArticle);
 	List<ArticleVendu> articleByNameAndCategorie(String nomArticle, Integer noCategorie);
+	List<ArticleVendu> articleByFilter(Integer filtre, boolean encheresOuvertes, boolean encheresEnCours,
+			boolean encheresRemportees, boolean ventesEnCours, boolean ventesNonDebutees, boolean ventesTerminees);
 	ArticleVendu articleById(int id);
+
 	Retrait retraitById(int id);
 	void ajouterEnchere(Principal principal, ArticleVendu article, Enchere infoEncheres);
 
 	
 	
+
 }
