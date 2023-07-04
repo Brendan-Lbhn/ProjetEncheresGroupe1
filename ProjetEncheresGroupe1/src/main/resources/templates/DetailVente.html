@@ -30,7 +30,7 @@
 
 			<div th:object="${retrait}">
 				<p th:text="'Retrait: ' + ${retrait.rue}  "></p>
-				<p th:text=" ${retrait.ville} + ${retrait.codePostal} "></p>
+				<p th:text="  ${retrait.codePostal} + ' ' + ${retrait.ville} "></p>
 
 			</div>
 			<p th:text="'Vendeur : ' + ${article.vendeur?.pseudo}"></p>

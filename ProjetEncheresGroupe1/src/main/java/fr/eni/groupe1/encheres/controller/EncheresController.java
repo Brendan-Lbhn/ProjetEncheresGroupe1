@@ -76,6 +76,11 @@ public class EncheresController {
 	public String FaireUneEnchere(Principal principal,@ModelAttribute ("article")ArticleVendu article, @ModelAttribute ("enchere") Enchere infoEncheres, Model model) {
 	System.out.println("je passe par le post enchere detail vente");
 	System.out.println("encheres : " + infoEncheres);
+	int id =10;
+	model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
+	model.addAttribute("article",encheresService.getArticleById(id));
+	model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
+
 		encheresService.ajouterEnchere(principal,article, infoEncheres);
 		return "/DetailVente";
 	}

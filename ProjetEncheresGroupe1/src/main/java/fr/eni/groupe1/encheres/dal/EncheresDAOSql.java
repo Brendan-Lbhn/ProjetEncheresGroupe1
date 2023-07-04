@@ -24,21 +24,25 @@ import fr.eni.groupe1.encheres.bo.Utilisateur;
 public class EncheresDAOSql implements EncheresDAO {
 
 	private final static String SELECT_ALL_ARTICLE = "select * from ARTICLES_VENDUS";
+	private final static String SELECT_ALL_RETRAITS = "select * from RETRAITS";
+
 	private final static String SELECT_ARTICLE_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie =:noCategorie";
 	private final static String SELECT_ARTICLE_BY_NAME = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%' + :nomArticle + '%'";
 	private final static String SELECT_ARTICLE_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article =:noArticle";
-
 	private final static String SELECT_ARTICLE_BY_NAME_AND_CATEGORY = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%' + :nomArticle + '%' AND no_categorie=:noCategorie";
-	private final static String SELECT_ALL_RETRAITS = "select * from RETRAITS";
 
+	private static final String SELECT_ENCHERE_BY_ID = "SELECT COUNT(*) FROM ENCHERES WHERE no_article = ?";
+	private static final String SELECT_RETRAIT_BY_ID = "SELECT * FROM RETRAITS WHERE no_article =:noArticle";
+	
 	private final static String INSERT_NEW_ARTICLE = "insert into ARTICLES_VENDUS ( nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie ) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
 	private final static String INSERT_NEW_INFORETRAIT = "insert into RETRAITS ( no_article, rue, code_postal, ville ) values (:no_article, :rue, :code_postal, :ville)";
+	
+	private static final String INSERT_NEW_ENCHERE = "insert into ENCHERES ( no_utilisateur, no_article, date_enchere, montant_enchere ) values (:no_utilisateur, :no_article, :date_enchere, :montant_enchere)";
+	private static final String UPDATE_NEW_ENCHERE = "update ENCHERES set no_utilisateur=:no_utilisateur, no_article=:no_article, date_enchere=:date_enchere, montant_enchere=:montant_enchere";
+
 	private static final String DELETE_MODIF_ARTICLE = null;
 	private static final String UPDATE = null;
-	private static final String SELECT_RETRAIT_BY_ID = "SELECT * FROM RETRAITS WHERE no_article =:noArticle";
-	private static final String INSERT_NEW_ENCHERE = "insert into ENCHERES ( no_utilisateur, no_article, date_enchere, montant_enchere ) values (:no_utilisateur, :no_article, :date_enchere, :montant_enchere)";
-	private static final String UPDATE_NEW_ENCHERE = "update UTILISATEURS set no_utilisateur=:noUtilisateur, no_article=:noArticle, date_enchere=:DateEnchere, montant_enchere=:montantEnchere";
-
+	
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private UtilisateurDAO utilisateurDAO;
 	private EncheresCategoriesDAO encheresCategoriesDAO;
@@ -252,30 +256,42 @@ public class EncheresDAOSql implements EncheresDAO {
 	@Override
 	public void ajouterEnchere(Principal principal, ArticleVendu article, Enchere infoEncheres) {
 		System.out.println("je passe par le ajout enchere");
+		
 		MapSqlParameterSource newEnchereMap = new MapSqlParameterSource();
+		MapSqlParameterSource modifEnchereMap = new MapSqlParameterSource();
+
 		Utilisateur acheteur;
 		LocalDate date = LocalDate.now();
-		
-		System.out.println("date :" + date);
+		int idArticle = article.noArticle;
 		acheteur = utilisateurDAO.findByPseudo(principal.getName());
-		System.out.println("acheteur : "+ acheteur.getNoUtilisateur());
-		System.out.println(infoEncheres);
+	
+		int countEnchere =  namedParameterJdbcTemplate.getJdbcOperations().queryForObject(SELECT_ENCHERE_BY_ID,Integer.class, idArticle);
+		//Enchere enchere =  namedParameterJdbcTemplate.getJdbcOperations().queryForObject(SELECT_ENCHERE_BY_ID,new BeanPropertyRowMapper<>(Enchere.class), idArticle);
 
-		if (infoEncheres.getDateEnchere()== null) {
+		if (countEnchere == 0) {
 			System.out.println("je passe par le if no article == null");
+			
 			newEnchereMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
-			newEnchereMap.addValue("no_article", article.noArticle);
+			newEnchereMap.addValue("no_article", idArticle);
 			newEnchereMap.addValue("date_enchere", date);
 			newEnchereMap.addValue("montant_enchere", infoEncheres.getMontantEnchere());
-			System.out.println("map ajouter");
+			
 			namedParameterJdbcTemplate.update(INSERT_NEW_ENCHERE, newEnchereMap);
-		} else {// update
+			
+		} else {
 			System.out.println("je passe par le update du ajout enchere");
-			// njt.update(DELETE_MODIF, new BeanPropertySqlParameterSource(utilisateur));
-			namedParameterJdbcTemplate.update(UPDATE_NEW_ENCHERE, new BeanPropertySqlParameterSource(newEnchereMap));
 
+			modifEnchereMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
+			modifEnchereMap.addValue("no_article", idArticle);
+			modifEnchereMap.addValue("date_enchere", date);
+			modifEnchereMap.addValue("montant_enchere", infoEncheres.getMontantEnchere());
+
+			namedParameterJdbcTemplate.update(UPDATE_NEW_ENCHERE, modifEnchereMap);
+			
 		}
 	}
+
+
 
 /////////////////////////////////       SET   ////////////////////////////////////////////
 
