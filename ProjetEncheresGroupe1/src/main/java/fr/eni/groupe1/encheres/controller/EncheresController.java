@@ -67,6 +67,7 @@ public class EncheresController {
 		model.addAttribute("article",encheresService.getArticleById(id));
 		System.out.println( "detailVente article : "+ encheresService.getArticleById(id));
 		model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
+		System.out.println("encheres: "+ infoEncheres);
 		return "/DetailVente";
 	}
 	/////////////////////////////////       ENCHERE DETAIL VENTE     ////////////////////////////////////////////
@@ -74,6 +75,7 @@ public class EncheresController {
 	@PostMapping({"/EnchereAjout"})  //, @RequestParam int id
 	public String FaireUneEnchere(Principal principal,@ModelAttribute ("article")ArticleVendu article, @ModelAttribute ("enchere") Enchere infoEncheres, Model model) {
 	System.out.println("je passe par le post enchere detail vente");
+	System.out.println("encheres : " + infoEncheres);
 		encheresService.ajouterEnchere(principal,article, infoEncheres);
 		return "/DetailVente";
 	}
