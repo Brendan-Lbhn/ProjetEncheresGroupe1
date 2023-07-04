@@ -109,7 +109,7 @@ public class EncheresDAOSql implements EncheresDAO{
 			
 //			StringBuilder requete = new StringBuilder();  
 			List<ArticleVendu> listArticle = null; 
-//			
+			
 //			if(filtre == 1) {
 //				System.out.println("Mes achats");
 //				if(encheresOuvertes == true && encheresEnCours == false && encheresRemportees == false) {
