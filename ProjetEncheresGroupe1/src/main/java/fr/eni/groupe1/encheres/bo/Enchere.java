@@ -7,13 +7,19 @@ public class Enchere {
 
 	private Date dateEnchere;
 	private Integer montantEnchere;
+	private Integer noUtilisateur;
+	private Integer noArticle;
 	
 	public Enchere() {
 	}
 	
-	public Enchere(Date dateEnchere,Integer montant_enchere) {
-		this.dateEnchere=dateEnchere;
-		this.montantEnchere=montant_enchere;
+
+	public Enchere(Date dateEnchere, Integer montantEnchere, Integer noUtilisateur, Integer noArticle) {
+		super();
+		this.dateEnchere = dateEnchere;
+		this.montantEnchere = montantEnchere;
+		this.noUtilisateur = noUtilisateur;
+		this.noArticle = noArticle;
 	}
 
 	public Date getDateEnchere() {
@@ -24,12 +30,28 @@ public class Enchere {
 		this.dateEnchere = dateEnchere;
 	}
 
-	public Integer getMontant_enchere() {
+	public Integer getMontantEnchere() {
 		return montantEnchere;
 	}
-	
-	public void setMontant_enchere(Integer montant_enchere) {
-		this.montantEnchere = montant_enchere;
+
+	public void setMontantEnchere(Integer montantEnchere) {
+		this.montantEnchere = montantEnchere;
+	}
+
+	public Integer getNoUtilisateur() {
+		return noUtilisateur;
+	}
+
+	public void setNoUtilisateur(Integer noUtilisateur) {
+		this.noUtilisateur = noUtilisateur;
+	}
+
+	public Integer getNoArticle() {
+		return noArticle;
+	}
+
+	public void setNoArticle(Integer noArticle) {
+		this.noArticle = noArticle;
 	}
 
 	@Override
@@ -52,7 +74,11 @@ public class Enchere {
 
 	@Override
 	public String toString() {
-		return "Enchere [dateEnchere=" + dateEnchere + ", montant_enchere=" + montantEnchere + "]";
+		return "Enchere [dateEnchere=" + dateEnchere + ", montantEnchere=" + montantEnchere + ", noUtilisateur="
+				+ noUtilisateur + ", noArticle=" + noArticle + "]";
 	}
+
+
+
 	
 }
