@@ -24,7 +24,7 @@
 			<!--  -->	
 				<div th:if ="${enchere.montantEnchere != null}">
 			<div th:object="${enchere}">
- 		 		<p th:text="'Meilleur Offre : ' + ${enchere.montantEnchere} + ' points par'"><span data-th-text="${enchere.utilisateur?.pseudo}"></span> </p>
+ 		 		<p th:text="'Meilleur Offre : ' + ${enchere.montantEnchere} + ' points par'"><span data-th-text="${enchere.article.vendeur?.pseudo}"></span> </p>
  		 		</div>
  		 	</div>
  		 	

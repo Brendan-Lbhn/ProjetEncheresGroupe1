@@ -68,6 +68,11 @@ public class EncheresController {
 		model.addAttribute("article",encheresService.getArticleById(id));
 		model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
 		model.addAttribute("enchere", encheresService.getEnchereById(id));
+//		infoEncheres.setArticleEnchere(article);
+//		 article.setVendeur(null);
+//		 Utilisateur utilisateur;
+		 //utilisateur.setPseudo(null);
+		System.out.println(encheresService.getEnchereById(id));
 
 		return "/DetailVente";
 	}
