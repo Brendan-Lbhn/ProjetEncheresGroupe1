@@ -43,11 +43,9 @@ public class EncheresControllerAccueil {
 		
 		List<Categorie>listeCategories = encheresCategoriesService.getCategories();
 		model.addAttribute("categorie",listeCategories); 
-		System.out.println(listeCategories);
 		
 		List<ArticleVendu>listArticles = encheresService.getArticle();
-		model.addAttribute("articleVendu",listArticles);		
-		System.out.println(listArticles);
+		model.addAttribute("articleVendu",listArticles);
 		
 		return "Index";
 	}
