@@ -59,9 +59,8 @@
 				<input type="hidden" th:field="*{noUtilisateur}"
 					th:value="${utilisateur.noUtilisateur}" required><br>
 			</div>
-			<span th:text="'Proposition :' "></span> <input type="number"
-				th:field="*{montantEnchere}" required><br>
-
+			<span th:text="'Proposition :' "></span> 
+			<input type="number" th:field="*{montantEnchere}" min="0" max="utilisateur?.credit"required><br>
 			<button type="submit">Valider l'enchere</button>
 			<button type="reset">Annuler</button>
 		</form>

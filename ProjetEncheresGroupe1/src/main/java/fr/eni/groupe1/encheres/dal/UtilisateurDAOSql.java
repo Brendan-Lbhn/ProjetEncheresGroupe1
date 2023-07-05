@@ -1,7 +1,9 @@
 package fr.eni.groupe1.encheres.dal;
 
+import java.security.Principal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,12 +32,14 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	private static final String UPDATE = "update UTILISATEURS set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:codePostal, ville=:ville, mot_de_passe=:motDePasse where no_Utilisateur=:noUtilisateur";
 	private final static String CHECK_PSEUDO = "SELECT COUNT(*) FROM UTILISATEURS WHERE pseudo = ?";
 	private final static String CHECK_EMAIL = "SELECT COUNT(*) FROM UTILISATEURS WHERE email = ?";
+	private static final String UPDATE_NEW_CREDIT = "update UTILISATEURS set credit=:credit where no_utilisateur=:no_utilisateur ";;
 	
 
 	@Autowired
 	private NamedParameterJdbcTemplate njt;
-
-	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate njt) {
+	
+	
+	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate njt, UtilisateurDAO utilisateurDAO) {
 		this.njt = njt;
 	}
 
@@ -60,26 +64,23 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 			return user;
 		}
 	}
+/////////////////////////////////       ENREGISTRER     ////////////////////////////////////////////
 
 	@Override
 	public void save(Utilisateur utilisateur) {
 		if (utilisateur.getNoUtilisateur() == null) {
-			//Test d'unicité mot de passe
-//			String pseudo = utilisateur.getPseudo();
-//			Map<String, Object> params = new HashMap<>();
-//	        params.put("pseudo", pseudo);
-	        //TODO il aurait été préférable de faire dans le DAO une méthode pour chaque comptage
+
 	        StringBuilder errors = new StringBuilder();
 	        int countPseudo = njt.getJdbcOperations().queryForObject(CHECK_PSEUDO, Integer.class,utilisateur.getPseudo());
 	        if (countPseudo > 0) {
 	            errors.append("Le pseudo est déjà utilisé par un autre utilisateur. ");
-	        	//throw new IllegalStateException("Le pseudo est déjà utilisé par un autre utilisateur.");
+	        	
 	        }
 	        
 	        int countEmail = njt.getJdbcOperations().queryForObject(CHECK_EMAIL, Integer.class, utilisateur.getEmail());
 	        if (countEmail > 0) {
 	        	errors.append("L'email est déjà utilisé par un autre utilisateur.");
-	            //throw new IllegalStateException("L'email est déjà utilisé par un autre utilisateur.");
+	           
 	        }
 	        if (errors.length()>0) {
 	        	throw new IllegalStateException(errors.toString());
@@ -93,12 +94,28 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 			// mise à jours
 		} else {// update
 			System.out.println("je passe par le update du set utilisateur");
-			// njt.update(DELETE_MODIF, new BeanPropertySqlParameterSource(utilisateur));
 			njt.update(UPDATE, new BeanPropertySqlParameterSource(utilisateur));
 
 		}
 
 	}
+	@Override
+	public void ajouterCredit(Utilisateur utilisateur, Principal principal,int creditActuel) {
+		MapSqlParameterSource newCreditMap = new MapSqlParameterSource();
+		Utilisateur acheteur;
+		System.out.println("int creditActuel : "+ creditActuel);
+		int creditFinal = ((utilisateur.getCredit())+ creditActuel);
+		acheteur = njt.getJdbcOperations().queryForObject(FIND_BY_PSEUDO, new UtilisateursRowMapper(), principal.getName());
+		System.out.println("acheteur : "+ acheteur.getNoUtilisateur());
+		System.out.println("credit inséré: " + utilisateur.getCredit());
+		System.out.println("credit final : " + creditFinal);
+		newCreditMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
+		newCreditMap.addValue("credit",creditFinal);
+
+		njt.update(UPDATE_NEW_CREDIT, newCreditMap);
+	}
+
+/////////////////////////////////       FIND BY     ////////////////////////////////////////////
 
 	@Override
 	public List<Utilisateur> findAll() {
@@ -149,6 +166,7 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 		
 		return listVendeur;
 	}
+/////////////////////////////////       DELETE     ////////////////////////////////////////////
 
 	@Override
 	public Utilisateur deleteProfil(String pseudo) {
@@ -158,5 +176,9 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 		njt.update(DELETE, new BeanPropertySqlParameterSource(user));
 		return user;
 	}
+
+
+
+	
 
 }
