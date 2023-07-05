@@ -39,6 +39,7 @@ public class EncheresDAOSql implements EncheresDAO {
 
 	private static final String INSERT_NEW_ENCHERE = "insert into ENCHERES ( no_utilisateur, no_article, date_enchere, montant_enchere ) values (:no_utilisateur, :no_article, :date_enchere, :montant_enchere)";
 	private static final String UPDATE_NEW_ENCHERE = "update ENCHERES set no_utilisateur=:no_utilisateur,no_article=:no_article,date_enchere=:date_enchere, montant_enchere=:montant_enchere WHERE no_article =:no_article";
+	private static final String UPDATE_NEW_ARTICLE = "update ARTICLES_VENDUS set prix_vente=:prix_vente WHERE no_article =:no_article";
 
 	private static final String DELETE_MODIF_ARTICLE = null;
 	private static final String UPDATE = null;
@@ -228,8 +229,10 @@ public class EncheresDAOSql implements EncheresDAO {
 		System.out.println("je passe par le ajout enchere");
 
 		MapSqlParameterSource newEnchereMap = new MapSqlParameterSource();
+
 		MapSqlParameterSource modifEnchereMap = new MapSqlParameterSource();
-		
+		MapSqlParameterSource modifArticleMap = new MapSqlParameterSource();
+
 		Utilisateur acheteur;
 		LocalDate date = LocalDate.now();
 		int idArticle = article.noArticle;
@@ -248,6 +251,10 @@ public class EncheresDAOSql implements EncheresDAO {
 			newEnchereMap.addValue("montant_enchere", infoEncheres.getMontantEnchere());
 
 			namedParameterJdbcTemplate.update(INSERT_NEW_ENCHERE, newEnchereMap);
+			
+			modifArticleMap.addValue("no_article", idArticle);
+			modifArticleMap.addValue("prix_vente", infoEncheres.getMontantEnchere());
+			namedParameterJdbcTemplate.update(UPDATE_NEW_ARTICLE, modifArticleMap);
 
 		} else {
 			System.out.println("je passe par le update du ajout enchere");
@@ -258,7 +265,10 @@ public class EncheresDAOSql implements EncheresDAO {
 			modifEnchereMap.addValue("montant_enchere", infoEncheres.getMontantEnchere());
 
 			namedParameterJdbcTemplate.update(UPDATE_NEW_ENCHERE, modifEnchereMap);
-
+			
+			modifArticleMap.addValue("no_article", idArticle);
+			modifArticleMap.addValue("prix_vente", infoEncheres.getMontantEnchere());
+			namedParameterJdbcTemplate.update(UPDATE_NEW_ARTICLE, modifArticleMap);
 		}
 	}
 
