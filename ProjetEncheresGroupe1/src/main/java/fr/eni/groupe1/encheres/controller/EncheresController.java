@@ -59,35 +59,54 @@ public class EncheresController {
 	}
 	
 	/////////////////////////////////       AFFICHAGE D UN DETAIL DE VENTE     ////////////////////////////////////////////
-	@GetMapping({"DetailVente"})  //, @RequestParam int id
-	public String AfficherDetailVente(Principal principal,@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, @ModelAttribute ("enchere") Enchere infoEncheres, Model model) {
-	System.out.println("je passe par le get DetailVente");
-		int id =10;
+	@GetMapping({"DetailVente"}) //, @RequestParam int id
 
-		model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
-		model.addAttribute("article",encheresService.getArticleById(id));
-		model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
-		model.addAttribute("enchere", encheresService.getEnchereById(id));
-//		infoEncheres.setArticleEnchere(article);
-//		 article.setVendeur(null);
-//		 Utilisateur utilisateur;
-		 //utilisateur.setPseudo(null);
-		System.out.println(encheresService.getEnchereById(id));
+	 public String AfficherDetailVente(Principal principal,@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, @ModelAttribute ("enchere") Enchere infoEncheres, Model model) {
 
-		return "/DetailVente";
-	}
+	 System.out.println("je passe par le get DetailVente");
+
+	 int id =10;	 
+
+	 model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
+
+	 model.addAttribute("article",encheresService.getArticleById(id));
+
+	 model.addAttribute("retrait", encheresService.getRetraitByEnchere(id)); 
+
+	 var toto = encheresService.getEnchereById(id);
+
+	 model.addAttribute("enchere", toto);
+
+	 model.addAttribute("acheteur", utilisateurService.findById(toto.getNoUtilisateur())); 
+
+	 System.out.println(encheresService.getEnchereById(id));
+
+	 return "/DetailVente";
+
+	 }
 	/////////////////////////////////       ENCHERE DETAIL VENTE     ////////////////////////////////////////////
 
 	@PostMapping({"/EnchereAjout"})  //, @RequestParam int id
 	public String FaireUneEnchere(Principal principal,@ModelAttribute ("article")ArticleVendu article, @ModelAttribute ("enchere") Enchere infoEncheres, Model model) {
-	System.out.println("je passe par le post enchere detail vente");
-	System.out.println("encheres : " + infoEncheres);
-	int id =10;
-	model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
-	model.addAttribute("article",encheresService.getArticleById(id));
-	model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
-	model.addAttribute("enchere", encheresService.getEnchereById(id));
-		encheresService.ajouterEnchere(principal,article, infoEncheres);
+		 System.out.println("je passe par le get DetailVente");
+
+		 int id =10;	 
+
+		 model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
+
+		 model.addAttribute("article",encheresService.getArticleById(id));
+
+		 model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
+
+		 var toto = encheresService.getEnchereById(id);
+
+		 model.addAttribute("enchere", toto);
+
+		 model.addAttribute("acheteur", utilisateurService.findById(toto.getNoUtilisateur()));
+
+		 System.out.println(encheresService.getEnchereById(id));
+
+
 		return "/DetailVente";
 	}
 }
