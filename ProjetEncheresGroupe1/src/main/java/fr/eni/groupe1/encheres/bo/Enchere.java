@@ -9,18 +9,21 @@ public class Enchere {
 	private Integer montantEnchere;
 	private Integer noUtilisateur;
 	private Integer noArticle;
+	
+	private ArticleVendu articleEnchere;
 	private Utilisateur utilisateur;
 	
 	public Enchere() {
 	}
 	
 	public Enchere(Date dateEnchere, Integer montantEnchere, Integer noUtilisateur, Integer noArticle,
-			Utilisateur utilisateur) {
+			Utilisateur utilisateur, ArticleVendu articleEnchere) {
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
 		this.noUtilisateur = noUtilisateur;
 		this.noArticle = noArticle;
 		this.utilisateur = utilisateur;
+		this.articleEnchere = articleEnchere;
 	}
 
 
@@ -96,6 +99,14 @@ public class Enchere {
 	public String toString() {
 		return "Enchere [dateEnchere=" + dateEnchere + ", montantEnchere=" + montantEnchere + ", noUtilisateur="
 				+ noUtilisateur + ", noArticle=" + noArticle + ", utilisateur=" + utilisateur + "]";
+	}
+
+	public ArticleVendu getArticleEnchere() {
+		return articleEnchere;
+	}
+
+	public void setArticleEnchere(ArticleVendu article) {
+		this.articleEnchere = article;
 	}
 
 

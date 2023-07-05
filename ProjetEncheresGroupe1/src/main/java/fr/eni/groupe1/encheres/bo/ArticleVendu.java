@@ -14,6 +14,7 @@ public class ArticleVendu {
     private String etatVente = "En attente de vente" ;
     private Integer noCategorie;
     public Integer noUtilisateur;
+    
     private Utilisateur vendeur;
     private Categorie categorie; 
     
