@@ -84,7 +84,7 @@ public class UtilisateurController {
 	}
 	///////////////////////////////// SUPRESSION D UN PROFIL ///////////////////////////////// ////////////////////////////////////////////
 	@GetMapping("/Delete")
-	public String deleteFilm (Principal principal, Model model) {
+	public String deleteUtilisateur (Principal principal, Model model) {
 		System.out.println("je passe par la suppression" );
 Utilisateur utilisateur = null;
 		
@@ -92,7 +92,7 @@ Utilisateur utilisateur = null;
 		
 				model.addAttribute("Utilisateur",utilisateur);
 		
-		return "redirect:/";
+		return "redirect:/logout";
 	}
 	
 	
