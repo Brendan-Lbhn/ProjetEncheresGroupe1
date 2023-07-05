@@ -59,49 +59,41 @@ public class EncheresController {
 	}
 	
 	/////////////////////////////////       AFFICHAGE D UN DETAIL DE VENTE     ////////////////////////////////////////////
-	@GetMapping({"DetailVente"}) //, @RequestParam int id
+	@GetMapping({"DetailVente"}) 
 
-	 public String AfficherDetailVente(Principal principal,@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, @ModelAttribute ("enchere") Enchere infoEncheres, Model model) {
+	 public String AfficherDetailVente(Principal principal,@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, @ModelAttribute ("enchere") Enchere infoEncheres, @RequestParam int id, Model model) {
 
-	 System.out.println("je passe par le get DetailVente");
-
-	 int id =10;	 
-
+	 System.out.println("je passe par le get DetailVente");	 
 	 model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
-
 	 model.addAttribute("article",encheresService.getArticleById(id));
-
 	 model.addAttribute("retrait", encheresService.getRetraitByEnchere(id)); 
 
+	 
 	 var toto = encheresService.getEnchereById(id);
-
+	 if (toto != null) {
 	 model.addAttribute("enchere", toto);
-
 	 model.addAttribute("acheteur", utilisateurService.findById(toto.getNoUtilisateur())); 
 
 	 System.out.println(encheresService.getEnchereById(id));
-
+}
 	 return "/DetailVente";
 
 	 }
 	/////////////////////////////////       ENCHERE DETAIL VENTE     ////////////////////////////////////////////
 
-	@PostMapping({"/EnchereAjout"})  //, @RequestParam int id
+	@PostMapping({"/EnchereAjout"}) 
 	public String FaireUneEnchere(Principal principal,@ModelAttribute ("article")ArticleVendu article, @ModelAttribute ("enchere") Enchere infoEncheres, Model model) {
-		 System.out.println("je passe par le get DetailVente");
-
-		 int id =10;	 
-
+		 System.out.println("je passe par le get DetailVente"); 
+		 int id = article.getNoArticle();
+		 encheresService.ajouterEnchere(principal, article, infoEncheres);
+		 
 		 model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
-
 		 model.addAttribute("article",encheresService.getArticleById(id));
-
 		 model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
 
 		 var toto = encheresService.getEnchereById(id);
 
 		 model.addAttribute("enchere", toto);
-
 		 model.addAttribute("acheteur", utilisateurService.findById(toto.getNoUtilisateur()));
 
 		 System.out.println(encheresService.getEnchereById(id));
