@@ -17,7 +17,6 @@ import fr.eni.groupe1.encheres.bo.ArticleVendu;
 import fr.eni.groupe1.encheres.bo.Categorie;
 import fr.eni.groupe1.encheres.bo.Enchere;
 import fr.eni.groupe1.encheres.bo.Retrait;
-import fr.eni.groupe1.encheres.bo.Utilisateur;
 
 @Controller
 public class EncheresController {

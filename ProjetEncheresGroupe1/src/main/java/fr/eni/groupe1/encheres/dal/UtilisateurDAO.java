@@ -1,5 +1,6 @@
 package fr.eni.groupe1.encheres.dal;
 
+import java.security.Principal;
 import java.util.List;
 
 import fr.eni.groupe1.encheres.bo.Utilisateur;
@@ -16,4 +17,7 @@ public interface UtilisateurDAO {
 
 	Utilisateur deleteProfil(String pseudo); 
 	List<Utilisateur> VendeurByName(String nomVendeur);
+
+	void ajouterCredit(Utilisateur utilisateur, Principal principal,int creditActuel);
+
 }

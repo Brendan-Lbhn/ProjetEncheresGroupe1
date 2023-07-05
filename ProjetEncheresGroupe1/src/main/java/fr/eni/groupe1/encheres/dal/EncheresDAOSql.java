@@ -29,18 +29,18 @@ public class EncheresDAOSql implements EncheresDAO {
 	private final static String SELECT_ARTICLE_BY_NAME_AND_CATEGORY = "SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%' + :nomArticle + '%' AND no_categorie=:noCategorie";
 
 	private static final String SELECT_COUNT_ENCHEREPARAM_BY_ID = "SELECT COUNT(*) FROM ENCHERES WHERE no_article = ?";
-
 	private static final String SELECT_COUNT_ENCHERE_BY_ID = "SELECT COUNT(*) FROM ENCHERES WHERE no_article = ?";
+	
 	private static final String SELECT_RETRAIT_BY_ID = "SELECT * FROM RETRAITS WHERE no_article =:noArticle";
 	private static final String SELECT_ENCHERE_BY_ID = "SELECT * FROM ENCHERES WHERE no_article =:noArticle";
 
 	private final static String INSERT_NEW_ARTICLE = "insert into ARTICLES_VENDUS ( nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie ) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
 	private final static String INSERT_NEW_INFORETRAIT = "insert into RETRAITS ( no_article, rue, code_postal, ville ) values (:no_article, :rue, :code_postal, :ville)";
-
 	private static final String INSERT_NEW_ENCHERE = "insert into ENCHERES ( no_utilisateur, no_article, date_enchere, montant_enchere ) values (:no_utilisateur, :no_article, :date_enchere, :montant_enchere)";
+	
 	private static final String UPDATE_NEW_ENCHERE = "update ENCHERES set no_utilisateur=:no_utilisateur,no_article=:no_article,date_enchere=:date_enchere, montant_enchere=:montant_enchere WHERE no_article =:no_article";
 	private static final String UPDATE_NEW_ARTICLE = "update ARTICLES_VENDUS set prix_vente=:prix_vente WHERE no_article =:no_article";
-
+	private static final String UPDATE_CREDIT_UTILISATEUR = "update UTILISATEURS set credit=:credit WHERE no_utilisateur =:no_utilisateur";;
 	private static final String DELETE_MODIF_ARTICLE = null;
 	private static final String UPDATE = null;
 
@@ -156,7 +156,8 @@ public class EncheresDAOSql implements EncheresDAO {
 		Enchere enchere;
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("noArticle", id);
-		int countEnchere = namedParameterJdbcTemplate.getJdbcOperations().queryForObject(SELECT_COUNT_ENCHERE_BY_ID,Integer.class, id);
+		int countEnchere = namedParameterJdbcTemplate.getJdbcOperations().queryForObject(SELECT_COUNT_ENCHERE_BY_ID,
+				Integer.class, id);
 		if (countEnchere != 0) {
 			enchere = namedParameterJdbcTemplate.queryForObject(SELECT_ENCHERE_BY_ID, params,
 					new BeanPropertyRowMapper<>(Enchere.class));
@@ -229,43 +230,69 @@ public class EncheresDAOSql implements EncheresDAO {
 		System.out.println("je passe par le ajout enchere");
 
 		MapSqlParameterSource newEnchereMap = new MapSqlParameterSource();
-
 		MapSqlParameterSource modifEnchereMap = new MapSqlParameterSource();
 		MapSqlParameterSource modifArticleMap = new MapSqlParameterSource();
+		MapSqlParameterSource newUtilisateurMap = new MapSqlParameterSource();
+		MapSqlParameterSource modifUserCreditMap = new MapSqlParameterSource();
 
 		Utilisateur acheteur;
 		LocalDate date = LocalDate.now();
 		int idArticle = article.noArticle;
 		acheteur = utilisateurDAO.findByPseudo(principal.getName());
-		System.out.println("utilisateur no : " + acheteur.getNoUtilisateur());
+		System.out.println("crédit avant : " + acheteur.getCredit());
+		int creditUtilisateur = ((acheteur.getCredit()) - (infoEncheres.getMontantEnchere()));
+		System.out.println("creditFinal" + creditUtilisateur);
 		
-		int countEnchere = namedParameterJdbcTemplate.getJdbcOperations().queryForObject(SELECT_COUNT_ENCHEREPARAM_BY_ID,
-				Integer.class, idArticle);
-		
+///////////////////////////////// REDUCTION CREDIT UTILISATEUR		
+		newUtilisateurMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
+		newUtilisateurMap.addValue("credit", creditUtilisateur);
+		namedParameterJdbcTemplate.update(UPDATE_CREDIT_UTILISATEUR, newUtilisateurMap);
+
+///////////////////////////////// AJOUT ENCHERE		
+
+		int countEnchere = namedParameterJdbcTemplate.getJdbcOperations()
+				.queryForObject(SELECT_COUNT_ENCHEREPARAM_BY_ID, Integer.class, idArticle);
+
 		if (countEnchere == 0) {
 			System.out.println("je passe par le if no article == null");
-
+			
 			newEnchereMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
 			newEnchereMap.addValue("no_article", idArticle);
 			newEnchereMap.addValue("date_enchere", date);
 			newEnchereMap.addValue("montant_enchere", infoEncheres.getMontantEnchere());
 
 			namedParameterJdbcTemplate.update(INSERT_NEW_ENCHERE, newEnchereMap);
-			
+
 			modifArticleMap.addValue("no_article", idArticle);
 			modifArticleMap.addValue("prix_vente", infoEncheres.getMontantEnchere());
 			namedParameterJdbcTemplate.update(UPDATE_NEW_ARTICLE, modifArticleMap);
+///////////////////////////////// UPDATE ENCHERE		
 
 		} else {
 			System.out.println("je passe par le update du ajout enchere");
+			
+			MapSqlParameterSource params = new MapSqlParameterSource();
+			params.addValue("noArticle", infoEncheres.getNoArticle());
+			Enchere enchere = namedParameterJdbcTemplate.queryForObject(SELECT_ENCHERE_BY_ID, params ,
+					new BeanPropertyRowMapper<>(Enchere.class));
+			
+			Utilisateur acheteurAvant = utilisateurDAO.findById(enchere.getNoUtilisateur());
+			int creditAcheteurAvant = acheteurAvant.getCredit();
+			int creditAcheteurApres = creditAcheteurAvant + enchere.getMontantEnchere() ;
+///////////////////////////////// RENDRE CREDIT		
+			
+			modifUserCreditMap.addValue("no_utilisateur", acheteurAvant.getNoUtilisateur());
+			modifUserCreditMap.addValue("credit", creditAcheteurApres);
+			namedParameterJdbcTemplate.update(UPDATE_CREDIT_UTILISATEUR, modifUserCreditMap);
 
+///////////////////////////////// CHANGEMENT ENCHERE				
 			modifEnchereMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
 			modifEnchereMap.addValue("no_article", idArticle);
 			modifEnchereMap.addValue("date_enchere", date);
 			modifEnchereMap.addValue("montant_enchere", infoEncheres.getMontantEnchere());
 
 			namedParameterJdbcTemplate.update(UPDATE_NEW_ENCHERE, modifEnchereMap);
-			
+
 			modifArticleMap.addValue("no_article", idArticle);
 			modifArticleMap.addValue("prix_vente", infoEncheres.getMontantEnchere());
 			namedParameterJdbcTemplate.update(UPDATE_NEW_ARTICLE, modifArticleMap);
