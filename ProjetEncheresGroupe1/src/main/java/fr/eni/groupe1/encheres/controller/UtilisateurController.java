@@ -3,6 +3,7 @@ package fr.eni.groupe1.encheres.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,7 +49,13 @@ public class UtilisateurController {
 	        model.addAttribute("pseudoError", e.getMessage());
 	        bindingResult.addError(new ObjectError("global", e.getMessage()));
 	        return "CreationProfil";
+	    } catch (DuplicateKeyException e) {
+	        // Traitement de l'erreur
+	        System.out.println("Une erreur de clé dupliquée s'est produite : " + e.getMessage());
+	        bindingResult.addError(new ObjectError("global", "Un utilisateur possede déja ce mail ou ce pseudo"));
+	        return"redirect:/ModifProfil";
 	    }
+	    
 	}
 
 	///////////////////////////////// AFFICHAGE D UN PROFIL ///////////////////////////////// ////////////////////////////////////////////

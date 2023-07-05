@@ -10,6 +10,7 @@
 	<h1>Mon Profil</h1>
 	
 	<form class="creaProf" th:action="@{/CreationProfil/Suite}" th:object="${Utilisateur}" method="post">
+	<div th:errors="global"></div>
 	<input type="hidden" th:field="*{noUtilisateur}"/>
 	<div class="creaTri">
 	<label for="pseudoInput">Pseudo :</label>
