@@ -1,5 +1,6 @@
 package fr.eni.groupe1.encheres.bll;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -16,5 +17,7 @@ public interface UtilisateurService {
 	Utilisateur findByPseudo(String name);
 
 	Utilisateur deleteProfil(String name);
+
+	void ajoutCredit(Principal principal,Utilisateur utilisateur, int creditActuel);
 	
 }
