@@ -63,6 +63,11 @@
 				th:field="*{montantEnchere}" required><br>
 
 			<button type="submit">Valider l'enchere</button>
+			
+			<button th:if="${utilisateur.pseudo} == ${article.vendeur?.pseudo}">
+    			Terminer enchère
+			</button>
+			
 			<button type="reset">Annuler</button>
 		</form>
 
