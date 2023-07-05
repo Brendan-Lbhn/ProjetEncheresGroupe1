@@ -91,7 +91,6 @@ public class UtilisateurController {
 		Utilisateur utilisateur = null;
 		
 		utilisateur = utilisateurService.findByPseudo(principal.getName());
-		System.out.println("utilisateur" + utilisateur.getCredit());
 				model.addAttribute("Utilisateur",utilisateur);	
 				
 		return "AjoutCredit";
