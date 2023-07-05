@@ -1,7 +1,10 @@
 package fr.eni.groupe1.encheres.controller;
 
+import java.security.Principal;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,7 @@ import fr.eni.groupe1.encheres.bll.EncheresService;
 import fr.eni.groupe1.encheres.bll.UtilisateurService;
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
 import fr.eni.groupe1.encheres.bo.Categorie;
+import fr.eni.groupe1.encheres.bo.Utilisateur;
 
 @Controller
 @RequestMapping("")
@@ -22,6 +26,7 @@ public class EncheresControllerAccueil {
 	
 	private EncheresCategoriesService encheresCategoriesService;
 	private EncheresService encheresService;
+	private UtilisateurService utilisateurService;
 
 	
 	public EncheresControllerAccueil(EncheresCategoriesService encheresCategoriesService,
@@ -29,6 +34,7 @@ public class EncheresControllerAccueil {
 			UtilisateurService utilisateurService) {
 		this.encheresCategoriesService = encheresCategoriesService;
 		this.encheresService = encheresService;
+		this.utilisateurService = utilisateurService; 
 		 
 	}
 
@@ -83,7 +89,8 @@ public class EncheresControllerAccueil {
 			@RequestParam (value = "ventes-en-cours", defaultValue = "false") boolean ventesEnCours,
 			@RequestParam (value = "ventes-non-debutees", defaultValue = "false") boolean ventesNonDebutees,
 			@RequestParam (value = "ventes-terminées", defaultValue = "false") boolean ventesTerminees,
-			Model model) {
+			Model model,
+			Principal principal) {
 		
 		System.out.println("dans le controller /rechercher 2");
 		System.out.println("filtre = " + filtre);
@@ -94,7 +101,16 @@ public class EncheresControllerAccueil {
 		System.out.println("ventes-non-debutees = " + ventesNonDebutees);
 		System.out.println("ventes-terminées = " + ventesTerminees);
 		
-		List<ArticleVendu> listArticles = encheresService.getArticleByFilters(filtre, encheresOuvertes, encheresEnCours, encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees);
+		Utilisateur utilisateur = utilisateurService.findByPseudo(principal.getName());
+		utilisateur.getNoUtilisateur();
+		
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
+		int userId = utilisateur.getNoUtilisateur();
+		
+		System.out.println("---------  USERID : " + userId);
+		
+		List<ArticleVendu> listArticles = encheresService.getArticleByFilters(filtre, encheresOuvertes, encheresEnCours, encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees, userId);
 		model.addAttribute("article", listArticles);
 		
 		System.out.println("De retour dans le controller. liste d'articles : " + listArticles.toString());
