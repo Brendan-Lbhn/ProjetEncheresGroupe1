@@ -279,12 +279,13 @@ public class EncheresDAOSql implements EncheresDAO {
 			Utilisateur acheteurAvant = utilisateurDAO.findById(enchere.getNoUtilisateur());
 			int creditAcheteurAvant = acheteurAvant.getCredit();
 			int creditAcheteurApres = creditAcheteurAvant + enchere.getMontantEnchere() ;
+///////////////////////////////// RENDRE CREDIT		
 			
 			modifUserCreditMap.addValue("no_utilisateur", acheteurAvant.getNoUtilisateur());
 			modifUserCreditMap.addValue("credit", creditAcheteurApres);
 			namedParameterJdbcTemplate.update(UPDATE_CREDIT_UTILISATEUR, modifUserCreditMap);
 
-			
+///////////////////////////////// CHANGEMENT ENCHERE				
 			modifEnchereMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
 			modifEnchereMap.addValue("no_article", idArticle);
 			modifEnchereMap.addValue("date_enchere", date);
