@@ -88,34 +88,20 @@ public class EncheresControllerAccueil {
 			@RequestParam (value = "encheres-remportees", defaultValue = "false") boolean encheresRemportees,
 			@RequestParam (value = "ventes-en-cours", defaultValue = "false") boolean ventesEnCours,
 			@RequestParam (value = "ventes-non-debutees", defaultValue = "false") boolean ventesNonDebutees,
-			@RequestParam (value = "ventes-terminées", defaultValue = "false") boolean ventesTerminees,
+			@RequestParam (value = "ventes-terminees", defaultValue = "false") boolean ventesTerminees,
+			@ModelAttribute("article") ArticleVendu article,
 			Model model,
 			Principal principal) {
-		
-		System.out.println("dans le controller /rechercher 2");
-		System.out.println("filtre = " + filtre);
-		System.out.println("encheres-ouvertes = " + encheresOuvertes);
-		System.out.println("encheres-en-cours = " + encheresEnCours);
-		System.out.println("encheres-remportees = " + encheresRemportees);
-		System.out.println("ventes-en-cours = " + ventesEnCours);
-		System.out.println("ventes-non-debutees = " + ventesNonDebutees);
-		System.out.println("ventes-terminées = " + ventesTerminees);
 		
 		Utilisateur utilisateur = utilisateurService.findByPseudo(principal.getName());
 		utilisateur.getNoUtilisateur();
 		
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
 		int userId = utilisateur.getNoUtilisateur();
 		
-		System.out.println("---------  USERID : " + userId);
-		
 		List<ArticleVendu> listArticles = encheresService.getArticleByFilters(filtre, encheresOuvertes, encheresEnCours, encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees, userId);
-		model.addAttribute("article", listArticles);
-		
-		System.out.println("De retour dans le controller. liste d'articles : " + listArticles.toString());
-			
-		return "redirect:/accueil";
+		model.addAttribute("articleVendu", listArticles);
+				
+		return "Index";
 		
 	}
 	
