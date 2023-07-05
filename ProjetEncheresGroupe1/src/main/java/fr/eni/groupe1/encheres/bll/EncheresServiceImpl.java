@@ -9,16 +9,19 @@ import fr.eni.groupe1.encheres.bo.ArticleVendu;
 import fr.eni.groupe1.encheres.bo.Enchere;
 import fr.eni.groupe1.encheres.bo.Retrait;
 import fr.eni.groupe1.encheres.dal.EncheresDAO;
+import fr.eni.groupe1.encheres.dal.EncheresDAOFiltres;
 
 @Service
 public class EncheresServiceImpl implements EncheresService {
 
 	private EncheresDAO encheresDAO;
+	private EncheresDAOFiltres encheresDAOFiltres;
 
 	
 	
-	public EncheresServiceImpl(EncheresDAO encheresDAO) {
+	public EncheresServiceImpl(EncheresDAO encheresDAO, EncheresDAOFiltres encheresDAOFiltres) {
 		this.encheresDAO = encheresDAO;
+		this.encheresDAOFiltres = encheresDAOFiltres;
 	}
 
 
@@ -75,9 +78,9 @@ public class EncheresServiceImpl implements EncheresService {
 
 	@Override
 	public List<ArticleVendu> getArticleByFilters(Integer filtre, boolean encheresOuvertes, boolean encheresEnCours,
-			boolean encheresRemportees, boolean ventesEnCours, boolean ventesNonDebutees, boolean ventesTerminees) {
+			boolean encheresRemportees, boolean ventesEnCours, boolean ventesNonDebutees, boolean ventesTerminees, int userId) {
 		// TODO Auto-generated method stub
-		return encheresDAO.articleByFilter(filtre, encheresOuvertes, encheresEnCours, encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees);
+		return encheresDAOFiltres.articleByFilter(filtre, encheresOuvertes, encheresEnCours, encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees, userId);
 	}
 		
 	@Override	

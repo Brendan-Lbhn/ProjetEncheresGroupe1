@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.groupe1.encheres.bo.ArticleVendu;
@@ -117,106 +116,6 @@ public class EncheresDAOSql implements EncheresDAO {
 
 		listArticle = namedParameterJdbcTemplate.query(SELECT_ARTICLE_BY_NAME_AND_CATEGORY, params,
 				new ArticlesVendusRowMapper(utilisateurDAO, encheresCategoriesDAO));
-		return listArticle;
-	}
-
-	@Override
-	public List<ArticleVendu> articleByFilter(Integer filtre, boolean encheresOuvertes, boolean encheresEnCours,
-			boolean encheresRemportees, boolean ventesEnCours, boolean ventesNonDebutees, boolean ventesTerminees) {
-
-		StringBuilder requete = new StringBuilder();
-		List<ArticleVendu> listArticle;
-
-		System.out.println("dans la DAL TEMP méthode ArticleByfilter");
-
-		if (filtre == 1) {
-			System.out.println("Mes achats");
-
-			if (encheresOuvertes == false && encheresEnCours == false && encheresRemportees == false) {
-				requete.append(SELECT_ALL_ARTICLE);
-			} else {
-				requete.append(
-						"SELECT ARTICLES_VENDUS.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie\r\n"
-								+ "FROM ARTICLES_VENDUS INNER JOIN ENCHERES\r\n"
-								+ "ON (ARTICLES_VENDUS.no_article = ENCHERES.no_article) ");
-				if (encheresOuvertes == true) {
-					requete.append("WHERE ARTICLES_VENDUS.date_fin_encheres >= GETDATE() ");
-				}
-				if (encheresEnCours == true) {
-					if (requete.toString().contains("WHERE")) {
-						requete.append("OR ");
-					} else {
-						requete.append("WHERE ");
-					}
-					requete.append(
-							"ARTICLES_VENDUS.date_fin_encheres >= GETDATE() AND  ENCHERES.no_utilisateur = :id ");
-				}
-
-				if (encheresRemportees == true) {
-					if (requete.toString().contains("WHERE")) {
-						requete.append("OR ");
-					} else {
-						requete.append("WHERE ");
-					}
-					requete.append(
-							"ENCHERES.no_utilisateur = :id AND ARTICLES_VENDUS.date_fin_encheres <= GETDATE() AND montant_enchere = ARTICLES_VENDUS.prix_vente");
-				}
-			}
-
-		} else if (filtre == 2) {
-
-			System.out.println("Mes ventes");
-			if (ventesEnCours == false && ventesNonDebutees == false && ventesTerminees == false) {
-				requete.append(SELECT_ALL_ARTICLE);
-			} else {
-				requete.append(
-						"SELECT ARTICLES_VENDUS.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie "
-								+ "FROM ARTICLES_VENDUS ");
-				if (ventesEnCours == true) {
-					requete.append(
-							"WHERE ARTICLES_VENDUS.no_utilisateur = :id AND ARTICLES_VENDUS.date_debut_encheres <= GETDATE() AND ARTICLES_VENDUS.date_fin_encheres > GETDATE() ");
-				}
-
-				if (ventesNonDebutees == true) {
-					if (requete.toString().contains("WHERE")) {
-						requete.append("OR ");
-
-					} else {
-						requete.append("WHERE ");
-					}
-
-					requete.append(
-							"ARTICLES_VENDUS.no_utilisateur = :id AND ARTICLES_VENDUS.date_debut_encheres >= GETDATE() ");
-				}
-
-				if (ventesTerminees == true) {
-					if (requete.toString().contains("WHERE")) {
-						requete.append("OR ");
-					} else {
-						requete.append("WHERE ");
-					}
-					requete.append(
-							"ARTICLES_VENDUS.no_utilisateur = :id AND ARTICLES_VENDUS.date_fin_encheres <= GETDATE()");
-				}
-			}
-		}
-		System.out.println("!!!!!!!!!!!" + requete);
-
-//		Utilisateur user =  (Utilisateur) SecurityContextHolder
-//				.getContext().getAuthentication().getPrincipal();
-// 
-//		System.out.println("!!!!!!!!!!! Id utilisateur : " + user.getNoUtilisateur() );
-//		
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("id", 1);
-
-		listArticle = namedParameterJdbcTemplate.query(requete.toString(), params,
-				new ArticlesVendusRowMapper(utilisateurDAO, encheresCategoriesDAO));
-
-		System.out.println("liste articles = " + listArticle.toString());
-
-//		listArticle = null;
-
 		return listArticle;
 	}
 
