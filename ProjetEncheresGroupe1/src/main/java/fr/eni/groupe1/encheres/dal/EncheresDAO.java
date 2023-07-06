@@ -29,6 +29,7 @@ public interface EncheresDAO {
 	Retrait retraitById(int id);
 	void ajouterEnchere(Principal principal, ArticleVendu article, Enchere infoEncheres);
 	Enchere enchereById(int id);
+	void ajoutArticleAcheteur(int id, ArticleVendu article);
 
 	
 	

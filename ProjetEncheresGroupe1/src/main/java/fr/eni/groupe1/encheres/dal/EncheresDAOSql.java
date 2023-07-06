@@ -40,6 +40,7 @@ public class EncheresDAOSql implements EncheresDAO {
 	
 	private static final String UPDATE_NEW_ENCHERE = "update ENCHERES set no_utilisateur=:no_utilisateur,no_article=:no_article,date_enchere=:date_enchere, montant_enchere=:montant_enchere WHERE no_article =:no_article";
 	private static final String UPDATE_NEW_ARTICLE = "update ARTICLES_VENDUS set prix_vente=:prix_vente WHERE no_article =:no_article";
+	private static final String UPDATE_NEW_ARTICLE_ACHETEUR = "update ARTICLES_VENDUS set no_utilisateur=:no_utilisateur WHERE no_article =:no_article";
 	private static final String UPDATE_CREDIT_UTILISATEUR = "update UTILISATEURS set credit=:credit WHERE no_utilisateur =:no_utilisateur";;
 	private static final String DELETE_MODIF_ARTICLE = null;
 	private static final String UPDATE = null;
@@ -297,6 +298,22 @@ public class EncheresDAOSql implements EncheresDAO {
 			modifArticleMap.addValue("prix_vente", infoEncheres.getMontantEnchere());
 			namedParameterJdbcTemplate.update(UPDATE_NEW_ARTICLE, modifArticleMap);
 		}
+	}
+
+	@Override
+	public void ajoutArticleAcheteur(int id, ArticleVendu article) {
+		MapSqlParameterSource newArticleAcheteurMap = new MapSqlParameterSource();
+		Utilisateur acheteur;
+		acheteur = utilisateurDAO.findById(id);
+		
+		
+		newArticleAcheteurMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
+		newArticleAcheteurMap.addValue("no_article", article.getNoArticle());
+
+		namedParameterJdbcTemplate.update(UPDATE_NEW_ARTICLE_ACHETEUR, newArticleAcheteurMap);
+
+		
+
 	}
 
 /////////////////////////////////       SET   ////////////////////////////////////////////
