@@ -10,10 +10,7 @@
 
 <main layout:fragment="main">
 
-	<h1>Liste des enchères</h1>
-	
-	<h2>Filtres</h2>
-	
+	<h1>Liste des enchères</h1>	
 	<fieldset>
 		<form th:action="@{/rechercher}" method="post">
 			<div class="search-criteria"> 
@@ -36,19 +33,19 @@
 			<div class="filtre-connexion">
 					<div id="filtre-achats" class="filtre-achats" >
 						<div>
-							<label for="achats">Mes achats</label>
+							<label for="achats" >Mes achats</label>
 							<input type="radio" id="achats" name="filtre" value="1" checked>
 						</div>
 						<div >
-							<label for="encheres-ouvertes">Enchères ouvertes</label>
+							<label for="encheres-ouvertes" id="encheres-ouvertes-txt">Enchères ouvertes</label>
 							<input type="checkbox" id="encheres-ouvertes" name="encheres-ouvertes" value="true" >
 						</div>
 						<div >
-							<label for="encheres-en-cours">Mes enchères en cours</label>
+							<label for="encheres-en-cours" id="encheres-en-cours-txt">Mes enchères en cours</label>
 							<input type="checkbox" id="encheres-en-cours" name="encheres-en-cours" value="true" >
 						</div>
 						<div >
-							<label for="encheres-remportees">Mes enchères remportées</label>
+							<label for="encheres-remportees" id="encheres-remportees-txt">Mes enchères remportées</label>
 							<input type="checkbox" id="encheres-remportees" name="encheres-remportees" value="true" >
 						</div>
 					</div>
@@ -58,39 +55,51 @@
 							<input type="radio" id="ventes" name="filtre" value="2" >
 						</div>
 						<div >
-							<label for="ventes-en-cours">Ventes en cours</label>
+							<label for="ventes-en-cours" id="ventes-en-cours-txt">Ventes en cours</label>
 							<input type="checkbox" id="ventes-en-cours" name="ventes-en-cours" value="true" >
 						</div>
 						<div >
-							<label for="ventes-non-debutees">Ventes non débutées</label>
+							<label for="ventes-non-debutees" id="ventes-non-debutees-txt">Ventes non débutées</label>
 							<input type="checkbox" id="ventes-non-debutees" name="ventes-non-debutees" value="true" >
 						</div>
 						<div >
-							<label for="ventes-terminees">Ventes terminées</label>
+							<label for="ventes-terminees" id="ventes-terminees-txt">Ventes terminées</label>
 							<input type="checkbox" id="ventes-terminees" name="ventes-terminees" value="true" >
 						</div>
 					</div>
 				</div>
-				<input class="button" type="submit" value="Rechercher">
+				<input id="valider-formulaire" class="button" type="submit" value="Rechercher">
 				
 		</form>
 	</fieldset>
 	
 	<div th:if="${#lists.isEmpty(articleVendu)}" class="liste-articles">
-		<h1>Aucun article disponible à la vente actuellement</h1>	
+		<h1>Aucun article ne correspond a votre recherche</h1>	
 	</div>
 
 	<div class="liste-articles">
  		<div th:each="articlevendu:${articleVendu}" class="article">
-	 		<img alt="image-article-1" src="/images/pc_gamer.jpeg">
+	 		
+	 		<div class="contenu-article">
+	 		
+	 		<div class="texte-article">
 	 		<h3 th:text="${articlevendu.nomArticle}" ></h3>
 	 		<p th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
 	 		<p th:text="'Categorie : ' + ${articlevendu.categorie?.libelle}"></p>
 	 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
 	 		<a th:href="@{/ProfilVendeur(id=${articlevendu.noUtilisateur})}" th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></a><br>
- 			  <a th:href="@{/DetailVente(id=${articlevendu.noArticle})}" >Faire une enchère</a>
- 		 
+ 			<a th:href="@{/DetailVente(id=${articlevendu.noArticle})}" >Détails</a>
+ 		 	</div>
+ 		 	<div class="image-article">
+	 		<img th:if="${articlevendu.noCategorie} == 2" alt="image-article-1" th:src="@{/images/informatique.png}">
+	 		<img th:if="${articlevendu.noCategorie} == 3" alt="image-article-1" th:src="@{/images/ameublement.png}">
+	 		<img th:if="${articlevendu.noCategorie} == 4" alt="image-article-1" th:src="@{/images/vetements.png}">
+	 		<img th:if="${articlevendu.noCategorie} == 5" alt="image-article-1" th:src="@{/images/sport-loisir.png}">
+	 		<img th:if="${articlevendu.noCategorie} == 6" alt="image-article-1" th:src="@{/images/cuisine.png}">
+	 		</div>
+ 		 	</div>
  		 </div>
+ 		 
 	</div>
 </main>
 
