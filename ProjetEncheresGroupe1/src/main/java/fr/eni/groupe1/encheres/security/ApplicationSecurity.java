@@ -57,6 +57,7 @@ public class ApplicationSecurity {
 					// Permettre à tous d'afficher correctement les images et CSS
 					.requestMatchers("/styles/*").permitAll()
 					.requestMatchers("/images/*").permitAll()
+					.requestMatchers("/js/*").permitAll()
 					// Il faut être connecté pour toutes autres URLs
 					.anyRequest().authenticated();	
 		});
