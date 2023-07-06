@@ -80,16 +80,14 @@
 	<div class="liste-articles"> 
  		<div th:each="articlevendu:${articleVendu}" class="article">
 	 		
- 		<a th:href="@{/DetailVente(id=${articlevendu.noArticle})}">
 	 		<div class="contenu-article">
-	 		
 	 		<div class="texte-article">
 	 		<h3 th:text="${articlevendu.nomArticle}" ></h3>
 	 		<p th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
 	 		<p th:text="'Categorie : ' + ${articlevendu.categorie?.libelle}"></p>
 	 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
 	 		<a th:href="@{/ProfilVendeur(id=${articlevendu.noUtilisateur})}" sec:authorize="isAuthenticated()" th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></a><br>
-<!--  			<a th:href="@{/DetailVente(id=${articlevendu.noArticle})}" sec:authorize="isAuthenticated()"  >Détails</a> -->
+ 			<a th:href="@{/DetailVente(id=${articlevendu.noArticle})}" sec:authorize="isAuthenticated()"  >Détails</a>
  		 	</div>
  		 	<div class="image-article">
 	 		<img th:if="${articlevendu.noCategorie} == 1" alt="image-article-1" th:src="@{/images/selectionnez.png}">
@@ -100,7 +98,6 @@
 	 		<img th:if="${articlevendu.noCategorie} == 6" alt="image-article-1" th:src="@{/images/cuisine.png}">
 	 		</div>
  		 	</div>
- 		 </a>
  		 </div>
  		 
  		 
