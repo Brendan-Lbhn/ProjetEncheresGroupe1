@@ -23,38 +23,35 @@ import fr.eni.groupe1.encheres.bo.Utilisateur;
 
 @Controller
 public class EncheresController {
-
+	
 	EncheresService encheresService;
 	EncheresCategoriesService encheresCategoriesService;
 	UtilisateurService utilisateurService;
-
-	public EncheresController(EncheresService encheresService, EncheresCategoriesService encheresCategoriesService,
-			UtilisateurService utilisateurService) {
+	
+	public EncheresController(EncheresService encheresService,EncheresCategoriesService encheresCategoriesService,UtilisateurService utilisateurService) {
 		this.encheresService = encheresService;
 		this.encheresCategoriesService = encheresCategoriesService;
 		this.utilisateurService = utilisateurService;
-
+		
 	}
 
-	///////////////////////////////// CREATION D UN ARTICLE
-	///////////////////////////////// ////////////////////////////////////////////
+	
+	/////////////////////////////////        CREATION D UN ARTICLE     ////////////////////////////////////////////
 
-	@GetMapping({ "CreationVente" })
-	public String inscriptionVente(Principal principal, @ModelAttribute("article") ArticleVendu article,
-			@ModelAttribute("retrait") Retrait infoRetrait, Model model) {
-		System.out.println("je passe par le get CreationVente");
-		List<Categorie> listeCategories = encheresCategoriesService.getCategories();
-
-		model.addAttribute("utilisateur", utilisateurService.findByPseudo(principal.getName()));
-		model.addAttribute("listAticle", encheresService.getArticle());
+	@GetMapping({"CreationVente"})
+	public String inscriptionVente(Principal principal,@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, Model model) {
+	System.out.println("je passe par le get CreationVente");
+		List<Categorie>listeCategories = encheresCategoriesService.getCategories();
+		
+		model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
+		model.addAttribute("listAticle",encheresService.getArticle());
 		model.addAttribute("listRetrait", encheresService.getRetrait());
-		model.addAttribute("categorie", listeCategories);
+		model.addAttribute("categorie",listeCategories);
 		return "/CreationVente";
 	}
-
-	@PostMapping({ "CreationVente" })
-	public String inscriptionFaite(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
-			@ModelAttribute("retrait") Retrait infoRetrait, Model model) {
+	
+	@PostMapping({"CreationVente"})
+	public String inscriptionFaite( @ModelAttribute ("articleVendu") ArticleVendu articleVendu,@ModelAttribute ("retrait") Retrait infoRetrait,Model model ) {
 		System.out.println("je passe par le post CreationVente");
 		encheresService.ajouterArticle(articleVendu);
 		System.out.println(articleVendu.toString());
@@ -62,9 +59,8 @@ public class EncheresController {
 		System.out.println(infoRetrait.toString());
 		return "redirect:/accueil";
 	}
-
-	///////////////////////////////// AFFICHAGE D UN DETAIL DE VENTE
-	///////////////////////////////// ////////////////////////////////////////////
+	
+	/////////////////////////////////       AFFICHAGE D UN DETAIL DE VENTE     ////////////////////////////////////////////
 	@GetMapping({ "DetailVente" })
 
 	public String AfficherDetailVente(Principal principal, @ModelAttribute("article") ArticleVendu article,
@@ -74,28 +70,25 @@ public class EncheresController {
 		ArticleVendu articleEnEnchere = encheresService.getArticleById(id);
 		Date date2 = articleEnEnchere.getDateFinEncheres();
 		// Date date1 = date2;
-		var toto = encheresService.getEnchereById(id);
-		int idUser = toto.getNoUtilisateur();
-
 		int resultat = date1.compareTo(date2);
 		int resultatDate = 0;
-		if (resultat == 0) {
-			resultatDate = 1;
-
-			encheresService.ajoutArticleAcheteur(idUser, articleEnEnchere);
-		} else if (resultat < 0) {
+		
+		if (resultat < 0) {
 			resultatDate = 2;
-		} else if (resultat > 0) {
-			resultatDate = 3;
-			encheresService.ajoutArticleAcheteur(idUser, articleEnEnchere);
-		}
+		} else if (resultat >= 0) {
+			resultatDate = 1;
+//			var toto = encheresService.getEnchereById(id);
+//		int idUser = toto.getNoUtilisateur();
+//			encheresService.ajoutArticleAcheteur(idUser, articleEnEnchere);
+		}  
 
 		Utilisateur titi = utilisateurService.findByPseudo(principal.getName());
-		System.out.println("je passe par le get DetailVente");
+
 		model.addAttribute("utilisateur", titi);
 		model.addAttribute("article", encheresService.getArticleById(id));
 		model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
 		model.addAttribute("resultatDate", resultatDate);
+		var toto = encheresService.getEnchereById(id);
 		if (toto != null) {
 			model.addAttribute("enchere", toto);
 			model.addAttribute("acheteur", utilisateurService.findById(toto.getNoUtilisateur()));
@@ -105,27 +98,27 @@ public class EncheresController {
 		return "/DetailVente";
 
 	}
-	///////////////////////////////// ENCHERE DETAIL VENTE
-	///////////////////////////////// ////////////////////////////////////////////
+	/////////////////////////////////       ENCHERE DETAIL VENTE     ////////////////////////////////////////////
 
-	@PostMapping({ "/EnchereAjout" })
-	public String FaireUneEnchere(Principal principal, @ModelAttribute("article") ArticleVendu article,
-			@ModelAttribute("enchere") Enchere infoEncheres, Model model) {
-		System.out.println("je passe par le get DetailVente");
-		int id = article.getNoArticle();
-		encheresService.ajouterEnchere(principal, article, infoEncheres);
+	@PostMapping({"/EnchereAjout"}) 
+	public String FaireUneEnchere(Principal principal,@ModelAttribute ("article")ArticleVendu article, @ModelAttribute ("enchere") Enchere infoEncheres, Model model) {
+		 System.out.println("je passe par le get DetailVente"); 
+		 int id = article.getNoArticle();
+		 encheresService.ajouterEnchere(principal, article, infoEncheres);
+		 
+		 model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
+		 model.addAttribute("article",encheresService.getArticleById(id));
+		 model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
 
-		model.addAttribute("utilisateur", utilisateurService.findByPseudo(principal.getName()));
-		model.addAttribute("article", encheresService.getArticleById(id));
-		model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
+		 var toto = encheresService.getEnchereById(id);
 
-		var toto = encheresService.getEnchereById(id);
+		 model.addAttribute("enchere", toto);
+		 model.addAttribute("acheteur", utilisateurService.findById(toto.getNoUtilisateur()));
 
-		model.addAttribute("enchere", toto);
-		model.addAttribute("acheteur", utilisateurService.findById(toto.getNoUtilisateur()));
+		 System.out.println(encheresService.getEnchereById(id));
 
-		System.out.println(encheresService.getEnchereById(id));
 
 		return "/DetailVente";
 	}
 }
+
