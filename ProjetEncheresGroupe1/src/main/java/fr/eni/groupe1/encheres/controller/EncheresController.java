@@ -1,6 +1,8 @@
 package fr.eni.groupe1.encheres.controller;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -62,14 +64,30 @@ public class EncheresController {
 	@GetMapping({"DetailVente"}) 
 
 	 public String AfficherDetailVente(Principal principal,@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, @ModelAttribute ("enchere") Enchere infoEncheres, @RequestParam int id, Model model) {
-		
+	 Date date1 = java.sql.Date.valueOf(LocalDate.now());
+	 ArticleVendu articleEnEnchere = encheresService.getArticleById(id);
+	 Date date2 = articleEnEnchere.getDateFinEncheres();
+	System.out.println("date" + date1);
+	System.out.println("date2" + date2);
+	int resultat = date1.compareTo(date2);
+	int resultatDate = 0;
+	if (resultat == 0) {
+		resultatDate = 1;
+		System.out.println("c'est la même date");
+	}	else if (resultat < 0) {
+		resultatDate = 2;
+		System.out.println("c'est inférieur à la date");
+	} else	if (resultat > 0) {
+		resultatDate = 3;
+		System.out.println("c'est supérieur à la date");
+	}
+	
 	 Utilisateur titi = utilisateurService.findByPseudo(principal.getName());
 	 System.out.println("je passe par le get DetailVente");	 
 	 model.addAttribute("utilisateur",titi);
 	 model.addAttribute("article",encheresService.getArticleById(id));
 	 model.addAttribute("retrait", encheresService.getRetraitByEnchere(id)); 
-
-	 
+	 model.addAttribute("resultatDate", resultatDate);
 	 var toto = encheresService.getEnchereById(id);
 	 if (toto != null) {
 	 model.addAttribute("enchere", toto);

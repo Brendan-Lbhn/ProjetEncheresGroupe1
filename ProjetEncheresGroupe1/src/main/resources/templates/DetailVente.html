@@ -36,6 +36,7 @@
 
 			</div>
 </div>
+
 			<p th:text="'Mise à prix : ' + ${article.miseAPrix} + ' points'"></p>
 			<p th:text="'Fin de l\'enchère : ' + ${article.dateFinEncheres}"></p>
 
@@ -47,6 +48,8 @@
 			<p th:text="'Vendeur : ' + ${article.vendeur?.pseudo}"></p>
 		</div>
 
+
+<div th:if="${resultatDate == 2}">
 		<form th:action="@{/EnchereAjout}" th:object="${enchere}"
 			method="post">
 
@@ -70,7 +73,14 @@
 			
 			<button type="reset">Annuler</button>
 		</form>
-
+	</div>
+	
+	<div th:if="${enchere.montantEnchere != null}" th:object="${enchere}">	
+	<div  th:if="${resultatDate != 2}" >
+	Le vainqueur de l'enchère est : <span th:text="${acheteur.pseudo}"></span>
+	pour un montant de : <span th:text="${enchere.montantEnchere}"></span> points.
+	</div>
+	</div>
 	</main>
 </html>
 
