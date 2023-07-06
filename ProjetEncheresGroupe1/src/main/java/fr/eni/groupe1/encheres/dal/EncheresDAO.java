@@ -30,6 +30,8 @@ public interface EncheresDAO {
 	void ajouterEnchere(Principal principal, ArticleVendu article, Enchere infoEncheres);
 	Enchere enchereById(int id);
 	void ajoutArticleAcheteur(int id, ArticleVendu article);
+	void modifierArticle(ArticleVendu articleVendu, int id);
+	void modifierInfoRetrait(Retrait infoRetrait, ArticleVendu articleVendu);
 
 	
 	
