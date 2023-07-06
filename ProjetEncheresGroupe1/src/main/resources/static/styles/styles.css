@@ -18,6 +18,13 @@ h2{
 	
 }
 
+.navbar input{
+	color:white;
+	border:none; 	
+	background-color: inherit; 
+	text-decoration: none; 
+}
+
 a{
 	text-decoration: none; 
 	color:white;
@@ -183,4 +190,11 @@ form.creaProf{
 	
 	width: 80%;
 	
+}
+
+.contenu{
+	width: 50%; 
+	background-color: #516079;
+	border-radius: 7px;
+	display: flex; 
 }
