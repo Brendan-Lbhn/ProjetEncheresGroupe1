@@ -17,6 +17,7 @@ import fr.eni.groupe1.encheres.bo.ArticleVendu;
 import fr.eni.groupe1.encheres.bo.Categorie;
 import fr.eni.groupe1.encheres.bo.Enchere;
 import fr.eni.groupe1.encheres.bo.Retrait;
+import fr.eni.groupe1.encheres.bo.Utilisateur;
 
 @Controller
 public class EncheresController {
@@ -61,9 +62,10 @@ public class EncheresController {
 	@GetMapping({"DetailVente"}) 
 
 	 public String AfficherDetailVente(Principal principal,@ModelAttribute ("article")ArticleVendu article,@ModelAttribute ("retrait") Retrait infoRetrait, @ModelAttribute ("enchere") Enchere infoEncheres, @RequestParam int id, Model model) {
-
+		
+	 Utilisateur titi = utilisateurService.findByPseudo(principal.getName());
 	 System.out.println("je passe par le get DetailVente");	 
-	 model.addAttribute("utilisateur",utilisateurService.findByPseudo(principal.getName()));
+	 model.addAttribute("utilisateur",titi);
 	 model.addAttribute("article",encheresService.getArticleById(id));
 	 model.addAttribute("retrait", encheresService.getRetraitByEnchere(id)); 
 
