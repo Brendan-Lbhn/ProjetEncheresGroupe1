@@ -29,7 +29,6 @@ a{
 	border-color: #F1895C; 
 	border-radius:7px;
 	background-color: #F1895C;
-	width: 45%;
 }
 
 fieldset{
@@ -42,8 +41,8 @@ fieldset{
 
 form{
 	display: flex; 
-	flex-direction: row;
-	justify-content: space-around 
+	flex-direction: row; 
+	justify-content: space-between;
 }
 
 .navbar{
@@ -142,6 +141,7 @@ fieldset.creaProf {
 form.creaProf{
 	display: flex; 
 	flex-wrap: wrap;
+	
 }
 
 .creaTri {
