@@ -83,7 +83,8 @@
 	 		<div class="contenu-article">
 	 		<div class="texte-article">
 	 		<h3 th:text="${articlevendu.nomArticle}" ></h3>
-	 		<p th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
+	 		<p th:if="${articlevendu.prixVente} > 1" th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
+	 		<p th:if="${articlevendu.prixVente} < 1" th:text="'Prix : ' + ${articlevendu.miseAPrix} + ' points'"></p>
 	 		<p th:text="'Categorie : ' + ${articlevendu.categorie?.libelle}"></p>
 	 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
 	 		<a th:href="@{/ProfilVendeur(id=${articlevendu.noUtilisateur})}" sec:authorize="isAuthenticated()" th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></a><br>
@@ -93,7 +94,7 @@
 	 		<img th:if="${articlevendu.noCategorie} == 1" alt="image-article-1" th:src="@{/images/selectionnez.png}">
 	 		<img th:if="${articlevendu.noCategorie} == 2" alt="image-article-1" th:src="@{/images/informatique.png}">
 	 		<img th:if="${articlevendu.noCategorie} == 3" alt="image-article-1" th:src="@{/images/ameublement.png}">
-	 		<img th:if="${articlevendu.noCategorie} == 4" alt="image-article-1" th:src="@{/images/vetements.png}">
+	 		<img th:if="${articlevendu.noCategorie} == 4" alt="image-article-1" th:src="@{/images/vetement.png}">
 	 		<img th:if="${articlevendu.noCategorie} == 5" alt="image-article-1" th:src="@{/images/sport-loisir.png}">
 	 		<img th:if="${articlevendu.noCategorie} == 6" alt="image-article-1" th:src="@{/images/cuisine.png}">
 	 		</div>
