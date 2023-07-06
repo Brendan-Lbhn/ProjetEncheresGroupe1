@@ -77,9 +77,7 @@ public class EncheresController {
 			resultatDate = 2;
 		} else if (resultat >= 0) {
 			resultatDate = 1;
-//			var toto = encheresService.getEnchereById(id);
-//		int idUser = toto.getNoUtilisateur();
-//			encheresService.ajoutArticleAcheteur(idUser, articleEnEnchere);
+//			
 		}  
 
 		Utilisateur titi = utilisateurService.findByPseudo(principal.getName());
@@ -92,8 +90,11 @@ public class EncheresController {
 		if (toto != null) {
 			model.addAttribute("enchere", toto);
 			model.addAttribute("acheteur", utilisateurService.findById(toto.getNoUtilisateur()));
-
-			System.out.println(encheresService.getEnchereById(id));
+		}
+		if (toto != null && resultatDate == 2 ) {
+			var tutu = encheresService.getEnchereById(id);
+		int idUser = tutu.getNoUtilisateur();
+			encheresService.ajoutArticleAcheteur(idUser, articleEnEnchere);
 		}
 		return "/DetailVente";
 
