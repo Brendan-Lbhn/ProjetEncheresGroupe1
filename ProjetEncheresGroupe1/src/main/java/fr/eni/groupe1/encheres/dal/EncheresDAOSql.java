@@ -40,6 +40,10 @@ public class EncheresDAOSql implements EncheresDAO {
 	
 	private static final String UPDATE_NEW_ENCHERE = "update ENCHERES set no_utilisateur=:no_utilisateur,no_article=:no_article,date_enchere=:date_enchere, montant_enchere=:montant_enchere WHERE no_article =:no_article";
 	private static final String UPDATE_NEW_ARTICLE = "update ARTICLES_VENDUS set prix_vente=:prix_vente WHERE no_article =:no_article";
+	private static final String UPDATE_MODIF_ARTICLE = "update ARTICLES_VENDUS set nom_article=:nom_article, description=:description, date_debut_encheres=:date_debut_encheres, date_fin_encheres=:date_fin_encheres, no_categorie=:no_categorie  WHERE no_article =:no_article";
+	private static final String UPDATE_MODIF_RETRAIT =  "update RETRAITS set rue=:rue, code_postal=:code_postal, ville=:ville WHERE no_article =:no_article";
+;
+
 	private static final String UPDATE_NEW_ARTICLE_ACHETEUR = "update ARTICLES_VENDUS set no_utilisateur=:no_utilisateur WHERE no_article =:no_article";
 	private static final String UPDATE_CREDIT_UTILISATEUR = "update UTILISATEURS set credit=:credit WHERE no_utilisateur =:no_utilisateur";;
 	private static final String DELETE_MODIF_ARTICLE = null;
@@ -48,6 +52,7 @@ public class EncheresDAOSql implements EncheresDAO {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private UtilisateurDAO utilisateurDAO;
 	private EncheresCategoriesDAO encheresCategoriesDAO;
+	
 
 	@Autowired
 	public void setNamedParameterJdbcTemplate(UtilisateurDAO utilisateurDAO,
@@ -313,6 +318,35 @@ public class EncheresDAOSql implements EncheresDAO {
 		namedParameterJdbcTemplate.update(UPDATE_NEW_ARTICLE_ACHETEUR, newArticleAcheteurMap);
 
 		
+
+	}
+
+	@Override
+	public void modifierArticle(ArticleVendu articleVendu, int id) {
+		MapSqlParameterSource newModifArticleMap = new MapSqlParameterSource();
+		
+		newModifArticleMap.addValue("no_article", id );
+		newModifArticleMap.addValue("nom_article", articleVendu.getNomArticle());
+		newModifArticleMap.addValue("description", articleVendu.getDescription());
+		newModifArticleMap.addValue("date_debut_encheres", articleVendu.getDateDebutEncheres());
+		newModifArticleMap.addValue("date_fin_encheres", articleVendu.getDateFinEncheres() );
+		newModifArticleMap.addValue("prix_initial", articleVendu.getPrixVente());
+		newModifArticleMap.addValue("no_categorie", articleVendu.getNoCategorie() );
+		
+		namedParameterJdbcTemplate.update(UPDATE_MODIF_ARTICLE, newModifArticleMap);
+
+	}
+
+	@Override
+	public void modifierInfoRetrait(Retrait infoRetrait, ArticleVendu articleVendu) {
+		MapSqlParameterSource newModifRetraitMap = new MapSqlParameterSource();
+		
+		newModifRetraitMap.addValue("rue",infoRetrait.getRue());
+		newModifRetraitMap.addValue("code_postal",infoRetrait.getCodePostal());
+		newModifRetraitMap.addValue("ville",infoRetrait.getVille());
+		newModifRetraitMap.addValue("no_article",articleVendu.getNoArticle());
+
+		namedParameterJdbcTemplate.update(UPDATE_MODIF_RETRAIT, newModifRetraitMap);
 
 	}
 

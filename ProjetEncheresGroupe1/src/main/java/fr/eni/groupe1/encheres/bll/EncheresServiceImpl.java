@@ -116,4 +116,18 @@ public class EncheresServiceImpl implements EncheresService {
 		encheresDAO.ajoutArticleAcheteur(id, article);
 	}
 
+
+
+	@Override
+	public void modifierArticle(ArticleVendu articleVendu, int id) {
+encheresDAO.modifierArticle(articleVendu, id);		
+	}
+
+
+
+	@Override
+	public void modifierInfoRetrait(Retrait infoRetrait, ArticleVendu articleVendu) {
+encheresDAO.modifierInfoRetrait(infoRetrait, articleVendu);	
+	}
+
 }
