@@ -126,10 +126,9 @@ form{
 	margin: 10px;
 }
 
-.article img{
-	height: 10vh;
-	border-radius: 7px; 
-	clip-path: circle(40%);
+.image-article img{
+	width: 100%;
+	
 }
 
 fieldset.creaProf {
@@ -155,5 +154,28 @@ form.creaProf{
 
 .option-grisee{
 	color: #516079;
+}
+
+.option-valide{
+	color:black;
+}
+
+.contenu-article{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+.image-article{
+	display:flex; 
+	justify-content: space-around;
+	align-items: center; 
+	width: 20%;
+	
+}
+
+.texte-article{
+	
+	width: 80%;
 	
 }
