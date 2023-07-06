@@ -109,4 +109,11 @@ public class EncheresServiceImpl implements EncheresService {
 		return encheresDAO.enchereById(id);
 	}
 
+
+
+	@Override
+	public void ajoutArticleAcheteur(int id, ArticleVendu article) {
+		encheresDAO.ajoutArticleAcheteur(id, article);
+	}
+
 }
