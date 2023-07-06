@@ -87,8 +87,8 @@
 	 		<p th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
 	 		<p th:text="'Categorie : ' + ${articlevendu.categorie?.libelle}"></p>
 	 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
-	 		<a th:href="@{/ProfilVendeur(id=${articlevendu.noUtilisateur})}" th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></a><br>
- 			<a th:href="@{/DetailVente(id=${articlevendu.noArticle})}" >Détails</a>
+	 		<a th:href="@{/ProfilVendeur(id=${articlevendu.noUtilisateur})}" sec:authorize="isAuthenticated()" th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></a><br>
+ 			<a th:href="@{/DetailVente(id=${articlevendu.noArticle})}" sec:authorize="isAuthenticated()"  >Détails</a>
  		 	</div>
  		 	<div class="image-article">
 	 		<img th:if="${articlevendu.noCategorie} == 2" alt="image-article-1" th:src="@{/images/informatique.png}">
