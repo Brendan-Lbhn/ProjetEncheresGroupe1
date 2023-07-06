@@ -59,7 +59,6 @@
 				<input type="hidden" th:field="*{noUtilisateur}"
 					th:value="${utilisateur.noUtilisateur}" required><br>
 			</div>
-			<p th:text="'crédit utilisateur: ' + ${utilisateur.credit}  "></p>
 			<span th:text="'Proposition :' "></span> 
 			<input type="number" th:field="*{montantEnchere}" th:min="${enchere.montantEnchere}" th:max="${utilisateur.credit}" required><br>
 			
