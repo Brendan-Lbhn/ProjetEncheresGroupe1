@@ -104,7 +104,7 @@ public class EncheresDAOFiltresSql implements EncheresDAOFiltres{
 						requete.append("WHERE ");
 					}
 					requete.append(
-							"ARTICLES_VENDUS.no_utilisateur = :id AND ARTICLES_VENDUS.date_fin_encheres <= GETDATE()");
+							"ARTICLES_VENDUS.no_utilisateur = :id AND ARTICLES_VENDUS.date_fin_encheres < GETDATE()-1");
 				}
 			}
 		}

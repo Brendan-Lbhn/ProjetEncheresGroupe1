@@ -86,6 +86,7 @@
 	 		<p th:if="${articlevendu.prixVente} > 1" th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
 	 		<p th:if="${articlevendu.prixVente} < 1" th:text="'Prix : ' + ${articlevendu.miseAPrix} + ' points'"></p>
 	 		<p th:text="'Categorie : ' + ${articlevendu.categorie?.libelle}"></p>
+	 		<p th:text="'Début de l\'enchère : ' + ${articlevendu.dateDebutEncheres}"></p>
 	 		<p th:text="'Fin de l\'enchère : ' + ${articlevendu.dateFinEncheres}"></p>
 	 		<a th:href="@{/ProfilVendeur(id=${articlevendu.noUtilisateur})}" sec:authorize="isAuthenticated()" th:text="'Vendeur : ' + ${articlevendu.vendeur?.pseudo}"></a><br>
  			<a th:href="@{/DetailVente(id=${articlevendu.noArticle})}" sec:authorize="isAuthenticated()"  >Détails</a>

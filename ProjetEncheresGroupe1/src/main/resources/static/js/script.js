@@ -3,6 +3,7 @@ window.onload = init;
 function init() {
     var achatsRadio = document.getElementById('achats');
     var ventesRadio = document.getElementById('ventes');
+    
     handleRadioButtonChange();
     achatsRadio.addEventListener('change', handleRadioButtonChange);
     ventesRadio.addEventListener('change', handleRadioButtonChange);
