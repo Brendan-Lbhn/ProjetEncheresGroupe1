@@ -3,8 +3,6 @@ package fr.eni.groupe1.encheres.controller;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,23 +50,16 @@ public class EncheresControllerAccueil {
 	
 	@PostMapping({"rechercher"})
 	public String rechercherArticle(@ModelAttribute("categorie") Categorie categorie, @ModelAttribute("article") ArticleVendu article, Model model ) {
-		
-		System.out.println("Dans le controller /rechercher (noCategorie = " + categorie.getNoCategorie() + " / Caractères recherchés ="+ article.getNomArticle() + ")" );
-		
+				
 		if(categorie.getNoCategorie() == 1 && article.getNomArticle().isEmpty()) {
-			System.out.println("aucune recherche");
 			return "redirect:/accueil";
 		}else if(categorie.getNoCategorie() != 1 && article.getNomArticle().isEmpty()) {
-			System.out.println("controller categorie");
 			List<ArticleVendu>listArticles = encheresService.getArtcicleByCategorie(categorie.getNoCategorie());
 			model.addAttribute("articleVendu",listArticles);
 			return "Index";
 		}else if(categorie.getNoCategorie() == 1 && !article.getNomArticle().isEmpty()) {
-			System.out.println("controller get nom");
-			System.out.println("Dans le controller /rechercher, catégorie vide et nom article non vide.");
 			List<ArticleVendu>listArticles = encheresService.getArticleByName(article.getNomArticle());
 			model.addAttribute("articleVendu",listArticles);
-			System.out.println("De retour dans le controller, listArticles = " + listArticles);
 			return "Index";
 		}else {
 			System.out.println("controller name categorie");

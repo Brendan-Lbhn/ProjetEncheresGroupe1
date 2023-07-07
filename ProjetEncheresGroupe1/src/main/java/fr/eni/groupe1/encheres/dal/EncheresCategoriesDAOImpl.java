@@ -37,8 +37,7 @@ public class EncheresCategoriesDAOImpl implements EncheresCategoriesDAO{
 	
 	@Override
 	public List<Categorie> findAll() {
-		List<Categorie> listCategories = njt.query(SELECT_ALL, 
-				new CategorieRowMapper());
+		List<Categorie> listCategories = njt.query(SELECT_ALL,new CategorieRowMapper());
 		return listCategories;
 	}
 
@@ -50,15 +49,14 @@ public class EncheresCategoriesDAOImpl implements EncheresCategoriesDAO{
 
 	@Override
 	public Categorie findById(Integer id) {
+		
 		Map<String, Object> params = new HashMap<>();
 		params.put("id",id);
-		System.out.println("je passe par le find dao");
+
 		Categorie categorie = null;
 		
-		categorie = njt.queryForObject(FIND_BY_ID, 
-			params, 				
-			new CategorieRowMapper());
-		System.out.println(categorie);
+		categorie = njt.queryForObject(FIND_BY_ID, params,new CategorieRowMapper());
+
 		return categorie;
 	}
 	

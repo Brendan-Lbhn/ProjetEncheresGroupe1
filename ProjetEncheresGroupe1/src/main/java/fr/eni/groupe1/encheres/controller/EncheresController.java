@@ -36,15 +36,16 @@ public class EncheresController {
 
 	}
 
-	///////////////////////////////// CREATION D UN ARTICLE
-	///////////////////////////////// //////////////////////////////////////////////////////////////////////
+	///////////////////////////////// CREATION D UN ARTICLE ///////////////////////////////////////////////////////////
 
 	@GetMapping({ "CreationVente" })
 	public String inscriptionVente(Principal principal, @ModelAttribute("article") ArticleVendu article,
 			@ModelAttribute("retrait") Retrait infoRetrait, Model model) {
-		System.out.println("je passe par le get CreationVente");
+		
 		List<Categorie> listeCategories = encheresCategoriesService.getCategories();
-
+		Date date1 = java.sql.Date.valueOf(LocalDate.now());
+		
+		model.addAttribute("dateDuJour", date1);
 		model.addAttribute("utilisateur", utilisateurService.findByPseudo(principal.getName()));
 		model.addAttribute("listAticle", encheresService.getArticle());
 		model.addAttribute("listRetrait", encheresService.getRetrait());
@@ -55,21 +56,22 @@ public class EncheresController {
 	@PostMapping({ "CreationVente" })
 	public String inscriptionFaite(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
 			@ModelAttribute("retrait") Retrait infoRetrait, Model model) {
-		System.out.println("je passe par le post CreationVente");
+		
+		Date date1 = java.sql.Date.valueOf(LocalDate.now());
+		
+		model.addAttribute("date", date1);
 		encheresService.ajouterArticle(articleVendu);
-		System.out.println(articleVendu.toString());
 		encheresService.ajouterInfoRetrait(infoRetrait, articleVendu);
-		System.out.println(infoRetrait.toString());
 		return "redirect:/accueil";
 	}
 
-	///////////////////////////////// AFFICHAGE D UN DETAIL DE VENTE
-	///////////////////////////////// //////////////////////////////////////////////////////////////
+	///////////////////////////////// AFFICHAGE D UN DETAIL DE VENTE /////////////////////////////////////////////////
 	@GetMapping({ "DetailVente" })
 
 	public String AfficherDetailVente(Principal principal, @ModelAttribute("article") ArticleVendu article,
 			@ModelAttribute("retrait") Retrait infoRetrait, @ModelAttribute("enchere") Enchere infoEncheres,
 			@RequestParam int id, Model model) {
+		
 		Date date1 = java.sql.Date.valueOf(LocalDate.now());
 		ArticleVendu articleEnEnchere = encheresService.getArticleById(id);
 		Date date2 = articleEnEnchere.getDateFinEncheres();
@@ -96,7 +98,7 @@ public class EncheresController {
 			model.addAttribute("enchere", toto);
 			model.addAttribute("acheteur", utilisateurService.findById(toto.getNoUtilisateur()));
 		}
-///////////////////////////////// AJOUT UTILISATEUR A ARTICLE	
+///////////////////////////////// AJOUT UTILISATEUR A ARTICLE SI ENCHERE GAGNER	
 		if (toto != null && resultatDate != 2) {
 			var tutu = encheresService.getEnchereById(id);
 			int idUser = tutu.getNoUtilisateur();
@@ -105,14 +107,13 @@ public class EncheresController {
 		return "/DetailVente";
 
 	}
-
+///////////////////////////////// MODIFIER VENTE //////////////////////////////////////////////////////////////////
 	@GetMapping({ "/ModifVente" })
 	public String ModifArticle(Principal principal, @ModelAttribute("article") ArticleVendu article,
 			@ModelAttribute("retrait") Retrait infoRetrait, Model model, @RequestParam int id) {
-		System.out.println("je passe par le get ModifVente");
 		List<Categorie> listeCategories = encheresCategoriesService.getCategories();
 		ArticleVendu articleModif = encheresService.getArticleById(id);
-		
+
 		model.addAttribute("utilisateur", utilisateurService.findByPseudo(principal.getName()));
 		model.addAttribute("article", articleModif);
 		model.addAttribute("categorie", listeCategories);
@@ -123,9 +124,10 @@ public class EncheresController {
 	@PostMapping({ "ModifVente" })
 	public String ModifArticleFaite(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
 			@ModelAttribute("retrait") Retrait infoRetrait, Model model) {
-		System.out.println("je passe par le post ModifVente");
+
 		int id = articleVendu.getNoArticle();
 		List<Categorie> listeCategories = encheresCategoriesService.getCategories();
+		
 		model.addAttribute("categorie", listeCategories);
 
 		encheresService.modifierArticle(articleVendu, id);
@@ -134,13 +136,12 @@ public class EncheresController {
 		return "redirect:/accueil";
 	}
 
-	///////////////////////////////// ENCHERE DETAIL VENTE
-	///////////////////////////////// /////////////////////////////////////////////////////////////////////
+	///////////////////////////////// ENCHERIR ////////////////////////////////////////////////////////////////////////
 
 	@PostMapping({ "/EnchereAjout" })
 	public String FaireUneEnchere(Principal principal, @ModelAttribute("article") ArticleVendu article,
 			@ModelAttribute("enchere") Enchere infoEncheres, Model model) {
-		System.out.println("je passe par le get DetailVente");
+
 		int id = article.getNoArticle();
 		Date date1 = java.sql.Date.valueOf(LocalDate.now());
 		ArticleVendu articleEnEnchere = encheresService.getArticleById(id);
@@ -167,8 +168,6 @@ public class EncheresController {
 
 		model.addAttribute("enchere", toto);
 		model.addAttribute("acheteur", utilisateurService.findById(toto.getNoUtilisateur()));
-
-		System.out.println(encheresService.getEnchereById(id));
 
 		return "/DetailVente";
 	}

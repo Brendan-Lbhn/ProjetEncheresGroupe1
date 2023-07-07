@@ -3,7 +3,6 @@ package fr.eni.groupe1.encheres.dal;
 import java.security.Principal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import fr.eni.groupe1.encheres.bo.ArticleVendu;
 import fr.eni.groupe1.encheres.bo.Utilisateur;
 
 @Repository
@@ -33,12 +31,10 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	private final static String CHECK_PSEUDO = "SELECT COUNT(*) FROM UTILISATEURS WHERE pseudo = ?";
 	private final static String CHECK_EMAIL = "SELECT COUNT(*) FROM UTILISATEURS WHERE email = ?";
 	private static final String UPDATE_NEW_CREDIT = "update UTILISATEURS set credit=:credit where no_utilisateur=:no_utilisateur ";;
-	
 
 	@Autowired
 	private NamedParameterJdbcTemplate njt;
-	
-	
+
 	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate njt, UtilisateurDAO utilisateurDAO) {
 		this.njt = njt;
 	}
@@ -48,7 +44,7 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 		@Override
 		public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Utilisateur user = new Utilisateur();
-			System.out.println("Dans UtilisateurRowMapper");
+
 			user.setNoUtilisateur(rs.getInt("no_utilisateur"));
 			user.setPseudo(rs.getString("pseudo"));
 			user.setNom(rs.getString("nom"));
@@ -70,47 +66,46 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	public void save(Utilisateur utilisateur) {
 		if (utilisateur.getNoUtilisateur() == null) {
 
-	        StringBuilder errors = new StringBuilder();
-	        int countPseudo = njt.getJdbcOperations().queryForObject(CHECK_PSEUDO, Integer.class,utilisateur.getPseudo());
-	        if (countPseudo > 0) {
-	            errors.append("Le pseudo est déjà utilisé par un autre utilisateur. ");
-	        	
-	        }
-	        
-	        int countEmail = njt.getJdbcOperations().queryForObject(CHECK_EMAIL, Integer.class, utilisateur.getEmail());
-	        if (countEmail > 0) {
-	        	errors.append("L'email est déjà utilisé par un autre utilisateur.");
-	           
-	        }
-	        if (errors.length()>0) {
-	        	throw new IllegalStateException(errors.toString());
-	        }
-			
+			StringBuilder errors = new StringBuilder();
+			int countPseudo = njt.getJdbcOperations().queryForObject(CHECK_PSEUDO, Integer.class,utilisateur.getPseudo());
+			if (countPseudo > 0) {
+				errors.append("Le pseudo est déjà utilisé par un autre utilisateur. ");
+
+			}
+
+			int countEmail = njt.getJdbcOperations().queryForObject(CHECK_EMAIL, Integer.class, utilisateur.getEmail());
+			if (countEmail > 0) {
+				errors.append("L'email est déjà utilisé par un autre utilisateur.");
+
+			}
+			if (errors.length() > 0) {
+				throw new IllegalStateException(errors.toString());
+			}
+
 			// Insertion utilisateur
 			KeyHolder keyHolder = new GeneratedKeyHolder();
 			njt.update(INSERT, new BeanPropertySqlParameterSource(utilisateur), keyHolder);
 			utilisateur.setNoUtilisateur(keyHolder.getKey().intValue());
-			System.out.println("insert de l'utilisateur : " + utilisateur);
+
 			// mise à jours
 		} else {// update
-			System.out.println("je passe par le update du set utilisateur");
+
 			njt.update(UPDATE, new BeanPropertySqlParameterSource(utilisateur));
 
 		}
 
 	}
+
 	@Override
-	public void ajouterCredit(Utilisateur utilisateur, Principal principal,int creditActuel) {
+	public void ajouterCredit(Utilisateur utilisateur, Principal principal, int creditActuel) {
 		MapSqlParameterSource newCreditMap = new MapSqlParameterSource();
 		Utilisateur acheteur;
-		System.out.println("int creditActuel : "+ creditActuel);
-		int creditFinal = ((utilisateur.getCredit())+ creditActuel);
-		acheteur = njt.getJdbcOperations().queryForObject(FIND_BY_PSEUDO, new UtilisateursRowMapper(), principal.getName());
-		System.out.println("acheteur : "+ acheteur.getNoUtilisateur());
-		System.out.println("credit inséré: " + utilisateur.getCredit());
-		System.out.println("credit final : " + creditFinal);
+
+		int creditFinal = ((utilisateur.getCredit()) + creditActuel);
+		acheteur = njt.getJdbcOperations().queryForObject(FIND_BY_PSEUDO, new UtilisateursRowMapper(),principal.getName());
+		
 		newCreditMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
-		newCreditMap.addValue("credit",creditFinal);
+		newCreditMap.addValue("credit", creditFinal);
 
 		njt.update(UPDATE_NEW_CREDIT, newCreditMap);
 	}
@@ -121,9 +116,8 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	public List<Utilisateur> findAll() {
 		List<Utilisateur> listUtilisateur;
 
-		System.out.println("Dans findAll()");
 		listUtilisateur = njt.query(SELECT_ALL_UTILISATEURS, new UtilisateursRowMapper());
-		System.out.println(listUtilisateur);
+
 		return listUtilisateur;
 	}
 
@@ -145,40 +139,34 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 
 		Utilisateur user = null;
 
-		// user = njt.queryForObject(FIND_BY_ID, params, new UtilisateursRowMapper());
 		user = njt.getJdbcOperations().queryForObject(FIND_BY_PSEUDO, new UtilisateursRowMapper(), pseudo);
 		System.out.println(user);
 
 		return user;
 
 	}
+
 	@Override
 	public List<Utilisateur> VendeurByName(String nomVendeur) {
-		System.out.println("dans la méthode vendeur by name de la DAO, nomArticle = " + nomVendeur);
+
 		List<Utilisateur> listVendeur;
-					
-		MapSqlParameterSource params = new MapSqlParameterSource(); 
-		params.addValue("pseudo", nomVendeur); 
-		
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("pseudo", nomVendeur);
+
 		listVendeur = njt.query(FIND_BY_PSEUDO, params, new UtilisateursRowMapper());
-		
-		System.out.println("dans la methode articleByName de la DAO, listArticle = " + listVendeur);
-		
+
 		return listVendeur;
 	}
 /////////////////////////////////       DELETE     ////////////////////////////////////////////
 
 	@Override
 	public Utilisateur deleteProfil(String pseudo) {
-		System.out.println("je passe dans le delete");
+
 		Utilisateur user = null;
 		user = njt.getJdbcOperations().queryForObject(FIND_BY_PSEUDO, new UtilisateursRowMapper(), pseudo);
 		njt.update(DELETE, new BeanPropertySqlParameterSource(user));
 		return user;
 	}
-
-
-
-	
 
 }
