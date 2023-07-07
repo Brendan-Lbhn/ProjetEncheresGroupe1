@@ -13,8 +13,17 @@ h1{
 
 
 h2{
-	font-size: 1rem;
+	font-size: 1.2rem;
+	font-weight:bold;
 	padding: 10px;
+	
+}
+
+h3{
+	font-size: 0.9rem;
+	font-weight:normal;
+	padding: 5px;
+	margin: 0;
 	
 }
 
@@ -192,9 +201,43 @@ form.creaProf{
 	
 }
 
-.contenu{
-	width: 50%; 
-	background-color: #516079;
-	border-radius: 7px;
-	display: flex; 
+.center{
+	display: flex;
+	justify-content: center;
 }
+.contenu{
+	display: flex;
+	background-color:#C5C6C6;
+	border-radius: 7px;
+	width: 70%; 
+	justify-content: space-around;
+	padding-bottom: 20px;
+	align-items: center; 
+}
+
+.contenu img{
+	height: 25vh;
+}
+
+.col-1{
+	display : flex;
+	flex-direction: column;
+}
+
+.buttons{
+	display: flex; 
+	justify-content: center
+}
+
+.buttons a{
+	padding: 10px;
+}
+
+.btn{
+	border: solid;
+	border-color: #F1895C; 
+	border-radius:7px;
+	background-color: #F1895C;
+	width: 100%;
+}
+
