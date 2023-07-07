@@ -130,4 +130,11 @@ encheresDAO.modifierArticle(articleVendu, id);
 encheresDAO.modifierInfoRetrait(infoRetrait, articleVendu);	
 	}
 
+
+
+	@Override
+	public ArticleVendu deleteArticle(ArticleVendu article) {
+		return encheresDAO.deleteArticle(article);
+	}
+
 }

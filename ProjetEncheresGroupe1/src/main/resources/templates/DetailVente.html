@@ -12,7 +12,6 @@
 	<main layout:fragment="main">
 		<h1>
 			Détail de la vente :
-			<!-- <span data-th-text="${Vendeur.pseudo}"></span>  -->
 		</h1>
 
 		<div th:object="${article}">
@@ -27,7 +26,6 @@
 			<h3 th:text="${article.nomArticle}"></h3>
 			<p th:text="'Description : ' + ${article.description} "></p>
 			<p th:text="'Categorie : ' + ${article.categorie?.libelle}"></p>
-			<!--  -->
 			<div th:if="${enchere.montantEnchere != null}">
 			<div th:object="${enchere}">
 
@@ -88,8 +86,10 @@
 	pour un montant de : <span th:text="${enchere.montantEnchere}"></span> points.
 	</div>
 	</div>
-<!--  --><a th:href="@{/ModifVente (id=${article.noArticle})}"><button>Modifier la vente</button></a>
-
+<div th:if="${utilisateur.pseudo == article.vendeur?.pseudo}">
+<a th:href="@{/ModifVente (id=${article.noArticle})}"><button>Modifier la vente</button></a>
+<a th:href="@{/DeleteArticle (id=${article.noArticle})}"><button>Supprimer la vente</button></a>
+</div>
 	</main>
 </html>
 
