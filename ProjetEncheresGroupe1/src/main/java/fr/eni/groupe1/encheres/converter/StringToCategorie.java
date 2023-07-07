@@ -17,7 +17,7 @@ EncheresCategoriesService encheresCategoriesService;
 	@Override
 	public Categorie convert(String source) {
 		Categorie categorieConvert;
-		System.out.println("je passe par le converter string genre");
+
 		int id_Convert = Integer.parseInt(source);
 		categorieConvert = encheresCategoriesService.findById(id_Convert);
 		return categorieConvert;

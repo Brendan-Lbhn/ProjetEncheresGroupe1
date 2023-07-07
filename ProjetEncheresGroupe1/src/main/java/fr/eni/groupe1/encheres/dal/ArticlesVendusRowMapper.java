@@ -21,7 +21,7 @@ public class ArticlesVendusRowMapper implements RowMapper<ArticleVendu> {
 	@Override
 	public ArticleVendu mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ArticleVendu article = new ArticleVendu();
-		System.out.println("vous êtes dans le RowMapper");
+
 		article.setNoArticle(rs.getInt("no_article"));
 		article.setNomArticle(rs.getString("nom_article"));
 		article.setDescription(rs.getString("description"));
@@ -31,12 +31,15 @@ public class ArticlesVendusRowMapper implements RowMapper<ArticleVendu> {
 		article.setPrixVente(rs.getInt("prix_vente"));
 		article.setNoUtilisateur(rs.getInt("no_utilisateur"));
 		article.setNoCategorie(rs.getInt("no_categorie"));
+		
 		Utilisateur vendeur = null;
 		vendeur = utilisateurDAO.findById(rs.getInt("no_utilisateur"));
 		article.setVendeur(vendeur);
+		
 		Categorie categorie = null;
 		categorie = encheresCategoriesDAO.findById(rs.getInt("no_categorie"));
 		article.setCategorie(categorie);
+		
 		return article;
 	}
 

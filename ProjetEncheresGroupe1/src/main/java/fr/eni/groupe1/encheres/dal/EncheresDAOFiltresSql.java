@@ -35,12 +35,7 @@ public class EncheresDAOFiltresSql implements EncheresDAOFiltres{
 		StringBuilder requete = new StringBuilder();
 		List<ArticleVendu> listArticle;
 		
-
-		System.out.println("dans la DAL TEMP méthode ArticleByfilter");
-
 		if (filtre == 1) {
-			System.out.println("Mes achats");
-
 			if (encheresOuvertes == false && encheresEnCours == false && encheresRemportees == false) {
 				requete.append(SELECT_ALL_ARTICLE);
 			} else {
@@ -73,7 +68,6 @@ public class EncheresDAOFiltresSql implements EncheresDAOFiltres{
 
 		} else if (filtre == 2) {
 
-			System.out.println("Mes ventes");
 			if (ventesEnCours == false && ventesNonDebutees == false && ventesTerminees == false) {
 				requete.append(SELECT_ALL_ARTICLE);
 			} else {
@@ -107,19 +101,13 @@ public class EncheresDAOFiltresSql implements EncheresDAOFiltres{
 							"ARTICLES_VENDUS.no_utilisateur = :id AND ARTICLES_VENDUS.date_fin_encheres < GETDATE()-1");
 				}
 			}
-		}
-		System.out.println("!!!!!!!!!!!" + requete);
-		
+		}		
 		
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("id",userId);
 
 		listArticle = namedParameterJdbcTemplate.query(requete.toString(), params,
 				new ArticlesVendusRowMapper(utilisateurDAO, encheresCategoriesDAO));
-		
-		System.out.println("liste articles = " + listArticle.toString());
-		
-//		listArticle = null;
 		
 		return listArticle;
 	}
