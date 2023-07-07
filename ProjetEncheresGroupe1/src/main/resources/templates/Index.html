@@ -82,7 +82,7 @@
 	 		
 	 		<div class="contenu-article">
 	 		<div class="texte-article">
-	 		<h3 th:text="${articlevendu.nomArticle}" ></h3>
+	 		<h2 th:text="${articlevendu.nomArticle}" ></h2>
 	 		<p th:if="${articlevendu.prixVente} > 1" th:text="'Prix : ' + ${articlevendu.prixVente} + ' points'"></p>
 	 		<p th:if="${articlevendu.prixVente} < 1" th:text="'Prix : ' + ${articlevendu.miseAPrix} + ' points'"></p>
 	 		<p th:text="'Categorie : ' + ${articlevendu.categorie?.libelle}"></p>

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html layout:decorate="~{/layout1.html}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<html layout:decorate="~{/layout1.html}"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Enchères Eni - Accueil</title>
@@ -7,33 +9,57 @@
 <script src="/js/script.js"></script>
 </head>
 <body>
-<main layout:fragment="main">
-<h1>Profil Utilisateur :</h1>
+	<main layout:fragment="main">
+		<h1>Profil Utilisateur :</h1>
 
-<div class="contenu">	 
-			 <h2>pseudo :</h2> 
-			 <span data-th-text="${Utilisateur.pseudo}"></span><br>
-			 nom : 
-			   <span data-th-text="${Utilisateur.nom}"></span><br> 
-			 prénom : 
-			 <span data-th-text="${Utilisateur.prenom}"></span><br>
-			 email : 
-			 <span data-th-text="${Utilisateur.email}" ></span><br>
-			 téléphone : 
-			 <span data-th-text="${Utilisateur.telephone}"></span><br> 
-			 rue : 
-			 <span data-th-text="${Utilisateur.rue}"></span> 
-			 code postal : 
-			 <span data-th-text="${Utilisateur.codePostal}"></span> 
-			 ville : 
-			 <span data-th-text="${Utilisateur.Ville}"></span><br>
-		 
-		 </div>
-		
-		<a th:href="@{/AjoutCredit}"><button>Ajouter des crédits</button></a>
-		<a th:href="@{/ModifProfil}"><button>Modifier le profil</button></a>
-		<a th:href="@{/Delete}"><button>Supprimer le profil</button></a>
-		
-		</main>
+		<div class="center">
+			<div class="contenu">
+				<img alt="image-profil" th:src="@{/images/profile-pic.png}">
+				
+				<div class=col-1>
+					<div>
+						<h2>Pseudo :</h2>
+						<h3 data-th-text="${Utilisateur.pseudo}"></h3>
+					</div>
+					<div>
+						<h2>Nom :</h2>
+						<h3 data-th-text="${Utilisateur.nom}"></h3>
+					</div>
+					<div>
+						<h2>Prénom :</h2>
+						<h3 data-th-text="${Utilisateur.prenom}"></h3>
+					</div>
+					<div>
+						<h2>E-mail :</h2>
+						<h3 data-th-text="${Utilisateur.email}"></h3>
+					</div>
+				</div>
+				<div class=col-2>
+					<div>
+						<h2>Téléphone :</h2>
+						<h3 data-th-text="${Utilisateur.telephone}"></h3>
+					</div>
+					<div>
+						<h2>Rue :</h2>
+						<h3 data-th-text="${Utilisateur.rue}"></h3>
+					</div>
+					<div>
+						<h2>Code postal :</h2>
+						<h3 data-th-text="${Utilisateur.codePostal}"></h3>
+					</div>
+					<div>
+						<h2>Ville :</h2>
+						<h3 data-th-text="${Utilisateur.Ville}"></h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="buttons">
+			<a th:href="@{/AjoutCredit}"><button class="btn">Ajouter des crédits</button></a>
+			<a th:href="@{/ModifProfil}"><button class="btn">Modifier le profil</button></a> 
+			<a th:href="@{/Delete}"><button class="btn">Supprimer le profil</button></a>
+		</div>
+
+	</main>
 </body>
 </html>
