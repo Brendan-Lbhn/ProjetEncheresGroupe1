@@ -142,14 +142,14 @@ public class EncheresController {
 	public String FaireUneEnchere(Principal principal, @ModelAttribute("article") ArticleVendu article,
 			@ModelAttribute("enchere") Enchere infoEncheres, Model model) {
 
-		int id = article.getNoArticle();
-		Date date1 = java.sql.Date.valueOf(LocalDate.now());
+		int id = article.getNoArticle();		
 		ArticleVendu articleEnEnchere = encheresService.getArticleById(id);
+		Date date1 = java.sql.Date.valueOf(LocalDate.now());
 		Date date2 = articleEnEnchere.getDateFinEncheres();
 		// Date date1 = date2;
 		int resultat = date1.compareTo(date2);
 		int resultatDate = 0;
-
+///////////////////////////////// COMPARAISON DATE 				
 		if (resultat < 0) {
 			resultatDate = 2;
 		} else if (resultat == 0) {
@@ -157,15 +157,16 @@ public class EncheresController {
 		} else if (resultat > 0) {
 			resultatDate = 3;
 		}
+		
 		encheresService.ajouterEnchere(principal, article, infoEncheres);
-
+///////////////////////////////// DONNE LES DONNEES AU HTML				
 		model.addAttribute("utilisateur", utilisateurService.findByPseudo(principal.getName()));
 		model.addAttribute("article", encheresService.getArticleById(id));
 		model.addAttribute("retrait", encheresService.getRetraitByEnchere(id));
 		model.addAttribute("resultatDate", resultatDate);
 
 		var toto = encheresService.getEnchereById(id);
-
+///////////////////////////////// DONNE LES DONNEES DE LA TABLE ENCHERE AU HTML				
 		model.addAttribute("enchere", toto);
 		model.addAttribute("acheteur", utilisateurService.findById(toto.getNoUtilisateur()));
 

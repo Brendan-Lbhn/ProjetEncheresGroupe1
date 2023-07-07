@@ -228,9 +228,10 @@ public class EncheresDAOSql implements EncheresDAO {
 	public void ajouterEnchere(Principal principal, ArticleVendu article, Enchere infoEncheres) {
 
 		MapSqlParameterSource newEnchereMap = new MapSqlParameterSource();
+		MapSqlParameterSource newUtilisateurMap = new MapSqlParameterSource();
+
 		MapSqlParameterSource modifEnchereMap = new MapSqlParameterSource();
 		MapSqlParameterSource modifArticleMap = new MapSqlParameterSource();
-		MapSqlParameterSource newUtilisateurMap = new MapSqlParameterSource();
 		MapSqlParameterSource modifUserCreditMap = new MapSqlParameterSource();
 
 		Utilisateur acheteur;
@@ -244,37 +245,33 @@ public class EncheresDAOSql implements EncheresDAO {
 		newUtilisateurMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
 		newUtilisateurMap.addValue("credit", creditUtilisateur);
 		namedParameterJdbcTemplate.update(UPDATE_CREDIT_UTILISATEUR, newUtilisateurMap);
-
 ///////////////////////////////// AJOUT ENCHERE		
-
 		int countEnchere = namedParameterJdbcTemplate.getJdbcOperations()
 				.queryForObject(SELECT_COUNT_ENCHEREPARAM_BY_ID, Integer.class, idArticle);
 
 		if (countEnchere == 0) {
-
 			newEnchereMap.addValue("no_utilisateur", acheteur.getNoUtilisateur());
 			newEnchereMap.addValue("no_article", idArticle);
 			newEnchereMap.addValue("date_enchere", date);
 			newEnchereMap.addValue("montant_enchere", infoEncheres.getMontantEnchere());
 
 			namedParameterJdbcTemplate.update(INSERT_NEW_ENCHERE, newEnchereMap);
-
+///////////////////////////////// MODIFICATION PRIX DE VENTE ARTICLE		
 			modifArticleMap.addValue("no_article", idArticle);
 			modifArticleMap.addValue("prix_vente", infoEncheres.getMontantEnchere());
 			namedParameterJdbcTemplate.update(UPDATE_NEW_ARTICLE, modifArticleMap);
+		} 
 ///////////////////////////////// UPDATE ENCHERE		
-
-		} else {
+		else {
 
 			MapSqlParameterSource params = new MapSqlParameterSource();
 			params.addValue("noArticle", infoEncheres.getNoArticle());
 			Enchere enchere = namedParameterJdbcTemplate.queryForObject(SELECT_ENCHERE_BY_ID, params,
 					new BeanPropertyRowMapper<>(Enchere.class));
-
+///////////////////////////////// RENDRE LES CREDIT UTILISATEUR		
 			Utilisateur acheteurAvant = utilisateurDAO.findById(enchere.getNoUtilisateur());
 			int creditAcheteurAvant = acheteurAvant.getCredit();
 			int creditAcheteurApres = creditAcheteurAvant + enchere.getMontantEnchere();
-///////////////////////////////// RENDRE CREDIT		
 
 			modifUserCreditMap.addValue("no_utilisateur", acheteurAvant.getNoUtilisateur());
 			modifUserCreditMap.addValue("credit", creditAcheteurApres);
@@ -287,7 +284,7 @@ public class EncheresDAOSql implements EncheresDAO {
 			modifEnchereMap.addValue("montant_enchere", infoEncheres.getMontantEnchere());
 
 			namedParameterJdbcTemplate.update(UPDATE_NEW_ENCHERE, modifEnchereMap);
-
+///////////////////////////////// CHANGEMENT PRIX VENTE ARTICLE				
 			modifArticleMap.addValue("no_article", idArticle);
 			modifArticleMap.addValue("prix_vente", infoEncheres.getMontantEnchere());
 			namedParameterJdbcTemplate.update(UPDATE_NEW_ARTICLE, modifArticleMap);
