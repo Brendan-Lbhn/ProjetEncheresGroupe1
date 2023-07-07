@@ -27,6 +27,7 @@ public interface EncheresService {
 	void ajoutArticleAcheteur(int id, ArticleVendu article);
 	void modifierArticle(ArticleVendu articleVendu, int id);
 	void modifierInfoRetrait(Retrait infoRetrait, ArticleVendu articleVendu);
+	ArticleVendu deleteArticle(ArticleVendu article);
 	
 
 }

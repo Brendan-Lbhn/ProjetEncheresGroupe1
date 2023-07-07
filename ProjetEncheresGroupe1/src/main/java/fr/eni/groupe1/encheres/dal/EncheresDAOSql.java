@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -16,6 +17,7 @@ import fr.eni.groupe1.encheres.bo.ArticleVendu;
 import fr.eni.groupe1.encheres.bo.Enchere;
 import fr.eni.groupe1.encheres.bo.Retrait;
 import fr.eni.groupe1.encheres.bo.Utilisateur;
+import fr.eni.groupe1.encheres.dal.UtilisateurDAOSql.UtilisateursRowMapper;
 
 @Repository
 public class EncheresDAOSql implements EncheresDAO {
@@ -44,7 +46,11 @@ public class EncheresDAOSql implements EncheresDAO {
 	private static final String UPDATE_MODIF_RETRAIT = "update RETRAITS set rue=:rue, code_postal=:code_postal, ville=:ville WHERE no_article =:no_article";;
 
 	private static final String UPDATE_NEW_ARTICLE_ACHETEUR = "update ARTICLES_VENDUS set no_utilisateur=:no_utilisateur WHERE no_article =:no_article";
-	private static final String UPDATE_CREDIT_UTILISATEUR = "update UTILISATEURS set credit=:credit WHERE no_utilisateur =:no_utilisateur";;
+	private static final String UPDATE_CREDIT_UTILISATEUR = "update UTILISATEURS set credit=:credit WHERE no_utilisateur =:no_utilisateur";
+	private static final String DELETE_ARTICLE =  "delete ARTICLES_VENDUS where no_article=:noArticle";
+	private static final String DELETE_ENCHERE =  "delete ENCHERES where no_article=:noArticle";
+	private static final String DELETE_RETRAIT =  "delete RETRAITS where no_article=:noArticle";
+
 //	private static final String DELETE_MODIF_ARTICLE = null;
 //	private static final String UPDATE = null;
 
@@ -127,7 +133,7 @@ public class EncheresDAOSql implements EncheresDAO {
 /////////////////////////////////       BY ID     ////////////////////////////////////////////
 
 	public ArticleVendu articleById(int id) {
-		System.out.println("je passe par le article by id");
+
 		ArticleVendu article;
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
@@ -142,7 +148,7 @@ public class EncheresDAOSql implements EncheresDAO {
 
 	@Override
 	public Retrait retraitById(int id) {
-		System.out.println("je passe par le retrait by id");
+
 		Retrait retrait;
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
@@ -330,5 +336,20 @@ public class EncheresDAOSql implements EncheresDAO {
 
 	}
 
+	@Override
+	public ArticleVendu deleteArticle(ArticleVendu article) {
+		int noArticle = article.getNoArticle();
+		ArticleVendu articleDelete;
+		System.out.println("article no article" + noArticle);
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("noArticle", noArticle);
+		articleDelete = namedParameterJdbcTemplate.queryForObject(SELECT_ARTICLE_BY_ID, params, new BeanPropertyRowMapper<>(ArticleVendu.class));
+	
+		namedParameterJdbcTemplate.update(DELETE_RETRAIT, new BeanPropertySqlParameterSource(articleDelete));
+		namedParameterJdbcTemplate.update(DELETE_ENCHERE, new BeanPropertySqlParameterSource(articleDelete));
+		namedParameterJdbcTemplate.update(DELETE_ARTICLE, new BeanPropertySqlParameterSource(articleDelete));
+		return articleDelete;
+	}
 
 }

@@ -171,4 +171,20 @@ public class EncheresController {
 
 		return "/DetailVente";
 	}
+	/////////////////////////////////DELETE ARTICLE ////////////////////////////////////////////////////////////////////////
+	
+	@GetMapping("/DeleteArticle")
+	public String deleteUtilisateur(Principal principal,
+			@RequestParam int id, Model model) {
+		
+		ArticleVendu article;
+		ArticleVendu articleDelete;
+		
+		article = encheresService.getArticleById(id);
+		articleDelete = encheresService.deleteArticle(article);
+
+		model.addAttribute("ArticleDelete", articleDelete);
+
+		return "redirect:/accueil";
+	}
 }
