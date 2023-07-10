@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,6 +17,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import fr.eni.groupe1.encheres.bo.ArticleVendu;
+import fr.eni.groupe1.encheres.bo.Retrait;
 import fr.eni.groupe1.encheres.bo.Utilisateur;
 
 @Repository
@@ -27,6 +29,9 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 
 	private final static String INSERT = "insert into UTILISATEURS ( pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur ) values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse,:credit,:administrateur)";
 	private static final String DELETE = "delete UTILISATEURS where no_Utilisateur= :noUtilisateur";
+	private static final String DELETE_ARTICLE = "delete ARTICLES_VENDUS where no_article= :no_article";
+	private static final String DELETE_RETRAIT = "delete RETRAITS where no_article= :no_article";
+	private static final String SELECT_ARTICLE = "select * from ARTICLES_VENDUS where no_utilisateur= :no_utilisateur";
 	private static final String UPDATE = "update UTILISATEURS set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:codePostal, ville=:ville, mot_de_passe=:motDePasse where no_Utilisateur=:noUtilisateur";
 	private final static String CHECK_PSEUDO = "SELECT COUNT(*) FROM UTILISATEURS WHERE pseudo = ?";
 	private final static String CHECK_EMAIL = "SELECT COUNT(*) FROM UTILISATEURS WHERE email = ?";
@@ -161,9 +166,23 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 /////////////////////////////////       DELETE     ////////////////////////////////////////////
 
 	@Override
-	public Utilisateur deleteProfil(String pseudo) {
+	public Utilisateur deleteProfil(String pseudo, Principal principal) {
 
 		Utilisateur user = null;
+		Utilisateur UserActuel = findByPseudo(principal.getName());
+		List<ArticleVendu> article;
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		MapSqlParameterSource paramArticle = new MapSqlParameterSource();
+
+		params.addValue("no_utilisateur", UserActuel.getNoUtilisateur());
+
+		article = njt.query(SELECT_ARTICLE, params, new BeanPropertyRowMapper<>(ArticleVendu.class));
+		for (ArticleVendu noArticle : article) {
+			paramArticle.addValue("no_article", noArticle.getNoArticle());
+			njt.update(DELETE_RETRAIT, paramArticle);
+			njt.update(DELETE_ARTICLE, paramArticle);
+		}
+
 		user = njt.getJdbcOperations().queryForObject(FIND_BY_PSEUDO, new UtilisateursRowMapper(), pseudo);
 		njt.update(DELETE, new BeanPropertySqlParameterSource(user));
 		return user;

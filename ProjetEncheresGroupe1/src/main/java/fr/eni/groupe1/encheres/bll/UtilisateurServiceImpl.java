@@ -47,8 +47,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	///////////////////////////////// DELETE ///////////////////////////////// ////////////////////////////////////////////
 
 	@Override
-	public Utilisateur deleteProfil(String name) {
-		return utilisateurDAO.deleteProfil(name);
+	public Utilisateur deleteProfil(String name, Principal principal) {
+		return utilisateurDAO.deleteProfil(name, principal);
 	}
 
 	

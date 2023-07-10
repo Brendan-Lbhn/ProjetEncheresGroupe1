@@ -15,7 +15,7 @@ public interface UtilisateurDAO {
 
 	Utilisateur findByPseudo(String pseudo);
 
-	Utilisateur deleteProfil(String pseudo); 
+	Utilisateur deleteProfil(String pseudo, Principal principal); 
 	List<Utilisateur> VendeurByName(String nomVendeur);
 
 	void ajouterCredit(Utilisateur utilisateur, Principal principal,int creditActuel);

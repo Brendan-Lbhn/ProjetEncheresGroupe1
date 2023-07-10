@@ -118,7 +118,7 @@ public class UtilisateurController {
 
 		Utilisateur utilisateur = null;
 
-		utilisateur = utilisateurService.deleteProfil(principal.getName());
+		utilisateur = utilisateurService.deleteProfil(principal.getName(), principal);
 
 		model.addAttribute("Utilisateur", utilisateur);
 

@@ -16,7 +16,7 @@ public interface UtilisateurService {
 
 	Utilisateur findByPseudo(String name);
 
-	Utilisateur deleteProfil(String name);
+	Utilisateur deleteProfil(String name, Principal principal);
 
 	void ajoutCredit(Principal principal,Utilisateur utilisateur, int creditActuel);
 	
