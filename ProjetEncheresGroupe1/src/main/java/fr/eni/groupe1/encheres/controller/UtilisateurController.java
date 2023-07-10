@@ -77,14 +77,14 @@ public class UtilisateurController {
 	
 
 	@GetMapping("ModifProfil")
-	public String modificationProfil(Principal principal, Model model) {
+	public String modificationProfil(@Valid Principal principal, Model model) {
 
 		Utilisateur utilisateur = null;
 
 		utilisateur = utilisateurService.findByPseudo(principal.getName());
-		model.addAttribute("Utilisateur", utilisateur);
+		model.addAttribute("utilisateur", utilisateur);
 
-		return "TestModif";
+		return "CreationProfil";
 	}
 
 	@GetMapping("AjoutCredit")
