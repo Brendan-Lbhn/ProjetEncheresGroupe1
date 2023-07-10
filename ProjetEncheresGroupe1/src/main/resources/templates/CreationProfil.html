@@ -11,73 +11,80 @@
 	<main layout:fragment="main">
 		<h1>Mon Profil</h1>
 
-		<form class="creaProf" th:action="@{/CreationProfil/Suite}" th:object="${utilisateur}" method="post">
-			<div th:errors="global"></div>
-			<div class="creaTri">
-				<label for="pseudoInput">Pseudo :</label> 
-				<input type="text" th:field="*{pseudo}" id="pseudoInput">
-				<p th:if="${#fields.hasErrors('pseudo')}" th:errors="*{pseudo}"
-					class="error-message"></p>
-
-
-				<label for="nomInput">Nom :</label><br> 
-				<input type="text" th:field="*{nom}" id="nomInput"><br>
-				<p th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"
-					class="error-message"></p>
+		<div class="center">
+			<div class="contenu">
+				<form th:action="@{/CreationProfil/Suite}"
+					th:object="${utilisateur}" method="post">
+					<div class="error-message" th:errors="global"></div>
+					<div id=col-1>
+						<div class="champ-formulaire">
+							<label for="pseudoInput">Pseudo :</label> 
+							<input type="text" th:field="*{pseudo}" id="pseudoInput">
+						</div>
+						<div class="error-message"><p th:if="${#fields.hasErrors('pseudo')}" th:errors="*{pseudo}" class="error-message"></p></div>
+						<div class="champ-formulaire">
+							<label for="nomInput">Nom :</label> 
+							<input type="text" th:field="*{nom}" id="nomInput">
+							
+						</div>
+						<div class="error-message"><p th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="error-message"></p></div>
+						<div class="champ-formulaire">
+							<label for="prenomInput">Prénom :</label> 
+							<input type="text" th:field="*{prenom}" id="prenomInput">
+							
+						</div>
+						<div class="error-message"><p th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}" class="error-message"></p></div>
+						<div class="champ-formulaire">
+							<label for="emailInput">Email :</label> 
+							<input type="text" th:field="*{email}" id="emailInput">
+							
+						</div>
+						<div class="error-message"><p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></p></div>
+						<div class="champ-formulaire">
+							<label for="telephoneInput">Telephone :</label> 
+							<input type="tel" th:field="*{telephone}" id="telephoneInput">
+							
+						</div>
+						<div class="error-message"><p th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" class="error-message"></p></div>
+						</div>
+						<div id="col-2 ">	
+						
+						<div class="champ-formulaire">	
+							<label for="rueInput">Rue :</label> 
+							<input type="text" th:field="*{rue}" id="rueInput">
+							
+						</div>
+						<div class="error-message"><p th:if="${#fields.hasErrors('rue')}" th:errors="*{rue}" class="error-message"></p></div>
+						<div class="champ-formulaire">
+							<label for="codePostalInput">Code postal :</label> 
+							<input type="number" th:field="*{codePostal}" id="codePostalInput">
+							
+						</div>
+						<div class="error-message"><p th:if="${#fields.hasErrors('codePostal')}" th:errors="*{codePostal}" class="error-message"></p></div>
+						<div class="champ-formulaire">
+							<label for="villeInput">Ville :</label> 
+							<input type="text" th:field="*{ville}" id="villeInput">
+							
+						</div>
+						<div class="error-message"><p th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}" class="error-message"></p></div>
+						<div class="champ-formulaire">
+							<label for="mdpInput">Mot de passe :</label> 
+							<input type="password" th:field="*{motDePasse}" id="mdpInput">
+							
+						</div>
+						<div class="error-message"><p th:if="${#fields.hasErrors('motDePasse')}" th:errors="*{motDePasse}" class="error-message"></p></div>
+						<div class="champ-formulaire">
+							<label for="mdpVerifInput">Confirmation :</label> 
+							<input type="password" id="mdpVerifInput">
+						</div>
+					</div>
+					<div class="buttons">
+						<button class="btn-formulaire" type="submit">Créer</button>
+						<button class="btn-formulaire" type="reset">Annuler</button>
+					</div>
+				</form>
 			</div>
-
-			<div class="creaTri">
-				<label for="prenomInput">Prénom :</label> 
-				<input type="text" th:field="*{prenom}" id="prenomInput">
-				<p th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"
-					class="error-message"></p>
-
-				<label for="emailInput">Email :</label> 
-				<input type="text" th:field="*{email}" id="emailInput">
-				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-					class="error-message"></p>
-			</div>
-
-			<div class="creaTri">
-				<label for="telephoneInput">Telephone :</label> 
-				<input type="tel" th:field="*{telephone}" id="telephoneInput">
-				<p th:if="${#fields.hasErrors('telephone')}"
-					th:errors="*{telephone}" class="error-message"></p>
-
-				<label for="rueInput">Rue :</label> 
-				<input type="text" th:field="*{rue}" id="rueInput">
-				<p th:if="${#fields.hasErrors('rue')}" th:errors="*{rue}"
-					class="error-message"></p>
-			</div>
-
-			<div class="creaTri">
-				<label for="codePostalInput">Code postal :</label> 
-				<input type="number" th:field="*{codePostal}" id="codePostalInput">
-				<p th:if="${#fields.hasErrors('codePostal')}"
-					th:errors="*{codePostal}" class="error-message"></p>
-
-				<label for="villeInput">Ville :</label> 
-				<input type="text" th:field="*{ville}" id="villeInput">
-				<p th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}"
-					class="error-message"></p>
-			</div>
-
-			<div class="creaTri">
-				<label for="mdpInput">Mot de passe :</label> 
-				<input type="password" th:field="*{motDePasse}" id="mdpInput">
-				<p th:if="${#fields.hasErrors('motDePasse')}"
-					th:errors="*{motDePasse}" class="error-message"></p>
-
-				<label for="mdpVerifInput">Confirmation :</label> 
-				<input type="password" id="mdpVerifInput">
-
-			</div>
-
-			<div class="creaTri">
-				<button type="submit">Créer</button>
-				<button type="reset">Annuler</button>
-			</div>
-		</form>
+		</div>
 
 	</main>
 

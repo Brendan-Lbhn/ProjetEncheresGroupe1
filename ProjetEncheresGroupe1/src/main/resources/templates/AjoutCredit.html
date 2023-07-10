@@ -10,21 +10,25 @@
 <body>
 
 	<main layout:fragment="main">
+	<div class="form-up">
 		<h1>Mon Profil</h1>
-		<div>
-			pseudo : <span data-th-text="${Utilisateur.pseudo}"></span><br>
-			crédit actuel : <span data-th-text="${Utilisateur.credit}"></span>
+		<h2>Pseudo :</h2> 
+		<h3 data-th-text="${Utilisateur.pseudo}"></h3>
+	
+		<h2>Crédit actuel :</h2>
+		<h3 data-th-text="${Utilisateur.credit}"></h3>
+	</div>
+	
+	<form class="form-bis" th:action="@{/AjoutCredit/Suite}" th:object="${Utilisateur}" method="post">
+	
+		<h2 th:text="'Nombre de crédits à ajouter :' "></h2> 
+		<input type="number" th:field="*{credit}" min="0" required>
+		
+		<div class="buttons">
+			<button class="btn" type="submit">Ajouter des crédits</button>
+			<button class="btn" type="reset">Annuler</button>
 		</div>
-		<form class="creaProf" th:action="@{/AjoutCredit/Suite}" th:object="${Utilisateur}" method="post">
-			<div class="creaTri">
-				<span th:text="'Nombre de crédits à ajouter :' "></span> 
-				<input type="number" th:field="*{credit}" min="0" required><br>
-			</div>
-
-			<button type="submit">Ajouter des crédits</button>
-			<button type="reset">Annuler</button>
-		</form>
-		<br>
+	</form>
 
 	</main>
 

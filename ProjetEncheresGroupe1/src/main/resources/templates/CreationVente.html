@@ -9,49 +9,50 @@
 <body>
 	<main layout:fragment="main">
 		<h1>Nouvel Article :</h1>
-
-		<form class="creaProf" th:action="@{/CreationVente}" th:object="${article}" method="post">
+		
+		
+		<form th:action="@{/CreationVente}" th:object="${article}" method="post">
 			<div th:object="${utilisateur}">
-				<input type="hidden" th:field="*{noUtilisateur}" />
+				<input class="display-none" type="hidden" th:field="*{noUtilisateur}" />
 			</div>
-			<div class="creaTri">
-				<label for="nomArticleInput"> Article : </label> 
-				<input type="text" th:field="*{nomArticle}" required><br> <br>
-			</div>
-			<div class="creaTri">
-				<label for="name"> Description : </label> 
-				<input type="text" th:field="*{description}" required><br> <br>
-			</div>
+				<div class="description-article">
+				<div class="colonne" >
+				<div class="champ-formulaire">
+					<label for="nomArticleInput"> Article : </label> 
+					<input type="text" th:field="*{nomArticle}" required>
+				</div>
+				<div class="champ-formulaire">
+					<label for="name"> Description : </label> 
+					<input type="text" th:field="*{description}" required>
+				</div>
+				<div class="champ-formulaire">
+					<label for="noCategorie">Categorie</label> 
+					<select name="noCategorie" id="noCategorie" th:field="*{noCategorie}">
+						<option
+							th:each="categorie: ${@encheresCategoriesServiceImpl.categories}"
+							th:value="${categorie.noCategorie}" th:text="${categorie.libelle}">Ici
+							apparaissent les options</option>
+					</select>
+				</div>
+				</div>
+				<div class="colonne" >
+					<div class="champ-formulaire">
+					<label for="name"> Prix initial : </label> 
+					<input type="text" th:field="*{miseAPrix}" required>
+					</div>
+					<div class="champ-formulaire">
+					<label for="name"> Début de l'enchère : </label> 
+					<input type="date" th:field="*{dateDebutEncheres}" th:min="${dateDuJour}" required>
+					</div>
+					<div class="champ-formulaire">
+					<label for="name"> Fin de l'enchère : </label> 
+					<input type="date" th:field="*{dateFinEncheres}" th:min="${dateDuJour}" required>
+					</div>
+				</div>
+				</div>
 
-			<div class="creaTri">
-				<label for="noCategorie">Categorie</label> 
-				<select name="noCategorie" id="noCategorie" th:field="*{noCategorie}">
-					<option
-						th:each="categorie: ${@encheresCategoriesServiceImpl.categories}"
-						th:value="${categorie.noCategorie}" th:text="${categorie.libelle}">Ici
-						apparaissent les options</option>
-				</select>
-			</div>
-
-			<div class="creaTri">
-				<label for="name"> Prix initial : </label> 
-				<input type="text" th:field="*{miseAPrix}" required><br> <br>
-			</div>
-
-			<div class="creaTri">
-				<label for="name"> Début de l'enchère : </label> 
-				<input type="date" th:field="*{dateDebutEncheres}" th:min="${dateDuJour}" required><br>
-				<br>
-			</div>
-
-			<div class="creaTri">
-				<label for="name"> Fin de l'enchère : </label> 
-				<input type="date" th:field="*{dateFinEncheres}" th:min="${dateDuJour}" required><br>
-				<br>
-			</div>
-
-			<fieldset class="creaTri">
-				<legend>Retrait</legend>
+			<fieldset >
+				<p>Adresse de retrait</p>
 
 				<div th:object="${retrait}">
 					<div th:object="${utilisateur}">
@@ -67,8 +68,10 @@
 				</div>
 			</fieldset>
 
-			<button type="submit">Enregistrer l'article</button>
-			<button type="reset">Annuler</button>
+			<div class="buttons">
+				<button class="btn-formulaire" type="submit">Enregistrer l'article</button>
+				<button class="btn-formulaire" type="reset">Annuler</button>
+			</div>
 		</form>
 		<br>
 

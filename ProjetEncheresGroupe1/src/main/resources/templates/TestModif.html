@@ -2,6 +2,8 @@
 <html layout:decorate="~{/layout1.html}"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" data-th-href="@{/styles/styles.css}">
+	
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -10,74 +12,88 @@
 
 	<main layout:fragment="main">
 		<h1>Mon Profil</h1>
-
-		<form class="creaProf" th:action="@{/CreationProfil/Suite}" th:object="${Utilisateur}" method="post">
-			<div th:errors="global"></div>
-			<input type="hidden" th:field="*{noUtilisateur}" />
-			<div class="creaTri">
-				<label for="pseudoInput">Pseudo :</label> 
-				<input type="text" th:field="*{pseudo}" id="pseudoInput">
-				<p th:if="${#fields.hasErrors('pseudo')}" th:errors="*{pseudo}"
-					class="error-message"></p>
-
-				<label for="nomInput">Nom :</label><br> 
-				<input type="text" th:field="*{nom}" id="nomInput"><br>
-				<p th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"
-					class="error-message"></p>
-			</div>
-
-			<div class="creaTri">
-				<label for="prenomInput">Prénom :</label> 
-				<input type="text" th:field="*{prenom}" id="prenomInput">
-				<p th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"
-					class="error-message"></p>
-
-				<label for="emailInput">Email :</label> 
-				<input type="text" th:field="*{email}" id="emailInput">
-				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-					class="error-message"></p>
-			</div>
-
-			<div class="creaTri">
-				<label for="telephoneInput">Telephone :</label> 
-				<input type="tel" th:field="*{telephone}" id="telephoneInput">
-				<p th:if="${#fields.hasErrors('telephone')}"
-					th:errors="*{telephone}" class="error-message"></p>
-
-				<label for="rueInput">Rue :</label> 
-				<input type="text" th:field="*{rue}" id="rueInput">
-				<p th:if="${#fields.hasErrors('rue')}" th:errors="*{rue}"
-					class="error-message"></p>
-			</div>
-
-			<div class="creaTri">
-				<label for="codePostalInput">Code postal :</label> 
-				<input type="number" th:field="*{codePostal}" id="codePostalInput">
-				<p th:if="${#fields.hasErrors('codePostal')}" th:errors="*{pseudo}"
-					class="codePostal"></p>
-
-				<label for="villeInput">Ville :</label> 
-				<input type="text" th:field="*{ville}" id="villeInput">
-				<p th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}"
-					class="error-message"></p>
-			</div>
-			<div class="creaTri">
-				<label for="motDePasseInput">mot de passe :</label> 
-				<input type="password" th:field="*{motDePasse}" id="motDePasseInput">
-				<label for="mdpVerifInput">Mot de passe vérif:</label> 
-				<input type="password" id="mdpVerifInput">
-			</div>
-
-			<input type="hidden" th:field="*{credit}" /> 
-			<input type="hidden" th:field="*{administrateur}" />
-
-			<div class="creaTri">
-				<button type="submit">Créer</button>
-				<button type="reset">Annuler</button>
-			</div>
-		</form>
-
-
+		<div class="center">
+			<div class="contenu">
+			<form class="creaProf" th:action="@{/CreationProfil/Suite}" th:object="${Utilisateur}" method="post">
+				<div class="error-message" th:errors="global"></div>
+				<input type="hidden" th:field="*{noUtilisateur}" />
+					
+					<div id=col-1>
+						<div class="champ-formulaire">
+							<label for="pseudoInput">Pseudo :</label> 
+							<input type="text" th:field="*{pseudo}" id="pseudoInput">
+						</div>
+						<div>
+							<p th:if="${#fields.hasErrors('pseudo')}" th:errors="*{pseudo}" class="error-message"></p></div>
+						<div class="champ-formulaire">
+							<label for="nomInput">Nom :</label>
+							<input type="text" th:field="*{nom}" id="nomInput">
+						</div>
+						<div>
+							<p th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="error-message"></p>
+						</div>
+						<div class="champ-formulaire">
+							<label for="prenomInput">Prénom :</label> 
+							<input type="text" th:field="*{prenom}" id="prenomInput">
+						</div>
+						<div>
+							<p th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}" class="error-message"></p>
+						</div>
+						<div class="champ-formulaire">
+							<label for="emailInput">Email :</label> 
+							<input type="text" th:field="*{email}" id="emailInput">
+						</div>
+						<div>
+							<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></p>
+						</div>
+						<div class="champ-formulaire">
+							<label for="telephoneInput">Telephone :</label> 
+							<input type="tel" th:field="*{telephone}" id="telephoneInput">
+						</div>
+						<div>
+						<p th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" class="error-message"></p>
+						</div>
+					</div>
+					<div id="col-2">
+						<div class="champ-formulaire">
+							<label for="rueInput">Rue :</label> 
+							<input type="text" th:field="*{rue}" id="rueInput">
+						</div>
+						<div>
+							<p th:if="${#fields.hasErrors('rue')}" th:errors="*{rue}" class="error-message"></p>
+						</div>
+						<div class="champ-formulaire">	
+							<label for="codePostalInput">Code postal :</label> 
+							<input type="number" th:field="*{codePostal}" id="codePostalInput">
+						</div>
+						<div>
+							<p th:if="${#fields.hasErrors('codePostal')}" th:errors="*{pseudo}" class="codePostal"></p>
+						</div>
+						<div class="champ-formulaire">
+							<label for="villeInput">Ville :</label> 
+							<input type="text" th:field="*{ville}" id="villeInput">
+						</div>
+						<div>
+							<p th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}" class="error-message"></p>
+						</div>
+						<div class="champ-formulaire">
+							<label for="motDePasseInput">mot de passe :</label> 
+							<input type="password" th:field="*{motDePasse}" id="motDePasseInput">
+						</div>
+						<div class="champ-formulaire">
+							<label for="mdpVerifInput">Mot de passe vérif:</label> 
+							<input type="password" id="mdpVerifInput">
+						</div>
+							<input type="hidden" th:field="*{credit}" /> 
+							<input type="hidden" th:field="*{administrateur}" />
+						</div>
+					<div class="buttons">
+						<button class="btn-formulaire" type="submit">Créer</button>
+						<button class="btn-formulaire" type="reset">Annuler</button>
+					</div>
+			</form>
+		</div>
+	</div>
 	</main>
 
 </body>
