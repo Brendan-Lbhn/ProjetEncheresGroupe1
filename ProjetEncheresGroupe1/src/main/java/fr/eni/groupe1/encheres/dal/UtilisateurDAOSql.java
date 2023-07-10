@@ -31,11 +31,13 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 	private static final String DELETE = "delete UTILISATEURS where no_Utilisateur= :noUtilisateur";
 	private static final String DELETE_ARTICLE = "delete ARTICLES_VENDUS where no_article= :no_article";
 	private static final String DELETE_RETRAIT = "delete RETRAITS where no_article= :no_article";
+	private static final String DELETE_ENCHERE ="delete ENCHERES where no_article= :no_article";
+
 	private static final String SELECT_ARTICLE = "select * from ARTICLES_VENDUS where no_utilisateur= :no_utilisateur";
 	private static final String UPDATE = "update UTILISATEURS set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:codePostal, ville=:ville, mot_de_passe=:motDePasse where no_Utilisateur=:noUtilisateur";
 	private final static String CHECK_PSEUDO = "SELECT COUNT(*) FROM UTILISATEURS WHERE pseudo = ?";
 	private final static String CHECK_EMAIL = "SELECT COUNT(*) FROM UTILISATEURS WHERE email = ?";
-	private static final String UPDATE_NEW_CREDIT = "update UTILISATEURS set credit=:credit where no_utilisateur=:no_utilisateur ";;
+	private static final String UPDATE_NEW_CREDIT = "update UTILISATEURS set credit=:credit where no_utilisateur=:no_utilisateur ";
 
 	@Autowired
 	private NamedParameterJdbcTemplate njt;
@@ -179,6 +181,7 @@ public class UtilisateurDAOSql implements UtilisateurDAO {
 		article = njt.query(SELECT_ARTICLE, params, new BeanPropertyRowMapper<>(ArticleVendu.class));
 		for (ArticleVendu noArticle : article) {
 			paramArticle.addValue("no_article", noArticle.getNoArticle());
+			njt.update(DELETE_ENCHERE, paramArticle);
 			njt.update(DELETE_RETRAIT, paramArticle);
 			njt.update(DELETE_ARTICLE, paramArticle);
 		}
