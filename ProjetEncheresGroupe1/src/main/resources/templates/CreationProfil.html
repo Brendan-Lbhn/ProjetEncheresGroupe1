@@ -16,6 +16,7 @@
 				<form th:action="@{/CreationProfil/Suite}"
 					th:object="${utilisateur}" method="post">
 					<div class="error-message" th:errors="global"></div>
+					<input type="hidden" th:field="*{noUtilisateur}" />
 					<div id=col-1>
 						<div class="champ-formulaire">
 							<label for="pseudoInput">Pseudo :</label> 
@@ -77,6 +78,8 @@
 							<label for="mdpVerifInput">Confirmation :</label> 
 							<input type="password" id="mdpVerifInput">
 						</div>
+							<input type="hidden" th:field="*{credit}" /> 
+							<input type="hidden" th:field="*{administrateur}" />
 					</div>
 					<div class="buttons">
 						<button class="btn-formulaire" type="submit">Créer</button>
